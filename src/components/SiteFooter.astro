@@ -1,0 +1,39 @@
+---
+import { BILIBILI_URL } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p class="footer-copy">© 2024-{year} foxletters-hq</p>
+
+    <div class="footer-actions">
+      <a
+        href={BILIBILI_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="footer-link footer-link-bilibili"
+      >
+        <img
+          class="footer-icon footer-icon-bilibili"
+          src="/assets/images/bilibili-icon.png"
+          alt=""
+          width="18"
+          height="18"
+          aria-hidden="true"
+        />
+        <span data-i18n="footer.bilibili">哔哩哔哩</span>
+      </a>
+
+      <button
+        type="button"
+        class="btn btn-primary footer-cta"
+        data-community-open
+        data-i18n="footer.joinCommunity"
+      >
+        加入社群
+      </button>
+    </div>
+  </div>
+</footer>

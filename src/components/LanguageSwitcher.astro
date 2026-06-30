@@ -1,0 +1,36 @@
+---
+import { LOCALE_OPTIONS } from '../i18n';
+
+const defaultShort =
+  LOCALE_OPTIONS.find((option) => option.code === 'zh-CN')?.shortLabel ?? '简中';
+---
+
+<div class="lang-switcher" data-lang-switcher>
+  <button
+    type="button"
+    class="lang-trigger"
+    data-lang-trigger
+    aria-haspopup="listbox"
+    aria-expanded="false"
+    aria-label="选择语言"
+    data-i18n-aria-label="a11y.langSelect"
+  >
+    <span class="lang-trigger-text" data-lang-current>{defaultShort}</span>
+  </button>
+  <ul class="lang-menu" role="listbox" hidden>
+    {LOCALE_OPTIONS.map((option) => (
+      <li role="presentation">
+        <button
+          type="button"
+          class="lang-option"
+          role="option"
+          data-lang-option={option.code}
+          aria-label={option.label}
+          aria-selected="false"
+        >
+          {option.shortLabel}
+        </button>
+      </li>
+    ))}
+  </ul>
+</div>

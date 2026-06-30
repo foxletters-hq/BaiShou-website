@@ -1,0 +1,134 @@
+---
+import { QQ_GROUPS } from '../data/site';
+---
+
+<div class="community-modal" data-community-modal hidden aria-hidden="true">
+  <div class="community-modal-backdrop" data-community-close tabindex="-1"></div>
+
+  <div
+    class="community-modal-panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="community-modal-title"
+    data-lenis-prevent
+  >
+    <button
+      type="button"
+      class="community-modal-close"
+      data-community-close
+      aria-label="关闭"
+      data-i18n-aria-label="community.closeAria"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 6 6 18"></path>
+        <path d="m6 6 12 12"></path>
+      </svg>
+    </button>
+
+    <header class="community-modal-header">
+      <p class="section-eyebrow" data-i18n="community.eyebrow">Community</p>
+      <h2 id="community-modal-title" data-i18n="community.title">加入社群</h2>
+      <p class="community-modal-lead" data-i18n="community.lead">
+        扫一扫二维码，加入 QQ 群聊，与白守用户和开发者一起交流。
+      </p>
+    </header>
+
+    <div class="community-modal-grid">
+      {QQ_GROUPS.map((group) => (
+        <figure class="community-modal-card">
+          <img
+            src={group.qrImage}
+            alt=""
+            class="community-modal-qr"
+            width="280"
+            height="420"
+            loading="lazy"
+            data-i18n-alt={`community.groups.${group.id}.qrAlt`}
+          />
+        </figure>
+      ))}
+    </div>
+  </div>
+</div>
+
+<script>
+  const MODAL_OPEN_CLASS = 'modal-open';
+  const PANEL_CLOSE_MS = 380;
+
+  const getModal = () => document.querySelector<HTMLElement>('[data-community-modal]');
+  const getPanel = () => document.querySelector<HTMLElement>('.community-modal-panel');
+
+  const openModal = () => {
+    const modal = getModal();
+    if (!modal || modal.classList.contains('is-open')) return;
+
+    modal.removeAttribute('hidden');
+    modal.setAttribute('aria-hidden', 'false');
+    document.documentElement.classList.add(MODAL_OPEN_CLASS);
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        modal.classList.add('is-open');
+        modal.querySelector<HTMLElement>('.community-modal-close')?.focus();
+      });
+    });
+  };
+
+  const closeModal = () => {
+    const modal = getModal();
+    const panel = getPanel();
+    if (!modal || !modal.classList.contains('is-open')) return;
+
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.documentElement.classList.remove(MODAL_OPEN_CLASS);
+
+    let finished = false;
+    const finishClose = () => {
+      if (finished) return;
+      finished = true;
+      modal.setAttribute('hidden', '');
+    };
+
+    if (!panel) {
+      finishClose();
+      return;
+    }
+
+    const onEnd = (event: TransitionEvent) => {
+      if (event.target !== panel || event.propertyName !== 'transform') return;
+      panel.removeEventListener('transitionend', onEnd);
+      finishClose();
+    };
+
+    panel.addEventListener('transitionend', onEnd);
+    window.setTimeout(finishClose, PANEL_CLOSE_MS + 40);
+  };
+
+  const initCommunityModal = () => {
+    const modal = getModal();
+    if (!modal) return;
+
+    document.querySelectorAll<HTMLElement>('[data-community-open]').forEach((trigger) => {
+      trigger.addEventListener('click', (event) => {
+        event.preventDefault();
+        openModal();
+      });
+    });
+
+    modal.querySelectorAll<HTMLElement>('[data-community-close]').forEach((el) => {
+      el.addEventListener('click', closeModal);
+    });
+
+    window.addEventListener('keydown', (event) => {
+      const modal = getModal();
+      if (event.key === 'Escape' && modal?.classList.contains('is-open')) {
+        event.preventDefault();
+        closeModal();
+      }
+    });
+  };
+
+  initCommunityModal();
+  document.addEventListener('astro:page-load', initCommunityModal);
+</script>

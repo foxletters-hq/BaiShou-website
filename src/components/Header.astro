@@ -1,25 +1,47 @@
 ---
+import { NAV_SECTION_IDS, SNAP_SECTION_IDS } from '../data/site';
+import LanguageSwitcher from './LanguageSwitcher.astro';
 import ThemeToggle from './ThemeToggle.astro';
-
-const nav = [
-  { href: '#features', label: '功能' },
-  { href: '#team', label: '团队' },
-];
 ---
 
 <header class="site-header">
-  <div class="container header-inner">
-    <a href="#hero" class="brand">
-      <img src="/assets/images/app-icon.png" alt="" width="36" height="36" class="brand-icon" />
-      <span>白守</span>
-    </a>
+  <div class="container site-header-shell">
+    <div class="header-inner">
+      <a href="#hero" class="brand">
+        <img src="/assets/images/app-icon.png" alt="" width="36" height="36" class="brand-icon" />
+        <span class="brand-text">
+          <span data-i18n="brand.name">白守</span><span class="brand-suffix" data-i18n="brand.suffix"> · Foxletters</span>
+        </span>
+      </a>
 
-    <nav class="header-nav" aria-label="页面导航">
-      {nav.map((item) => (
-        <a href={item.href}>{item.label}</a>
-      ))}
-    </nav>
+      <nav class="header-nav header-nav--desktop" aria-label="页面导航" data-i18n-aria-label="a11y.mainNav">
+        {NAV_SECTION_IDS.map((id) => (
+          <a href={`#${id}`} data-nav-link={id} data-i18n={`nav.${id}`}>
+            {id}
+          </a>
+        ))}
+      </nav>
 
-    <ThemeToggle />
+      <div class="header-actions">
+        <ThemeToggle />
+        <LanguageSwitcher />
+      </div>
+    </div>
   </div>
 </header>
+
+<nav class="snap-dots" aria-label="页面分屏导航" data-i18n-aria-label="a11y.snapNav">
+  {SNAP_SECTION_IDS.map((id) => (
+    <a
+      href={`#${id}`}
+      class="snap-dot"
+      data-snap-dot={id}
+      data-i18n-aria-label={`nav.${id}`}
+      aria-label={id}
+    >
+      <span class="snap-dot-label" data-i18n={id === 'hero' ? 'brand.name' : `nav.${id}`}>
+        {id}
+      </span>
+    </a>
+  ))}
+</nav>
