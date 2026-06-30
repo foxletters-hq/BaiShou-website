@@ -1,0 +1,46 @@
+---
+import { VISION_COMPARE_IDS } from '../data/site';
+---
+
+<section id="vision" class="snap-page">
+  <div class="container snap-page-inner">
+    <div class="reveal section-heading">
+      <p class="section-eyebrow" data-i18n="vision.eyebrow">Vision</p>
+      <div class="heading-with-badge">
+        <h2 data-i18n="vision.title">我们在构建 AI 原生的个人知识库</h2>
+        <span class="status-badge" data-i18n="vision.devBadge">开发中</span>
+      </div>
+      <p class="section-lead" data-i18n="vision.lead">
+        日记与 AI 伙伴能力已经可用，知识库是白守的下一阶段——把文件、学习资料与生活记忆放进同一个能被 AI 读懂的空间。
+      </p>
+    </div>
+
+    <div class="vision-body reveal">
+      <article class="card vision-lead-card">
+        <h3 data-i18n="vision.whyTitle">为什么要做知识库？</h3>
+        <p data-i18n-html="vision.whyP1">
+          用户的 PDF、课程笔记、工作文档和生活日记不该永远分散在不同软件里。
+        </p>
+        <p data-i18n="vision.whyP2">
+          这不是把网盘换个皮肤，而是让资料真正进入 AI 的工作流——可检索、可问答、可标注来源、可长期陪伴。
+        </p>
+      </article>
+
+      <div class="vision-compare-grid">
+        {VISION_COMPARE_IDS.map((id) => (
+          <article class="card vision-compare-card">
+            <h3 data-i18n={`vision.compare.${id}.title`}>{id}</h3>
+            <p data-i18n={`vision.compare.${id}.desc`}>{id}</p>
+          </article>
+        ))}
+      </div>
+
+      <article class="card vision-ambition-card">
+        <h3 data-i18n="vision.ambitionTitle">我们的愿景</h3>
+        <p data-i18n-html="vision.ambitionP1">
+          先从 AI 伴侣用户的日记与长期记忆验证需求，再扩展到知识工作者、学生与长期学习者。
+        </p>
+      </article>
+    </div>
+  </div>
+</section>

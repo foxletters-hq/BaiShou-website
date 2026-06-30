@@ -1,93 +1,41 @@
 ---
-/**
- * 核心特性区域
- * - 3 列网格（移动端 1 列）
- * - 每张卡片由 React 组件 FeatureCard 渲染
- * - 图标使用 lucide-react，按需引入
- */
-import FeatureCard, { type FeatureCardProps } from './FeatureCard.tsx';
+import FeatureCard from './FeatureCard.tsx';
+import { FEATURE_IDS } from '../data/site';
 import {
-  Shield,
-  Brain,
   BookHeart,
-  Globe,
-  Plug,
-  Boxes,
+  Sparkles,
+  FolderOpen,
+  Search,
   Cloud,
-  Palette,
+  Shield,
 } from 'lucide-react';
 
-const features: FeatureCardProps[] = [
-  {
-    icon: Shield,
-    title: '数据私有',
-    description:
-      '所有数据存储在本地 Markdown 文件中，不上传任何服务器。你的记忆，只属于你。',
-  },
-  {
-    icon: Brain,
-    title: 'AI 伙伴系统',
-    description:
-      '创建多个 AI 伙伴，各自拥有独立人格与记忆。支持 Gemini / OpenAI / Anthropic 等主流模型。',
-  },
-  {
-    icon: BookHeart,
-    title: '智能日记工具',
-    description:
-      'Agent 可调用日记读写工具，一键记忆总结：日记 → 周记 → 月报 → 季报 → 年鉴。',
-  },
-  {
-    icon: Brain,
-    title: 'RAG 语义记忆',
-    description:
-      'sqlite-vec 向量引擎 + FTS5 全文检索 + RRF 重排序，融合搜索让记忆被精准唤起。',
-  },
-  {
-    icon: Globe,
-    title: '网络搜索',
-    description: '集成 DuckDuckGo / Tavily 多引擎搜索，让伙伴拥有触达实时信息的能力。',
-  },
-  {
-    icon: Plug,
-    title: 'MCP 协议',
-    description: '标准 SSE 传输协议，白守可作为 MCP 服务端，被外部 AI 客户端调用。',
-  },
-  {
-    icon: Boxes,
-    title: '多工作区',
-    description: '创建多个独立工作区（Vault），数据完全隔离，工作与生活互不打扰。',
-  },
-  {
-    icon: Cloud,
-    title: '弹性备份',
-    description:
-      '局域网快传、S3 / WebDAV 云同步、全量 ZIP 快照导出导入，多重守护你的数据。',
-  },
-  {
-    icon: Palette,
-    title: '个性化',
-    description:
-      'Material Design 3 自定义色盘，四语支持（简中 / 繁中 / 英 / 日），打造属于你的白守。',
-  },
-];
+const featureIcons = {
+  diary: BookHeart,
+  companion: Sparkles,
+  knowledge: FolderOpen,
+  rag: Search,
+  sync: Cloud,
+  local: Shield,
+} as const;
 ---
 
-<section id="features" class="section">
-  <div class="container">
+<section id="features" class="snap-page">
+  <div class="container snap-page-inner">
     <div class="reveal section-heading">
-      <p class="section-eyebrow">Features</p>
-      <h2>核心功能</h2>
-      <p class="section-lead">
-        围绕「私有 · 记忆 · 陪伴」三条主线，构筑一个能被信任的灵魂容器。
+      <p class="section-eyebrow" data-i18n="features.eyebrow">Features</p>
+      <h2 data-i18n="features.title">核心能力</h2>
+      <p class="section-lead" data-i18n="features.lead">
+        日记、AI 伙伴与同步能力已经可用；知识库正在开发，将逐步与现有记忆体系打通。
       </p>
     </div>
 
-    <div class="reveal mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {features.map((feature) => (
+    <div class="features-grid reveal">
+      {FEATURE_IDS.map((id) => (
         <FeatureCard
-          icon={feature.icon}
-          title={feature.title}
-          description={feature.description}
+          i18nId={id}
+          icon={featureIcons[id]}
+          showBadge={id === 'knowledge'}
         />
       ))}
     </div>

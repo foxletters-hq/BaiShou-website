@@ -1,0 +1,24 @@
+---
+import { PRINCIPLE_IDS } from '../data/site';
+---
+
+<section id="principles" class="snap-page">
+  <div class="container snap-page-inner">
+    <div class="reveal section-heading">
+      <p class="section-eyebrow" data-i18n="principles.eyebrow">Principles</p>
+      <h2 data-i18n="principles.title">本地优先，数据开放</h2>
+      <p class="section-lead" data-i18n="principles.lead">
+        白守不是要替代所有工具，而是为重视个人数据与长期记忆的用户，提供一个 AI 原生、可多端同步的个人知识库。
+      </p>
+    </div>
+
+    <div class="principles-grid reveal">
+      {PRINCIPLE_IDS.map((id) => (
+        <article class="card principle-card">
+          <h3 data-i18n={`principles.items.${id}.title`}>{id}</h3>
+          <p data-i18n={`principles.items.${id}.desc`}>{id}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

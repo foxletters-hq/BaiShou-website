@@ -1,0 +1,82 @@
+---
+import { FOUNDER, COLLABORATORS, CONTRIBUTORS_URL } from '../data/site';
+---
+
+<section id="people" class="snap-page snap-page-footer">
+  <div class="container snap-page-inner">
+    <div class="people-section reveal">
+      <div class="section-heading">
+        <p class="section-eyebrow" data-i18n="people.founderEyebrow">Founder</p>
+        <h2 data-i18n="people.founderTitle">创始人</h2>
+      </div>
+
+      <a
+        href={FOUNDER.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="card team-card team-card-founder"
+      >
+        <img
+          src={FOUNDER.avatar}
+          alt=""
+          class="team-avatar"
+          data-i18n-prefix="a11y.avatar"
+          data-i18n-name={FOUNDER.name}
+          width="88"
+          height="88"
+          loading="lazy"
+        />
+        <div class="team-info">
+          <h3>{FOUNDER.name}</h3>
+          <p class="team-role" data-i18n="people.founderRole">创始人</p>
+          <p class="team-bio" data-i18n="people.founderBio">
+            技术型独立开发者，负责白守的产品定义、跨端开发、AI 记忆与同步架构，以及早期社区运营。
+          </p>
+          <p class="team-handle">@{FOUNDER.github.split('/').pop()}</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="people-section reveal">
+      <div class="section-heading">
+        <p class="section-eyebrow" data-i18n="people.collabEyebrow">Collaborators</p>
+        <h2 data-i18n="people.collabTitle">协作者</h2>
+        <p class="section-lead">
+          <span data-i18n="people.collabLeadBefore">感谢每一位参与白守构建的人。完整贡献者列表见</span>
+          <a href={CONTRIBUTORS_URL} target="_blank" rel="noopener noreferrer" data-i18n="people.collabLeadLink">
+            GitHub Contributors
+          </a><span data-i18n="people.collabLeadAfter">。</span>
+        </p>
+      </div>
+
+      <div class="team-grid team-grid-collaborators">
+        {COLLABORATORS.map((person) => (
+          <a
+            href={person.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card team-card"
+          >
+            <img
+              src={person.avatar}
+              alt=""
+              class="team-avatar"
+              data-i18n-prefix="a11y.avatar"
+              data-i18n-name={person.name}
+              width="80"
+              height="80"
+              loading="lazy"
+            />
+            <div class="team-info">
+              <h3>{person.name}</h3>
+              <p class="team-bio" data-i18n={`people.collaborators.${person.id}.bio`}>
+                bio
+              </p>
+              <p class="team-handle">@{person.github.split('/').pop()}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

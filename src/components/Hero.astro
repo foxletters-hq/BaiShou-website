@@ -2,15 +2,19 @@
 import { REPO_URL } from '../data/site';
 ---
 
-<section id="hero" class="hero section">
+<section id="hero" class="snap-page hero">
   <div class="container hero-grid">
     <div class="hero-copy">
-      <p class="hero-eyebrow animate-in">BaiShou-Next</p>
-      <h1 class="hero-title animate-in animate-in-delay-1">白守</h1>
-      <p class="hero-tagline animate-in animate-in-delay-2">以纯白誓约，守护彼此一生</p>
-      <p class="hero-desc animate-in animate-in-delay-3">
-        白守是为对抗遗忘而构建的灵魂容器——在本地守护你的记忆，与 AI 伙伴共同书写、共同成长。
-        数据留在你的设备上，记忆只属于你。
+      <p class="hero-eyebrow animate-in" data-i18n="hero.eyebrow">BaiShou</p>
+      <h1 class="hero-title animate-in animate-in-delay-1" data-i18n="hero.title">白守</h1>
+      <p class="hero-tagline animate-in animate-in-delay-2" data-i18n="hero.tagline">
+        以纯白誓约，守护彼此一生
+      </p>
+      <p class="hero-positioning animate-in animate-in-delay-2" data-i18n="hero.positioning">
+        本地优先、AI 原生的个人知识库和长期记忆系统。
+      </p>
+      <p class="hero-desc animate-in animate-in-delay-3" data-i18n="hero.desc">
+        先从 AI 伴侣用户的日记与长期记忆切入，把日记、AI 伙伴与多端同步放进同一个个人记忆空间。知识库能力正在开发中，核心能力保持开放，数据留在你的设备上。
       </p>
       <div class="hero-actions animate-in animate-in-delay-4">
         <a
@@ -18,11 +22,12 @@ import { REPO_URL } from '../data/site';
           target="_blank"
           rel="noopener noreferrer"
           class="btn btn-primary"
+          data-i18n="hero.ctaGithub"
         >
           前往 GitHub
         </a>
-        <a href="#features" class="btn btn-outline">
-          了解功能
+        <a href="#vision" class="btn btn-outline" data-i18n="hero.ctaVision">
+          了解知识库
         </a>
       </div>
     </div>
@@ -33,8 +38,9 @@ import { REPO_URL } from '../data/site';
           src="/assets/images/app-icon.png"
           alt="白守应用图标"
           class="app-icon-hero"
-          width="320"
-          height="320"
+          data-i18n-alt="hero.iconAlt"
+          width="360"
+          height="360"
           loading="eager"
         />
       </div>

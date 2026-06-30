@@ -2,28 +2,29 @@ import type { FC } from 'react';
 import type { LucideIcon } from 'lucide-react';
 
 export interface FeatureCardProps {
+  i18nId: string;
   icon: LucideIcon;
-  title: string;
-  description: string;
+  showBadge?: boolean;
 }
 
-const FeatureCard: FC<FeatureCardProps> = ({ icon: Icon, title, description }) => {
+const FeatureCard: FC<FeatureCardProps> = ({ i18nId, icon: Icon, showBadge }) => {
   return (
-    <article className="card reveal flex h-full flex-col gap-3 p-6">
-      <div className="feature-icon" aria-hidden="true">
-        <Icon size={24} strokeWidth={1.8} />
+    <article className="card feature-card reveal">
+      <div className="feature-card-head">
+        <div className="feature-icon" aria-hidden="true">
+          <Icon size={22} strokeWidth={1.8} />
+        </div>
+        {showBadge && (
+          <span className="feature-badge" data-i18n-badge={`features.items.${i18nId}.badge`}>
+            开发中
+          </span>
+        )}
       </div>
-      <h3
-        className="text-[17px] font-semibold leading-snug"
-        style={{ color: 'var(--text-heading)' }}
-      >
-        {title}
+      <h3 className="feature-card-title" data-i18n={`features.items.${i18nId}.title`}>
+        {i18nId}
       </h3>
-      <p
-        className="text-[14.5px] leading-[1.75]"
-        style={{ color: 'var(--text-secondary)' }}
-      >
-        {description}
+      <p className="feature-card-desc" data-i18n={`features.items.${i18nId}.desc`}>
+        {i18nId}
       </p>
     </article>
   );

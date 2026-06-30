@@ -1,0 +1,24 @@
+---
+import { PROBLEM_IDS } from '../data/site';
+---
+
+<section id="problem" class="snap-page">
+  <div class="container snap-page-inner">
+    <div class="reveal section-heading">
+      <p class="section-eyebrow" data-i18n="problem.eyebrow">Problem</p>
+      <h2 data-i18n="problem.title">AI 时代，长期记忆还没有被真正解决</h2>
+      <p class="section-lead" data-i18n="problem.lead">
+        用户开始把日记、资料与对话交给软件，但现有工具很少把长期记忆、AI 伙伴与本地留存的数据放在一起统筹。
+      </p>
+    </div>
+
+    <div class="problem-grid reveal">
+      {PROBLEM_IDS.map((id) => (
+        <article class="card problem-card">
+          <h3 data-i18n={`problem.items.${id}.title`}>{id}</h3>
+          <p data-i18n={`problem.items.${id}.desc`}>{id}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
