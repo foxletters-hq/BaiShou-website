@@ -100,4 +100,12 @@ export interface Messages {
     closeAria: string;
     groups: Record<'group1' | 'group2', { name: string; qrAlt: string }>;
   };
+  download: {
+    button: string;
+    title: string;
+    lead: string;
+    windows: string;
+    android: string;
+    closeAria: string;
+  };
 }

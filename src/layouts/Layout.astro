@@ -6,6 +6,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import CommunityModal from '../components/CommunityModal.astro';
+import DownloadPopup from '../components/DownloadPopup.astro';
 import ThemeScene from '../components/ThemeScene.astro';
 import UmamiAnalytics from '../components/UmamiAnalytics.astro';
 import zhCN from '../i18n/locales/zh-CN';
@@ -73,6 +74,7 @@ const {
     <slot />
     <SiteFooter />
     <CommunityModal />
+    <DownloadPopup />
 
     <script>
       import { initLenisScroll } from '../scripts/lenisScroll';

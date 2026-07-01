@@ -178,6 +178,14 @@ const ja: Messages = {
       },
     },
   },
+  download: {
+    button: 'ダウンロード',
+    title: '白守をダウンロード',
+    lead: 'プラットフォームを選んで使い始めましょう。',
+    windows: 'Windows 版',
+    android: 'Android 版',
+    closeAria: 'ダウンロードダイアログを閉じる',
+  },
 };
 
 export default ja;

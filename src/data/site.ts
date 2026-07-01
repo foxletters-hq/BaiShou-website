@@ -4,6 +4,13 @@ export const BILIBILI_URL = 'https://space.bilibili.com/18187585';
 export const GITHUB_ICON = '/assets/images/github-icon.png';
 export const COMMUNITY_ICON = '/assets/images/community-icon.png';
 
+export const DOWNLOAD_URLS = {
+  windows:
+    'https://github.com/foxletters-hq/BaiShou-Next/releases/download/v1.1.0/BaiShou-v1.1.8-Windows-Setup.exe',
+  android:
+    'https://github.com/foxletters-hq/BaiShou-Next/releases/download/v1.1.0/BaiShou-v1.1.28-Android.apk',
+} as const;
+
 export const QQ_GROUPS = [
   {
     id: 'group1' as const,

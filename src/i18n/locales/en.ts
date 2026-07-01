@@ -178,6 +178,14 @@ const en: Messages = {
       },
     },
   },
+  download: {
+    button: 'Download',
+    title: 'Download BaiShou',
+    lead: 'Choose your platform to get started.',
+    windows: 'Windows',
+    android: 'Android',
+    closeAria: 'Close download dialog',
+  },
 };
 
 export default en;

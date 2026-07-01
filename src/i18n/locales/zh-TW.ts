@@ -178,6 +178,14 @@ const zhTW: Messages = {
       },
     },
   },
+  download: {
+    button: '下載',
+    title: '下載白守',
+    lead: '選擇你的平台，開始使用白守。',
+    windows: 'Windows 版',
+    android: 'Android 版',
+    closeAria: '關閉下載彈窗',
+  },
 };
 
 export default zhTW;

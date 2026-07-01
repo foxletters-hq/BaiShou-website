@@ -1,0 +1,178 @@
+---
+/**
+ * 下载弹窗 — 液态玻璃风格
+ * 点击「下载」按钮触发，提供 Windows / Android 两个下载链接
+ */
+import { DOWNLOAD_URLS } from "../data/site";
+---
+
+<div class="dl-popup" data-dl-popup hidden aria-hidden="true">
+  <div class="dl-popup-backdrop" data-dl-close tabindex="-1"></div>
+
+  <div
+    class="dl-popup-panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="dl-popup-title"
+    data-lenis-prevent
+  >
+    <button
+      type="button"
+      class="dl-popup-close"
+      data-dl-close
+      aria-label="关闭"
+      data-i18n-aria-label="download.closeAria"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M18 6 6 18"></path>
+        <path d="m6 6 12 12"></path>
+      </svg>
+    </button>
+
+    <header class="dl-popup-header">
+      <h2 id="dl-popup-title" data-i18n="download.title">下载白守</h2>
+      <p class="dl-popup-lead" data-i18n="download.lead">
+        选择你的平台，开始使用白守。
+      </p>
+    </header>
+
+    <div class="dl-popup-grid">
+      <a href={DOWNLOAD_URLS.windows} class="dl-popup-card">
+        <span class="dl-popup-icon">
+          <!-- Windows logo -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"
+            ></path>
+          </svg>
+        </span>
+        <span class="dl-popup-label" data-i18n="download.windows"
+          >Windows 版</span
+        >
+      </a>
+
+      <a href={DOWNLOAD_URLS.android} class="dl-popup-card">
+        <span class="dl-popup-icon">
+          <!-- Android robot -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              d="M17.523 15.341a.997.997 0 0 0 0-1.994.997.997 0 0 0 0 1.994m-11.046 0a.997.997 0 0 0 0-1.994.997.997 0 0 0 0 1.994m11.405-6.02l1.997-3.46a.416.416 0 0 0-.152-.567.416.416 0 0 0-.568.152L17.112 8.95a12.14 12.14 0 0 0-5.112-1.116 12.14 12.14 0 0 0-5.112 1.116L4.84 5.446a.416.416 0 0 0-.568-.152.416.416 0 0 0-.152.567l1.997 3.46C2.688 11.186.344 14.663 0 18.766h24c-.344-4.103-2.688-7.58-6.118-9.445"
+            ></path>
+          </svg>
+        </span>
+        <span class="dl-popup-label" data-i18n="download.android"
+          >Android 版</span
+        >
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const OPEN_CLASS = "is-open";
+  const PANEL_MS = 380;
+
+  const getPopup = () => document.querySelector<HTMLElement>("[data-dl-popup]");
+  const getPanel = () => document.querySelector<HTMLElement>(".dl-popup-panel");
+
+  const openPopup = () => {
+    const popup = getPopup();
+    if (!popup || popup.classList.contains(OPEN_CLASS)) return;
+
+    popup.removeAttribute("hidden");
+    popup.setAttribute("aria-hidden", "false");
+    document.documentElement.classList.add("modal-open");
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        popup.classList.add(OPEN_CLASS);
+        popup.querySelector<HTMLElement>(".dl-popup-close")?.focus();
+      });
+    });
+  };
+
+  const closePopup = () => {
+    const popup = getPopup();
+    const panel = getPanel();
+    if (!popup || !popup.classList.contains(OPEN_CLASS)) return;
+
+    popup.classList.remove(OPEN_CLASS);
+    popup.setAttribute("aria-hidden", "true");
+    document.documentElement.classList.remove("modal-open");
+
+    let finished = false;
+    const finishClose = () => {
+      if (finished) return;
+      finished = true;
+      popup.setAttribute("hidden", "");
+    };
+
+    if (!panel) {
+      finishClose();
+      return;
+    }
+
+    const onEnd = (event: TransitionEvent) => {
+      if (event.target !== panel || event.propertyName !== "transform") return;
+      panel.removeEventListener("transitionend", onEnd);
+      finishClose();
+    };
+
+    panel.addEventListener("transitionend", onEnd);
+    window.setTimeout(finishClose, PANEL_MS + 40);
+  };
+
+  const initDownloadPopup = () => {
+    const popup = getPopup();
+    if (!popup) return;
+
+    document
+      .querySelectorAll<HTMLElement>("[data-dl-open]")
+      .forEach((trigger) => {
+        trigger.addEventListener("click", (event) => {
+          event.preventDefault();
+          openPopup();
+        });
+      });
+
+    popup.querySelectorAll<HTMLElement>("[data-dl-close]").forEach((el) => {
+      el.addEventListener("click", closePopup);
+    });
+
+    window.addEventListener("keydown", (event) => {
+      const popup = getPopup();
+      if (event.key === "Escape" && popup?.classList.contains(OPEN_CLASS)) {
+        event.preventDefault();
+        closePopup();
+      }
+    });
+  };
+
+  initDownloadPopup();
+  document.addEventListener("astro:page-load", initDownloadPopup);
+</script>
