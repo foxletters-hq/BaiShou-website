@@ -1,0 +1,25 @@
+{
+  "name": "白守 BaiShou",
+  "short_name": "白守",
+  "description": "本地优先、AI 原生的个人知识库和长期记忆系统，支持 AI 伙伴、RAG 检索与多端同步。",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0a0f1e",
+  "theme_color": "#0a0f1e",
+  "lang": "zh-CN",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

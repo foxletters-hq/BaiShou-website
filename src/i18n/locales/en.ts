@@ -13,6 +13,7 @@ const en: Messages = {
     vision: 'Knowledge',
     principles: 'Principles',
     people: 'People',
+    faqAction: 'FAQ',
   },
   a11y: {
     mainNav: 'Page navigation',
@@ -159,6 +160,37 @@ const en: Messages = {
   footer: {
     bilibili: 'Bilibili',
     joinCommunity: 'Join Community',
+  },
+  faq: {
+    eyebrow: 'FAQ',
+    title: 'Frequently asked questions',
+    lead: 'Questions about BaiShou? Here are the answers you’re looking for.',
+    items: {
+      free: {
+        q: 'Is BaiShou free?',
+        a: 'BaiShou’s core capabilities are completely free and open source. Local diaries, file management, self-hosted sync, and custom model APIs stay open. Official encrypted sync, backup, and AI services are optional—you keep owning and migrating your data without paying.',
+      },
+      privacy: {
+        q: 'Where is my data stored? Is it private?',
+        a: 'BaiShou uses a local-first architecture. Core data stays on your devices by default, with import/export support. You can choose official encrypted sync, self-hosted S3 / WebDAV, or full offline use—data is never locked into a platform.',
+      },
+      platform: {
+        q: 'Which platforms does BaiShou support?',
+        a: 'BaiShou currently supports Windows and Android with multi-device sync. You can get the latest version from the download page or GitHub Releases.',
+      },
+      diff: {
+        q: 'How is BaiShou different from Notion or Obsidian?',
+        a: 'Note tools solve capture and organization; BaiShou solves how personal data is understood and used by AI over time. Companions, RAG, and long-term memory are foundational—not plugins. AI can search, answer, and summarize the personal memory you build over time.',
+      },
+      model: {
+        q: 'Can I use custom AI models?',
+        a: 'Yes. You can connect custom model APIs, including domestic large models. BaiShou does not lock AI capability to a single provider—keeping it open and flexible.',
+      },
+      migrate: {
+        q: 'Can I export my data?',
+        a: 'Yes. BaiShou supports import/export—your diaries, files, and memories are never locked in. Even without official services, you keep owning and migrating your data.',
+      },
+    },
   },
   community: {
     eyebrow: 'Community',

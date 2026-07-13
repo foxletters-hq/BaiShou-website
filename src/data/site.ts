@@ -116,6 +116,7 @@ export const FEATURE_IDS = [
 export const PROBLEM_IDS = ['memory', 'notes', 'scattered', 'locale'] as const;
 export const PRINCIPLE_IDS = ['local', 'open', 'ai', 'official'] as const;
 export const VISION_COMPARE_IDS = ['notes', 'chat'] as const;
+export const FAQ_IDS = ['free', 'privacy', 'platform', 'diff', 'model', 'migrate'] as const;
 
 export const NAV_SECTION_IDS = [
   'problem',
@@ -125,7 +126,16 @@ export const NAV_SECTION_IDS = [
   'people',
 ] as const;
 
+/** 跳转到独立二级页面（非首页锚点）的导航项 */
+export const ROUTE_NAV_IDS = ['faq'] as const;
+
+/** 首页 snap 分屏导航点（不含独立页面） */
 export const SNAP_SECTION_IDS = [
   'hero',
   ...NAV_SECTION_IDS,
 ] as const;
+
+/** 根据导航项 id 解析链接地址 */
+export function navHref(id: string): string {
+  return (ROUTE_NAV_IDS as readonly string[]).includes(id) ? `/${id}` : `#${id}`;
+}

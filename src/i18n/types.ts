@@ -15,6 +15,7 @@ export interface Messages {
     vision: string;
     principles: string;
     people: string;
+    faqAction: string;
   };
   a11y: {
     mainNav: string;
@@ -86,6 +87,15 @@ export interface Messages {
     collabLeadLink: string;
     collabLeadAfter: string;
     collaborators: Record<'ratman' | 'ctnilpp', { bio: string }>;
+  };
+  faq: {
+    eyebrow: string;
+    title: string;
+    lead: string;
+    items: Record<
+      'free' | 'privacy' | 'platform' | 'diff' | 'model' | 'migrate',
+      { q: string; a: string }
+    >;
   };
   footer: {
     bilibili: string;

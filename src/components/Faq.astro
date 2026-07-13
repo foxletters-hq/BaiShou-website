@@ -1,0 +1,41 @@
+---
+import { FAQ_IDS } from '../data/site';
+
+export interface Props {
+  /** 独立页面模式：禁用 snap-page 全屏布局，使用普通 section */
+  standalone?: boolean;
+}
+
+const { standalone = false } = Astro.props;
+
+const sectionClass = standalone ? 'faq-section' : 'snap-page';
+const innerClass = standalone ? 'faq-section-inner' : 'snap-page-inner';
+---
+
+<section id="faq" class={sectionClass}>
+  <div class={`container ${innerClass}`}>
+    <div class="reveal section-heading">
+      <p class="section-eyebrow" data-i18n="faq.eyebrow">FAQ</p>
+      <h2 data-i18n="faq.title">常见问题</h2>
+      <p class="section-lead" data-i18n="faq.lead">
+        关于白守的问题，你想知道的都在这里。
+      </p>
+    </div>
+
+    <div class="faq-list reveal">
+      {FAQ_IDS.map((id) => (
+        <details class="faq-item card">
+          <summary class="faq-q">
+            <span data-i18n={`faq.items.${id}.q`}>{id}</span>
+            <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"></path>
+            </svg>
+          </summary>
+          <div class="faq-a">
+            <p data-i18n={`faq.items.${id}.a`}>{id}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

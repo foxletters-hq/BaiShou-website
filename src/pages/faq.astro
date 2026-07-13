@@ -1,0 +1,14 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Faq from '../components/Faq.astro';
+import zhCN from '../i18n/locales/zh-CN';
+
+const title = `${zhCN.faq.title} · ${zhCN.brand.name}`;
+const description = zhCN.faq.lead;
+---
+
+<Layout title={title} description={description} snapDots={false}>
+  <main class="page-main">
+    <Faq standalone />
+  </main>
+</Layout>

@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# BaiShou 官网
+# 主项目仓库：https://github.com/foxletters-hq/BaiShou-Next
+
+Sitemap: https://baishou.foxletters.com/sitemap-index.xml
+Host: https://baishou.foxletters.com

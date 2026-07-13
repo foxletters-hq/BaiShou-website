@@ -2,64 +2,167 @@
 /**
  * BaiShou 产品官网布局
  */
-import '../styles/global.css';
-import Header from '../components/Header.astro';
-import SiteFooter from '../components/SiteFooter.astro';
-import CommunityModal from '../components/CommunityModal.astro';
-import DownloadPopup from '../components/DownloadPopup.astro';
-import ThemeScene from '../components/ThemeScene.astro';
-import UmamiAnalytics from '../components/UmamiAnalytics.astro';
-import zhCN from '../i18n/locales/zh-CN';
-import { getInitialLocaleScript } from '../scripts/i18n';
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import CommunityModal from "../components/CommunityModal.astro";
+import DownloadPopup from "../components/DownloadPopup.astro";
+import ThemeScene from "../components/ThemeScene.astro";
+import UmamiAnalytics from "../components/UmamiAnalytics.astro";
+import zhCN from "../i18n/locales/zh-CN";
+import { getInitialLocaleScript } from "../scripts/i18n";
+import { REPO_URL } from "../data/site";
 
 export interface Props {
   title?: string;
   description?: string;
+  canonical?: string;
+  ogImage?: string;
+  /** 是否显示侧边 snap 导航点（仅首页需要） */
+  snapDots?: boolean;
 }
 
 const {
   title = zhCN.meta.title,
   description = zhCN.meta.description,
+  canonical = Astro.url.href,
+  ogImage = "/assets/images/app-icon.png",
+  snapDots = true,
 } = Astro.props;
+
+const canonicalUrl = new URL(canonical, Astro.site).href;
+const ogImageUrl = new URL(ogImage, Astro.site).href;
+
+const keywords = [
+  "白守",
+  "BaiShou",
+  "AI知识库",
+  "个人知识库",
+  "长期记忆",
+  "AI伴侣",
+].join(", ");
+
+// JSON-LD 结构化数据：让搜索引擎理解产品
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "白守 BaiShou",
+  applicationCategory: "ProductivityApplication",
+  operatingSystem: "Windows, Android",
+  url: canonicalUrl,
+  description,
+  image: ogImageUrl,
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "CNY",
+  },
+  author: {
+    "@type": "Organization",
+    name: "foxletters-hq",
+    url: "https://github.com/foxletters-hq",
+  },
+  featureList: zhCN.features
+    ? [
+        "日记与回忆",
+        "AI 伙伴",
+        "文件知识库",
+        "RAG 检索",
+        "多端同步",
+        "本地优先",
+      ]
+    : [],
+};
+
+const orgLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "foxletters-hq",
+  url: "https://github.com/foxletters-hq",
+  logo: new URL("/assets/images/app-icon.png", Astro.site).href,
+};
 ---
 
 <!doctype html>
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="/favicon-192x192.png"
+    />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="author" content="foxletters-hq" />
     <meta name="theme-color" content="#0a0f1e" />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+    <meta name="googlebot" content="index, follow" />
 
+    <!-- Canonical -->
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/assets/images/app-icon.png" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:alt" content="白守 BaiShou 应用图标" />
     <meta property="og:locale" content="zh_CN" />
+    <meta property="og:site_name" content="白守 BaiShou" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- QQ / QQ空间 分享 -->
+    <meta itemprop="name" content={title} />
+    <meta itemprop="description" content={description} />
+    <meta itemprop="image" content={ogImageUrl} />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
 
     <script is:inline set:html={getInitialLocaleScript()} />
     <script is:inline>
       (function () {
-        var key = 'baishou-theme';
+        var key = "baishou-theme";
         var stored = localStorage.getItem(key);
         var theme =
-          stored === 'light' || stored === 'dark'
+          stored === "light" || stored === "dark"
             ? stored
-            : window.matchMedia('(prefers-color-scheme: dark)').matches
-              ? 'dark'
-              : 'light';
+            : window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
         document.documentElement.dataset.theme = theme;
       })();
     </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"
+    />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"
@@ -70,22 +173,22 @@ const {
     <ThemeScene />
     <div class="bg-overlay" aria-hidden="true"></div>
 
-    <Header />
+    <Header snapDots={snapDots} />
     <slot />
     <SiteFooter />
     <CommunityModal />
     <DownloadPopup />
 
     <script>
-      import { initLenisScroll } from '../scripts/lenisScroll';
-      import { initI18n } from '../scripts/i18n';
+      import { initLenisScroll } from "../scripts/lenisScroll";
+      import { initI18n } from "../scripts/i18n";
 
       const initReveal = () => {
-        const els = document.querySelectorAll<HTMLElement>('.reveal');
+        const els = document.querySelectorAll<HTMLElement>(".reveal");
         if (els.length === 0) return;
 
-        if (!('IntersectionObserver' in window)) {
-          els.forEach((el) => el.classList.add('is-visible'));
+        if (!("IntersectionObserver" in window)) {
+          els.forEach((el) => el.classList.add("is-visible"));
           return;
         }
 
@@ -93,27 +196,27 @@ const {
           (entries) => {
             entries.forEach((entry) => {
               if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
+                entry.target.classList.add("is-visible");
                 observer.unobserve(entry.target);
               }
             });
           },
-          { threshold: 0.15, rootMargin: '0px' }
+          { threshold: 0.15, rootMargin: "0px" },
         );
 
         els.forEach((el) => observer.observe(el));
       };
 
       const initSnapNav = () => {
-        const dots = document.querySelectorAll<HTMLElement>('[data-snap-dot]');
-        const links = document.querySelectorAll<HTMLElement>('[data-nav-link]');
+        const dots = document.querySelectorAll<HTMLElement>("[data-snap-dot]");
+        const links = document.querySelectorAll<HTMLElement>("[data-nav-link]");
 
         const setActive = (id: string) => {
           dots.forEach((dot) => {
-            dot.classList.toggle('is-active', dot.dataset.snapDot === id);
+            dot.classList.toggle("is-active", dot.dataset.snapDot === id);
           });
           links.forEach((link) => {
-            link.classList.toggle('is-active', link.dataset.navLink === id);
+            link.classList.toggle("is-active", link.dataset.navLink === id);
           });
         };
 
@@ -127,7 +230,7 @@ const {
         initLenisScroll(setActive);
       };
 
-      document.addEventListener('DOMContentLoaded', init);
+      document.addEventListener("DOMContentLoaded", init);
     </script>
   </body>
 </html>
