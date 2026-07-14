@@ -137,5 +137,5 @@ export const SNAP_SECTION_IDS = [
 
 /** 根据导航项 id 解析链接地址 */
 export function navHref(id: string): string {
-  return (ROUTE_NAV_IDS as readonly string[]).includes(id) ? `/${id}` : `#${id}`;
+  return (ROUTE_NAV_IDS as readonly string[]).includes(id) ? `/${id}` : `/#${id}`;
 }
