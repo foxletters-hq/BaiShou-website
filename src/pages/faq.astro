@@ -1,13 +1,30 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Faq from '../components/Faq.astro';
+import { FAQ_IDS } from '../data/site';
 import zhCN from '../i18n/locales/zh-CN';
 
 const title = `${zhCN.faq.title} · ${zhCN.brand.name}`;
 const description = zhCN.faq.lead;
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQ_IDS.map((id) => ({
+    '@type': 'Question',
+    name: zhCN.faq.items[id].q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: zhCN.faq.items[id].a,
+    },
+  })),
+};
 ---
 
 <Layout title={title} description={description} snapDots={false}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
+  </Fragment>
   <main class="page-main">
     <Faq standalone />
   </main>

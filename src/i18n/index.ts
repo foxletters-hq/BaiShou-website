@@ -38,11 +38,23 @@ export function isLocale(value: string): value is Locale {
   return LOCALES.includes(value as Locale);
 }
 
+/** 搜索引擎爬虫不按 Accept-Language 切英文，避免把默认中文正文冲掉 */
+export function isLikelySearchBot(userAgent?: string | null): boolean {
+  const ua = (userAgent ?? (typeof navigator !== 'undefined' ? navigator.userAgent : '')).toLowerCase();
+  if (!ua) return false;
+  return /bot|crawl|spider|slurp|bingpreview|facebookexternalhit|embedly|quora link preview|outbrain|pinterest|vkshare|yandex|baiduspider|sogou|bytespider|duckduckbot|applebot|semrush|ahrefs|mj12bot|dotbot/.test(
+    ua,
+  );
+}
+
 export function detectLocale(): Locale {
   if (typeof window === 'undefined') return DEFAULT_LOCALE;
 
   const stored = localStorage.getItem(LOCALE_STORAGE_KEY);
   if (stored && isLocale(stored)) return stored;
+
+  // 无用户显式选择时：爬虫保持简中；真人再按浏览器语言
+  if (isLikelySearchBot()) return DEFAULT_LOCALE;
 
   const lang = navigator.language.toLowerCase();
   if (lang === 'zh-tw' || lang === 'zh-hk' || lang === 'zh-mo') return 'zh-TW';

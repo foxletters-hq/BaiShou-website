@@ -144,6 +144,7 @@ const orgLd = {
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
+    <slot name="head" />
 
     <script is:inline set:html={getInitialLocaleScript()} />
     <script is:inline>

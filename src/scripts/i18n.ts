@@ -209,5 +209,5 @@ export function initI18n() {
 }
 
 export function getInitialLocaleScript(): string {
-  return `(function(){try{var k='${LOCALE_STORAGE_KEY}';var s=localStorage.getItem(k);var n=(navigator.language||'').toLowerCase();var l=s||'${DEFAULT_LOCALE}';if(['zh-CN','zh-TW','en','ja'].indexOf(l)<0){if(n==='zh-tw'||n==='zh-hk'||n==='zh-mo')l='zh-TW';else if(n.indexOf('zh')===0)l='zh-CN';else if(n.indexOf('ja')===0)l='ja';else l='en';}document.documentElement.lang=l;}catch(e){}})();`;
+  return `(function(){try{var k='${LOCALE_STORAGE_KEY}';var s=localStorage.getItem(k);var ua=(navigator.userAgent||'').toLowerCase();var bot=/bot|crawl|spider|slurp|bingpreview|facebookexternalhit|baiduspider|sogou|bytespider|duckduckbot|applebot|semrush|ahrefs/.test(ua);var n=(navigator.language||'').toLowerCase();var l=s||'${DEFAULT_LOCALE}';if(!s&&!bot){if(n==='zh-tw'||n==='zh-hk'||n==='zh-mo')l='zh-TW';else if(n.indexOf('zh')===0)l='zh-CN';else if(n.indexOf('ja')===0)l='ja';else l='en';}if(['zh-CN','zh-TW','en','ja'].indexOf(l)<0)l='${DEFAULT_LOCALE}';document.documentElement.lang=l;}catch(e){}})();`;
 }
