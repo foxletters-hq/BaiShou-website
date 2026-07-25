@@ -17,6 +17,8 @@ const OG_LOCALE: Record<Locale, string> = {
   ja: 'ja_JP',
 };
 
+let langSwitcherBound = false;
+
 function applyTextContent(root: ParentNode, dict: Messages) {
   root.querySelectorAll<HTMLElement>('[data-i18n]').forEach((el) => {
     const key = el.dataset.i18n;
@@ -53,11 +55,22 @@ function applyTextContent(root: ParentNode, dict: Messages) {
 function applyMeta(locale: Locale) {
   const dict = messages[locale];
   document.documentElement.lang = locale;
-  document.title = dict.meta.title;
 
-  document.querySelector('meta[name="description"]')?.setAttribute('content', dict.meta.description);
-  document.querySelector('meta[property="og:title"]')?.setAttribute('content', dict.meta.title);
-  document.querySelector('meta[property="og:description"]')?.setAttribute('content', dict.meta.description);
+  // 文档页保留服务端标题，不要被官网 meta 覆盖
+  const docsTitle = document.querySelector<HTMLElement>('[data-docs-root]')?.dataset.docsTitle;
+  if (docsTitle) {
+    document.title = docsTitle;
+  } else {
+    document.title = dict.meta.title;
+    document.querySelector('meta[property="og:title"]')?.setAttribute('content', dict.meta.title);
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute('content', dict.meta.description);
+    document
+      .querySelector('meta[property="og:description"]')
+      ?.setAttribute('content', dict.meta.description);
+  }
+
   document.querySelector('meta[property="og:locale"]')?.setAttribute('content', OG_LOCALE[locale]);
 }
 
@@ -96,35 +109,81 @@ function closeLangMenus() {
   });
 }
 
+function switchLocale(next: Locale) {
+  localStorage.setItem(LOCALE_STORAGE_KEY, next);
+
+  const docsShell = document.querySelector<HTMLElement>('[data-docs-root]');
+  if (docsShell) {
+    const slug = docsShell.dataset.docsSlug ?? '';
+    const hrefByLocale: Record<Locale, string> = {
+      'zh-CN': slug ? `/docs/${slug}/` : '/docs/',
+      'zh-TW': slug ? `/zh-tw/docs/${slug}/` : '/zh-tw/docs/',
+      en: slug ? `/en/docs/${slug}/` : '/en/docs/',
+      ja: slug ? `/ja/docs/${slug}/` : '/ja/docs/',
+    };
+    window.location.href = hrefByLocale[next];
+    return;
+  }
+
+  applyLocale(next);
+  closeLangMenus();
+}
+
+/** 只绑定一次；View Transitions 下顶栏 persist，重复 bind 会导致一点击先开后关 */
 function initLangSwitcher() {
-  document.querySelectorAll<HTMLElement>('[data-lang-switcher]').forEach((root) => {
-    const trigger = root.querySelector<HTMLButtonElement>('[data-lang-trigger]');
-    const menu = root.querySelector<HTMLElement>('.lang-menu');
-    if (!trigger || !menu) return;
+  if (langSwitcherBound) return;
+  langSwitcherBound = true;
 
-    trigger.addEventListener('click', (event) => {
+  document.addEventListener('click', (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+
+    const trigger = target.closest('[data-lang-trigger]');
+    if (trigger instanceof HTMLButtonElement) {
+      const root = trigger.closest<HTMLElement>('[data-lang-switcher]');
+      const menu = root?.querySelector<HTMLElement>('.lang-menu');
+      if (!root || !menu) return;
+
       event.stopPropagation();
-      const open = menu.hidden;
+      const shouldOpen = menu.hidden;
       closeLangMenus();
-      menu.hidden = !open;
-      trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
-      root.classList.toggle('is-open', open);
-    });
+      if (shouldOpen) {
+        menu.hidden = false;
+        trigger.setAttribute('aria-expanded', 'true');
+        root.classList.add('is-open');
+      }
+      return;
+    }
 
-    menu.querySelectorAll<HTMLButtonElement>('[data-lang-option]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const next = btn.dataset.langOption;
-        if (!next || !isLocale(next)) return;
-        localStorage.setItem(LOCALE_STORAGE_KEY, next);
-        applyLocale(next);
-        closeLangMenus();
-      });
-    });
+    const option = target.closest<HTMLButtonElement>('[data-lang-option]');
+    if (option) {
+      const next = option.dataset.langOption;
+      if (!next || !isLocale(next)) return;
+      event.stopPropagation();
+      switchLocale(next);
+      return;
+    }
+
+    if (!target.closest('[data-lang-switcher]')) {
+      closeLangMenus();
+    }
   });
 
-  document.addEventListener('click', closeLangMenus);
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') closeLangMenus();
+  });
+}
+
+function applyDocsLinks(locale: Locale) {
+  const hrefByLocale: Record<Locale, string> = {
+    'zh-CN': '/docs/',
+    'zh-TW': '/zh-tw/docs/',
+    en: '/en/docs/',
+    ja: '/ja/docs/',
+  };
+  const href = hrefByLocale[locale] ?? '/docs/';
+  document.querySelectorAll<HTMLAnchorElement>('[data-docs-link]').forEach((el) => {
+    el.href = href;
   });
 }
 
@@ -134,10 +193,17 @@ export function applyLocale(locale: Locale) {
   applyTextContent(document, dict);
   applyBadges(dict);
   applyLangSwitcher(locale);
+  applyDocsLinks(locale);
 }
 
 export function initI18n() {
-  const locale = detectLocale();
+  const docsShell = document.querySelector<HTMLElement>('[data-docs-root]');
+  const docsLocale = docsShell?.dataset.docsLocale;
+  const locale =
+    docsLocale && isLocale(docsLocale) ? docsLocale : detectLocale();
+  if (docsLocale && isLocale(docsLocale)) {
+    localStorage.setItem(LOCALE_STORAGE_KEY, docsLocale);
+  }
   applyLocale(locale);
   initLangSwitcher();
 }

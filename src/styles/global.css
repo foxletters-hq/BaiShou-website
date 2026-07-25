@@ -83,8 +83,9 @@
   --radius-sm: 10px;
   --radius-md: 12px;
   --radius-lg: 16px;
-  --font-sans: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    'Helvetica Neue', Arial, sans-serif;
+  /* 全站思源黑体：Noto Sans SC（Google）+ Source Han Sans SC（本机） */
+  --font-sans: 'Noto Sans SC', 'Source Han Sans SC', 'Microsoft YaHei', 'PingFang SC',
+    sans-serif;
   --font-display: var(--font-sans);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --duration-fast: 150ms;
@@ -198,6 +199,25 @@ body {
   pointer-events: none;
   background: var(--overlay);
   transition: background var(--duration-normal) var(--ease-out);
+}
+
+/* 文档页：纯白底，无极光/叠层；隐藏页面级滚动条，避免与官网切换时顶栏偏移 */
+body.plain-bg {
+  background-color: #ffffff;
+  background-image: none;
+}
+
+[data-theme='dark'] body.plain-bg {
+  background-color: #0a0f1e;
+  background-image: none;
+}
+
+html:has([data-docs-root]) {
+  scrollbar-width: none;
+}
+
+html:has([data-docs-root])::-webkit-scrollbar {
+  display: none;
 }
 
 a {
@@ -725,8 +745,13 @@ h1, h2, h3, h4 {
     display: none;
   }
 
-  .header-nav--desktop {
-    display: none;
+  .header-nav {
+    gap: 14px;
+    margin-right: 8px;
+  }
+
+  .header-nav a {
+    font-size: 13px;
   }
 
   .theme-toggle,
@@ -1401,6 +1426,14 @@ h1, h2, h3, h4 {
   color: #00a1d6;
 }
 
+.footer-link-github {
+  color: var(--text-secondary);
+}
+
+.footer-link-github:hover {
+  color: var(--text-heading);
+}
+
 .footer-icon {
   flex-shrink: 0;
 }
@@ -1416,8 +1449,8 @@ h1, h2, h3, h4 {
   fill: #fb7299;
 }
 
-.github-icon path {
-  fill: #181717;
+.github-icon {
+  color: currentColor;
 }
 
 .footer-cta {
@@ -1428,62 +1461,69 @@ h1, h2, h3, h4 {
 
 @media (max-width: 640px) {
   :root {
-    --footer-height: 64px;
+    --footer-height: 48px;
   }
 
   .footer-inner {
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
-    padding-block: 10px;
-    gap: 8px 12px;
+    padding-block: 6px;
+    gap: 8px;
+    min-height: var(--footer-height);
   }
 
   .footer-copy {
     font-size: 11px;
     flex: 1 1 auto;
     min-width: 0;
-    white-space: normal;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .footer-actions {
     width: auto;
     flex-shrink: 0;
-    gap: 8px;
+    gap: 6px;
   }
 
   .footer-link {
-    padding: 5px 8px;
+    padding: 4px 8px;
     font-size: 12px;
   }
 
   .footer-cta {
-    height: 32px;
-    padding: 0 12px;
+    height: 28px;
+    padding: 0 10px;
     font-size: 12px;
   }
 }
 
 @media (max-width: 480px) {
   :root {
-    --footer-height: 96px;
+    --footer-height: 48px;
   }
 
   .footer-inner {
-    justify-content: center;
-    align-content: center;
-    padding-block: 8px;
+    justify-content: space-between;
+    align-items: center;
+    padding-block: 6px;
   }
 
   .footer-copy {
-    flex: 1 1 100%;
-    text-align: center;
+    flex: 1 1 auto;
+    text-align: start;
   }
 
   .footer-actions {
-    width: 100%;
-    justify-content: center;
+    width: auto;
+    justify-content: flex-end;
+  }
+
+  .footer-link span {
+    display: none;
   }
 }
 

@@ -9,6 +9,7 @@ import CommunityModal from "../components/CommunityModal.astro";
 import DownloadPopup from "../components/DownloadPopup.astro";
 import ThemeScene from "../components/ThemeScene.astro";
 import UmamiAnalytics from "../components/UmamiAnalytics.astro";
+import { ViewTransitions } from "astro:transitions";
 import zhCN from "../i18n/locales/zh-CN";
 import { getInitialLocaleScript } from "../scripts/i18n";
 import { REPO_URL } from "../data/site";
@@ -20,6 +21,8 @@ export interface Props {
   ogImage?: string;
   /** 是否显示侧边 snap 导航点（仅首页需要） */
   snapDots?: boolean;
+  /** 文档等页面：关掉极光/雨滴与叠层，纯色底 */
+  plainBg?: boolean;
 }
 
 const {
@@ -28,6 +31,7 @@ const {
   canonical = Astro.url.href,
   ogImage = "/assets/images/app-icon.png",
   snapDots = true,
+  plainBg = false,
 } = Astro.props;
 
 const canonicalUrl = new URL(canonical, Astro.site).href;
@@ -161,17 +165,18 @@ const orgLd = {
     <link
       rel="preload"
       as="style"
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap"
     />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap"
     />
     <UmamiAnalytics />
+    {plainBg && <ViewTransitions />}
   </head>
-  <body>
-    <ThemeScene />
-    <div class="bg-overlay" aria-hidden="true"></div>
+  <body class:list={[{ "plain-bg": plainBg }]}>
+    {!plainBg && <ThemeScene />}
+    {!plainBg && <div class="bg-overlay" aria-hidden="true" />}
 
     <Header snapDots={snapDots} />
     <slot />
@@ -223,14 +228,23 @@ const orgLd = {
         return setActive;
       };
 
+      let pageInited = false;
+
       const init = () => {
+        // DOMContentLoaded + astro:page-load 首屏可能各触发一次，文案应用可重复，绑定逻辑各自做幂等
         initI18n();
         initReveal();
-        const setActive = initSnapNav();
-        initLenisScroll(setActive);
+        if (!document.querySelector('[data-docs-root]')) {
+          // Lenis 不适合多次创建；文档页跳过，官网只初始化一次
+          if (pageInited) return;
+          pageInited = true;
+          const setActive = initSnapNav();
+          initLenisScroll(setActive);
+        }
       };
 
-      document.addEventListener("DOMContentLoaded", init);
+      document.addEventListener('DOMContentLoaded', init);
+      document.addEventListener('astro:page-load', init);
     </script>
   </body>
 </html>

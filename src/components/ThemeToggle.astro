@@ -27,6 +27,7 @@
 
 <script>
   const STORAGE_KEY = 'baishou-theme';
+  let themeToggleBound = false;
 
   const getPreferredTheme = (): 'light' | 'dark' => {
     const stored = localStorage.getItem(STORAGE_KEY);
@@ -45,11 +46,15 @@
   const initThemeToggle = () => {
     applyTheme(getPreferredTheme());
 
-    document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-        applyTheme(next);
-      });
+    if (themeToggleBound) return;
+    themeToggleBound = true;
+
+    document.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      if (!target.closest('[data-theme-toggle]')) return;
+      const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
     });
   };
 

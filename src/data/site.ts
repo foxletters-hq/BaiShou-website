@@ -127,7 +127,7 @@ export const NAV_SECTION_IDS = [
 ] as const;
 
 /** 跳转到独立二级页面（非首页锚点）的导航项 */
-export const ROUTE_NAV_IDS = ['faq'] as const;
+export const ROUTE_NAV_IDS = [] as const;
 
 /** 首页 snap 分屏导航点（不含独立页面） */
 export const SNAP_SECTION_IDS = [

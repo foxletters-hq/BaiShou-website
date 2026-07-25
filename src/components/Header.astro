@@ -1,5 +1,5 @@
 ---
-import { NAV_SECTION_IDS, SNAP_SECTION_IDS, navHref } from "../data/site";
+import { SNAP_SECTION_IDS, navHref } from "../data/site";
 import LanguageSwitcher from "./LanguageSwitcher.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 
@@ -8,9 +8,13 @@ export interface Props {
 }
 
 const { snapDots = true } = Astro.props;
+
+const path = Astro.url.pathname.replace(/\/+$/, "") || "/";
+const isDocs = /(^|\/)docs(\/|$)/.test(path);
+const isHome = path === "/";
 ---
 
-<header class="site-header">
+<header class="site-header" transition:persist={isDocs ? "site-header" : undefined}>
   <div class="container site-header-shell">
     <div class="header-inner">
       <a href="/" class="brand">
@@ -32,27 +36,30 @@ const { snapDots = true } = Astro.props;
       </a>
 
       <nav
-        class="header-nav header-nav--desktop"
+        class="header-nav"
         aria-label="页面导航"
         data-i18n-aria-label="a11y.mainNav"
       >
-        {
-          NAV_SECTION_IDS.map((id) => (
-            <a href={navHref(id)} data-nav-link={id} data-i18n={`nav.${id}`}>
-              {id}
-            </a>
-          ))
-        }
+        <a
+          href="/"
+          class:list={[{ "is-active": isHome }]}
+          data-i18n="nav.home"
+          aria-current={isHome ? "page" : undefined}
+        >
+          官网
+        </a>
+        <a
+          href="/docs/"
+          class:list={[{ "is-active": isDocs }]}
+          data-i18n="nav.docsAction"
+          data-docs-link
+          aria-current={isDocs ? "page" : undefined}
+        >
+          文档
+        </a>
       </nav>
 
       <div class="header-actions">
-        <a
-          href="/faq"
-          class="header-faq-link"
-          data-i18n="nav.faqAction"
-        >
-          FAQ
-        </a>
         <button type="button" class="btn btn-primary header-dl-btn" data-dl-open data-i18n="download.button">
           下载
         </button>

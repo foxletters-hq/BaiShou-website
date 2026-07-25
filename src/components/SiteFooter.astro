@@ -1,7 +1,8 @@
 ---
 import BilibiliIcon from './BilibiliIcon.astro';
+import GithubIcon from './GithubIcon.astro';
 import QqIcon from './QqIcon.astro';
-import { BILIBILI_URL } from '../data/site';
+import { BILIBILI_URL, REPO_URL } from '../data/site';
 ---
 
 <footer class="site-footer">
@@ -26,6 +27,16 @@ import { BILIBILI_URL } from '../data/site';
       >
         <BilibiliIcon size={18} />
         <span data-i18n="footer.bilibili">哔哩哔哩</span>
+      </a>
+
+      <a
+        href={REPO_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="footer-link footer-link-github"
+      >
+        <GithubIcon size={18} />
+        <span data-i18n="footer.github">GitHub</span>
       </a>
     </div>
   </div>
