@@ -8,12 +8,13 @@ const ja: Messages = {
   },
   brand: { name: '白守', suffix: ' · Foxletters' },
   nav: {
+    home: '公式サイト',
     problem: '課題',
     features: '機能',
     vision: 'ナレッジ',
     principles: '理念',
     people: 'メンバー',
-    faqAction: 'FAQ',
+    docsAction: 'ドキュメント',
   },
   a11y: {
     mainNav: 'ページナビゲーション',
@@ -160,6 +161,7 @@ const ja: Messages = {
   footer: {
     bilibili: 'ビリビリ',
     joinCommunity: 'コミュニティに参加',
+    github: 'GitHub',
   },
   faq: {
     eyebrow: 'FAQ',

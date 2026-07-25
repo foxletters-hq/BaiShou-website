@@ -8,12 +8,13 @@ const en: Messages = {
   },
   brand: { name: 'BaiShou', suffix: ' · Foxletters' },
   nav: {
+    home: 'Home',
     problem: 'Problem',
     features: 'Features',
     vision: 'Knowledge',
     principles: 'Principles',
     people: 'People',
-    faqAction: 'FAQ',
+    docsAction: 'Docs',
   },
   a11y: {
     mainNav: 'Page navigation',
@@ -160,6 +161,7 @@ const en: Messages = {
   footer: {
     bilibili: 'Bilibili',
     joinCommunity: 'Join Community',
+    github: 'GitHub',
   },
   faq: {
     eyebrow: 'FAQ',

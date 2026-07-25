@@ -8,12 +8,13 @@ const zhCN: Messages = {
   },
   brand: { name: '白守', suffix: ' · Foxletters' },
   nav: {
+    home: '官网',
     problem: '问题',
     features: '功能',
     vision: '知识库',
     principles: '理念',
     people: '成员',
-    faqAction: 'FAQ',
+    docsAction: '文档',
   },
   a11y: {
     mainNav: '页面导航',
@@ -160,6 +161,7 @@ const zhCN: Messages = {
   footer: {
     bilibili: '哔哩哔哩',
     joinCommunity: '加入社群',
+    github: 'GitHub',
   },
   faq: {
     eyebrow: 'FAQ',

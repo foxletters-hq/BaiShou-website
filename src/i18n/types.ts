@@ -10,12 +10,13 @@ export interface Messages {
   meta: { title: string; description: string };
   brand: { name: string; suffix: string };
   nav: {
+    home: string;
     problem: string;
     features: string;
     vision: string;
     principles: string;
     people: string;
-    faqAction: string;
+    docsAction: string;
   };
   a11y: {
     mainNav: string;
@@ -100,6 +101,7 @@ export interface Messages {
   footer: {
     bilibili: string;
     joinCommunity: string;
+    github: string;
   };
   community: {
     eyebrow: string;
