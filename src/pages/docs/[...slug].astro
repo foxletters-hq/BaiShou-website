@@ -1,0 +1,32 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import { getDocEntry, pagerFor, allDocSlugs } from '../../lib/docs';
+import type { DocsLocale } from '../../data/docs-nav';
+
+export function getStaticPaths() {
+  return allDocSlugs().map((slug) => ({
+    params: { slug },
+    props: { locale: 'zh-CN' as DocsLocale, slug },
+  }));
+}
+
+const { locale, slug } = Astro.props as { locale: DocsLocale; slug: string };
+const entry = await getDocEntry(locale, slug);
+if (!entry) {
+  return Astro.redirect('/docs/');
+}
+const { Content, headings } = await entry.render();
+const { prev, next } = pagerFor(locale, slug);
+---
+
+<DocsLayout
+  locale={locale}
+  title={entry.data.title}
+  description={entry.data.description}
+  slug={slug}
+  headings={headings}
+  prev={prev}
+  next={next}
+>
+  <Content />
+</DocsLayout>

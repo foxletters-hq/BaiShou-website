@@ -1,0 +1,15 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import DocsHome from '../../components/docs/DocsHome.astro';
+
+const locale = 'zh-CN' as const;
+---
+
+<DocsLayout
+  locale={locale}
+  title="白守使用文档"
+  description="白守官方使用文档：安装、日记、回忆、AI 伙伴、同步与备份。"
+  slug=""
+>
+  <DocsHome slot="hero" locale={locale} />
+</DocsLayout>

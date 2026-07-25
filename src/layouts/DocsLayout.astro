@@ -1,0 +1,332 @@
+---
+import Layout from './Layout.astro';
+import {
+  DOCS_SIDEBAR,
+  DOCS_UI,
+  docsHref,
+  type DocsLocale,
+} from '../data/docs-nav';
+import '../styles/docs.css';
+
+export interface TocItem {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+export interface PagerLink {
+  href: string;
+  title: string;
+}
+
+interface Props {
+  locale: DocsLocale;
+  title: string;
+  description?: string;
+  /** 当前页 slug；首页为空字符串 */
+  slug: string;
+  headings?: TocItem[];
+  prev?: PagerLink | null;
+  next?: PagerLink | null;
+}
+
+const {
+  locale,
+  title,
+  description,
+  slug,
+  headings = [],
+  prev = null,
+  next = null,
+} = Astro.props;
+
+const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const pageTitle =
+  slug === ''
+    ? title
+    : `${title} | ${
+        locale === 'en'
+          ? 'BaiShou Docs'
+          : locale === 'ja'
+            ? '白守ドキュメント'
+            : locale === 'zh-TW'
+              ? '白守使用文件'
+              : '白守使用文档'
+      }`;
+---
+
+<Layout title={pageTitle} description={description} snapDots={false} plainBg>
+  <div
+    class="docs-shell"
+    data-docs-root
+    data-docs-locale={locale}
+    data-docs-slug={slug}
+    data-docs-title={pageTitle}
+  >
+    <aside
+      class="docs-sidebar"
+      aria-label={DOCS_UI.menu[locale]}
+      transition:persist="docs-sidebar"
+    >
+      <a
+        class="docs-nav__link docs-sidebar__home"
+        href={docsHref(locale)}
+        aria-current={slug === '' ? 'page' : undefined}
+      >
+        <svg
+          class="docs-sidebar__home-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M12 7v14"></path>
+          <path
+            d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"
+          ></path>
+        </svg>
+        {DOCS_UI.home[locale]}
+      </a>
+
+      <nav class="docs-nav">
+        {
+          DOCS_SIDEBAR.map((group) => (
+            <div class="docs-nav__group">
+              <p class="docs-nav__label">{group.label[locale]}</p>
+              <ul class="docs-nav__list">
+                {group.items.map((item) => (
+                  <li>
+                    <a
+                      class="docs-nav__link"
+                      href={docsHref(locale, item.slug)}
+                      aria-current={slug === item.slug ? 'page' : undefined}
+                    >
+                      {item.label[locale]}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+        <div class="docs-nav__site">
+          <a class="docs-nav__link" href="/">{DOCS_UI.backSite[locale]}</a>
+        </div>
+      </nav>
+    </aside>
+
+    <div class="docs-main" transition:animate="fade">
+      <div class="docs-article">
+        <slot name="hero" />
+        {
+          !Astro.slots.has('hero') && (
+            <h1 class="docs-article__title">{title}</h1>
+          )
+        }
+        <div class="docs-prose">
+          <slot />
+        </div>
+
+        {
+          (prev || next) && (
+            <nav class="docs-pager" aria-label="Pagination">
+              {prev ? (
+                <a class="docs-pager__link docs-pager__link--prev" href={prev.href}>
+                  <span class="docs-pager__kicker">{DOCS_UI.prev[locale]}</span>
+                  <span class="docs-pager__title">{prev.title}</span>
+                </a>
+              ) : (
+                <span />
+              )}
+              {next && (
+                <a class="docs-pager__link docs-pager__link--next" href={next.href}>
+                  <span class="docs-pager__kicker">{DOCS_UI.next[locale]}</span>
+                  <span class="docs-pager__title">{next.title}</span>
+                </a>
+              )}
+            </nav>
+          )
+        }
+      </div>
+
+      {
+        toc.length > 0 && (
+          <aside class="docs-toc" aria-label={DOCS_UI.toc[locale]}>
+            <p class="docs-toc__title">{DOCS_UI.toc[locale]}</p>
+            <ul class="docs-toc__list">
+              {toc.map((item) => (
+                <li>
+                  <a
+                    class:list={[
+                      'docs-toc__link',
+                      item.depth === 3 && 'docs-toc__link--h3',
+                    ]}
+                    href={`#${item.slug}`}
+                  >
+                    {item.text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </aside>
+        )
+      }
+    </div>
+
+    <div class="docs-backdrop" data-docs-nav-close aria-hidden="true"></div>
+
+    <button
+      type="button"
+      class="docs-fab"
+      data-docs-nav-toggle
+      aria-label={DOCS_UI.menu[locale]}
+    >
+      <span class="docs-fab__icon" aria-hidden="true"></span>
+      <span>{DOCS_UI.menu[locale]}</span>
+    </button>
+  </div>
+</Layout>
+
+<script>
+  let docsUiBound = false;
+
+  function getDocsShell() {
+    return document.querySelector<HTMLElement>('[data-docs-root]');
+  }
+
+  function closeDocsNav(shell: HTMLElement) {
+    shell.removeAttribute('data-nav-open');
+    document.body.style.overflow = '';
+  }
+
+  function toggleDocsNav(shell: HTMLElement) {
+    if (shell.getAttribute('data-nav-open') === 'true') closeDocsNav(shell);
+    else {
+      shell.setAttribute('data-nav-open', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  /** 侧栏 persist 后 aria-current 不会自动更新，按当前 URL 同步 */
+  function syncDocsSidebarActive() {
+    const sidebar = document.querySelector<HTMLElement>('.docs-sidebar');
+    if (!sidebar) return;
+
+    const currentPath = window.location.pathname.replace(/\/+$/, '') || '/';
+
+    sidebar
+      .querySelectorAll<HTMLAnchorElement>('.docs-nav__link, .docs-sidebar__home')
+      .forEach((link) => {
+        const linkPath = new URL(link.href, window.location.origin).pathname.replace(
+          /\/+$/,
+          '',
+        ) || '/';
+        if (linkPath === currentPath) link.setAttribute('aria-current', 'page');
+        else link.removeAttribute('aria-current');
+      });
+  }
+
+  function scrollActiveSidebarLinkIntoView() {
+    const sidebar = document.querySelector<HTMLElement>('.docs-sidebar');
+    if (!sidebar) return;
+
+    const active = sidebar.querySelector<HTMLElement>(
+      '.docs-nav__link[aria-current="page"], .docs-sidebar__home[aria-current="page"]',
+    );
+    if (!active) return;
+
+    const sidebarRect = sidebar.getBoundingClientRect();
+    const activeRect = active.getBoundingClientRect();
+    const delta =
+      activeRect.top -
+      sidebarRect.top +
+      sidebar.scrollTop -
+      sidebar.clientHeight / 2 +
+      activeRect.height / 2;
+
+    sidebar.scrollTo({
+      top: Math.max(0, delta),
+      behavior: 'auto',
+    });
+  }
+
+  function bindDocsTocSmoothScroll() {
+    const toc = document.querySelector('.docs-toc');
+    if (!toc || toc.getAttribute('data-toc-bound') === 'true') return;
+    toc.setAttribute('data-toc-bound', 'true');
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    toc.querySelectorAll<HTMLAnchorElement>('a.docs-toc__link[href^="#"]').forEach((link) => {
+      link.addEventListener('click', (event) => {
+        const id = decodeURIComponent(link.hash.slice(1));
+        if (!id) return;
+        const target = document.getElementById(id);
+        if (!target) return;
+
+        event.preventDefault();
+        target.scrollIntoView({
+          behavior: reduceMotion ? 'auto' : 'smooth',
+          block: 'start',
+        });
+        history.replaceState(null, '', `#${id}`);
+
+        toc.querySelectorAll('.docs-toc__link[aria-current="true"]').forEach((el) => {
+          el.removeAttribute('aria-current');
+        });
+        link.setAttribute('aria-current', 'true');
+      });
+    });
+  }
+
+  function initDocsPage() {
+    syncDocsSidebarActive();
+    bindDocsTocSmoothScroll();
+    scrollActiveSidebarLinkIntoView();
+  }
+
+  if (!docsUiBound) {
+    docsUiBound = true;
+
+    document.addEventListener('click', (event) => {
+      const shell = getDocsShell();
+      if (!shell) return;
+
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      if (target.closest('[data-docs-nav-toggle]')) {
+        event.stopPropagation();
+        toggleDocsNav(shell);
+        return;
+      }
+
+      if (target.closest('[data-docs-nav-close]')) {
+        closeDocsNav(shell);
+        return;
+      }
+
+      if (target.closest('.docs-nav__link, .docs-sidebar__home')) {
+        closeDocsNav(shell);
+      }
+    });
+
+    const sidebar = document.querySelector<HTMLElement>('.docs-sidebar');
+    sidebar?.addEventListener(
+      'touchmove',
+      (event) => {
+        event.stopPropagation();
+      },
+      { passive: true },
+    );
+  }
+
+  initDocsPage();
+  document.addEventListener('astro:page-load', initDocsPage);
+</script>
