@@ -1,5 +1,7 @@
 ---
 import { PROBLEM_IDS } from '../data/site';
+import { t } from '../i18n';
+import zhCN from '../i18n/locales/zh-CN';
 ---
 
 <section id="problem" class="snap-page">
@@ -15,8 +17,12 @@ import { PROBLEM_IDS } from '../data/site';
     <div class="problem-grid reveal">
       {PROBLEM_IDS.map((id) => (
         <article class="card problem-card">
-          <h3 data-i18n={`problem.items.${id}.title`}>{id}</h3>
-          <p data-i18n={`problem.items.${id}.desc`}>{id}</p>
+          <h3 data-i18n={`problem.items.${id}.title`}>
+            {t(zhCN, `problem.items.${id}.title`)}
+          </h3>
+          <p data-i18n={`problem.items.${id}.desc`}>
+            {t(zhCN, `problem.items.${id}.desc`)}
+          </p>
         </article>
       ))}
     </div>

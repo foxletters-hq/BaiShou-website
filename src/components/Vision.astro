@@ -1,5 +1,7 @@
 ---
 import { VISION_COMPARE_IDS } from '../data/site';
+import { t } from '../i18n';
+import zhCN from '../i18n/locales/zh-CN';
 ---
 
 <section id="vision" class="snap-page">
@@ -29,8 +31,12 @@ import { VISION_COMPARE_IDS } from '../data/site';
       <div class="vision-compare-grid">
         {VISION_COMPARE_IDS.map((id) => (
           <article class="card vision-compare-card">
-            <h3 data-i18n={`vision.compare.${id}.title`}>{id}</h3>
-            <p data-i18n={`vision.compare.${id}.desc`}>{id}</p>
+            <h3 data-i18n={`vision.compare.${id}.title`}>
+              {t(zhCN, `vision.compare.${id}.title`)}
+            </h3>
+            <p data-i18n={`vision.compare.${id}.desc`}>
+              {t(zhCN, `vision.compare.${id}.desc`)}
+            </p>
           </article>
         ))}
       </div>

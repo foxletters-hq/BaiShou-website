@@ -1,5 +1,7 @@
 ---
 import { SNAP_SECTION_IDS, navHref } from "../data/site";
+import { t } from "../i18n";
+import zhCN from "../i18n/locales/zh-CN";
 import LanguageSwitcher from "./LanguageSwitcher.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 
@@ -77,22 +79,23 @@ const isHome = path === "/";
       aria-label="页面分屏导航"
       data-i18n-aria-label="a11y.snapNav"
     >
-      {SNAP_SECTION_IDS.map((id) => (
-        <a
-          href={navHref(id)}
-          class="snap-dot"
-          data-snap-dot={id}
-          data-i18n-aria-label={id === "hero" ? "brand.name" : `nav.${id}`}
-          aria-label={id}
-        >
-          <span
-            class="snap-dot-label"
-            data-i18n={id === "hero" ? "brand.name" : `nav.${id}`}
+      {SNAP_SECTION_IDS.map((id) => {
+        const labelKey = id === "hero" ? "brand.name" : `nav.${id}`;
+        const label = t(zhCN, labelKey);
+        return (
+          <a
+            href={navHref(id)}
+            class="snap-dot"
+            data-snap-dot={id}
+            data-i18n-aria-label={labelKey}
+            aria-label={label}
           >
-            {id}
-          </span>
-        </a>
-      ))}
+            <span class="snap-dot-label" data-i18n={labelKey}>
+              {label}
+            </span>
+          </a>
+        );
+      })}
     </nav>
   )
 }

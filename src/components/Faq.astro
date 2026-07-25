@@ -1,5 +1,7 @@
 ---
 import { FAQ_IDS } from '../data/site';
+import { t } from '../i18n';
+import zhCN from '../i18n/locales/zh-CN';
 
 export interface Props {
   /** 独立页面模式：禁用 snap-page 全屏布局，使用普通 section */
@@ -26,13 +28,17 @@ const innerClass = standalone ? 'faq-section-inner' : 'snap-page-inner';
       {FAQ_IDS.map((id) => (
         <details class="faq-item card">
           <summary class="faq-q">
-            <span data-i18n={`faq.items.${id}.q`}>{id}</span>
+            <span data-i18n={`faq.items.${id}.q`}>
+              {t(zhCN, `faq.items.${id}.q`)}
+            </span>
             <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="m6 9 6 6 6-6"></path>
             </svg>
           </summary>
           <div class="faq-a">
-            <p data-i18n={`faq.items.${id}.a`}>{id}</p>
+            <p data-i18n={`faq.items.${id}.a`}>
+              {t(zhCN, `faq.items.${id}.a`)}
+            </p>
           </div>
         </details>
       ))}

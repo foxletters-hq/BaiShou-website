@@ -1,5 +1,7 @@
 ---
 import { FOUNDER, COLLABORATORS, CONTRIBUTORS_URL } from '../data/site';
+import { t } from '../i18n';
+import zhCN from '../i18n/locales/zh-CN';
 ---
 
 <section id="people" class="snap-page snap-page-footer">
@@ -84,7 +86,7 @@ import { FOUNDER, COLLABORATORS, CONTRIBUTORS_URL } from '../data/site';
             <div class="team-info">
               <h3>{person.name}</h3>
               <p class="team-bio" data-i18n={`people.collaborators.${person.id}.bio`}>
-                bio
+                {t(zhCN, `people.collaborators.${person.id}.bio`)}
               </p>
               <p class="team-handle">@{person.github.split('/').pop()}</p>
             </div>
