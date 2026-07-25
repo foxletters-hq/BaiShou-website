@@ -1,0 +1,37 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import type { DocsLocale } from '../../../data/docs-nav';
+import DocsHome from '../../../components/docs/DocsHome.astro';
+
+export function getStaticPaths() {
+  return (['en', 'zh-tw', 'ja'] as const).map((localeParam) => ({
+    params: { locale: localeParam },
+  }));
+}
+
+const localeParam = Astro.params.locale!;
+const locale: DocsLocale =
+  localeParam === 'zh-tw' ? 'zh-TW' : (localeParam as DocsLocale);
+
+const titles: Record<DocsLocale, string> = {
+  'zh-CN': '白守使用文档',
+  'zh-TW': '白守使用文件',
+  en: 'BaiShou Docs',
+  ja: '白守ドキュメント',
+};
+const descriptions: Record<DocsLocale, string> = {
+  'zh-CN': '白守官方使用文档：安装、日记、回忆、AI 伙伴、同步与备份。',
+  'zh-TW': '白守官方使用文件：安裝、日記、回憶、AI 夥伴、同步與備份。',
+  en: 'Official BaiShou docs — install, diary, memory, companions, sync & backup.',
+  ja: '白守公式ドキュメント：インストール、日記、回憶、AI パートナー、同期とバックアップ。',
+};
+---
+
+<DocsLayout
+  locale={locale}
+  title={titles[locale]}
+  description={descriptions[locale]}
+  slug=""
+>
+  <DocsHome slot="hero" locale={locale} />
+</DocsLayout>
