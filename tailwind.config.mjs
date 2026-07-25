@@ -18,8 +18,8 @@ export default {
         textMuted: '#6b7488',
       },
       fontFamily: {
-        sans: ['"Noto Sans SC"', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
-        display: ['"Noto Sans SC"', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+        sans: ['"Noto Sans SC"', '"Source Han Sans SC"', '"Microsoft YaHei"', '"PingFang SC"', 'sans-serif'],
+        display: ['"Noto Sans SC"', '"Source Han Sans SC"', '"Microsoft YaHei"', '"PingFang SC"', 'sans-serif'],
       },
       borderRadius: {
         card: '14px',
