@@ -41,9 +41,9 @@ npm run preview
 
 ## 部署
 
-推送到 `main` 后，GitHub Actions 会构建静态站点，并通过 **SSH + rsync** 同步到 VPS（Nginx 托管 `dist/`）。
+推送到 `main` 分支后，GitHub Actions 会自动构建并部署到 GitHub Pages（自定义域名 `baishou.foxletters.com`）。
 
-一次性配置（密钥、Secrets、VPS 初始化）见 [deploy/README.md](./deploy/README.md)。
+可选：在 VPS 上执行 [deploy/update-vps-mirror.sh](./deploy/update-vps-mirror.sh) 同步一份静态镜像到 1Panel（见 [deploy/README.md](./deploy/README.md)）。
 
 ## 贡献
 

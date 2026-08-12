@@ -12,7 +12,7 @@ node_modules/
 .env.production
 .env.development
 
-# VPS deploy private keys (never commit)
+# local deploy keys (never commit)
 deploy/keys/
 
 # logs

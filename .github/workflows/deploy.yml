@@ -1,21 +1,26 @@
-name: Deploy to VPS
+name: Deploy to GitHub Pages
 
 on:
+  # 推送到 main 分支时触发
   push:
     branches: [main]
+  # 支持手动触发
   workflow_dispatch:
 
+# 允许 GITHUB_TOKEN 部署 Pages
 permissions:
   contents: read
+  pages: write
+  id-token: write
 
+# 同一时间只跑一个部署
 concurrency:
-  group: vps-deploy
+  group: pages
   cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
-    # 在 VPS 上的 self-hosted runner 执行，避免跨境 SSH/rsync
-    runs-on: [self-hosted, linux, x64, baishou-website]
+  build:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -36,13 +41,18 @@ jobs:
           PUBLIC_UMAMI_WEBSITE_ID: ${{ secrets.PUBLIC_UMAMI_WEBSITE_ID || vars.PUBLIC_UMAMI_WEBSITE_ID }}
         run: npm run build
 
-      - name: Publish to site directory
-        env:
-          SITE_PATH: ${{ vars.SITE_PATH || '/opt/1panel/www/sites/foxletters.com/index' }}
-        run: |
-          if [ ! -d "$SITE_PATH" ]; then
-            echo "::error::站点目录不存在: $SITE_PATH"
-            exit 1
-          fi
-          rsync -a --delete dist/ "${SITE_PATH}/"
-          echo "已发布到 ${SITE_PATH}"
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
