@@ -12,6 +12,9 @@ node_modules/
 .env.production
 .env.development
 
+# VPS deploy private keys (never commit)
+deploy/keys/
+
 # logs
 npm-debug.log*
 yarn-debug.log*
