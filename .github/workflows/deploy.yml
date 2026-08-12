@@ -60,7 +60,15 @@ jobs:
             echo "::error::缺少 VPS_HOST / VPS_USER（Secrets 或 Variables）"
             exit 1
           fi
-          rsync -az --delete \
-            -e "ssh -i ~/.ssh/deploy_key -p ${VPS_PORT} -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new" \
+
+          SSH_OPTS="-i ~/.ssh/deploy_key -p ${VPS_PORT} -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=accept-new -o ConnectTimeout=15 -o ServerAliveInterval=5 -o ServerAliveCountMax=3"
+
+          echo "测试 SSH: ${VPS_USER}@${VPS_HOST}:${VPS_PORT}"
+          if ! ssh $SSH_OPTS "${VPS_USER}@${VPS_HOST}" "test -d '${VPS_PATH}' && echo ok"; then
+            echo "::error::无法 SSH 到 VPS。请检查：1) VPS_HOST 是否为公网 IP 2) 云安全组是否放行 22 3) deploy 用户与公钥是否正确"
+            exit 1
+          fi
+
+          rsync -az --delete -e "ssh $SSH_OPTS" \
             dist/ "${VPS_USER}@${VPS_HOST}:${VPS_PATH}/"
           echo "已同步到 ${VPS_USER}@${VPS_HOST}:${VPS_PATH}/"
