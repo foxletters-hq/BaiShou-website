@@ -1,49 +1,50 @@
-# VPS 部署说明（1Panel + OpenResty）
+# Self-hosted Runner（1Panel / VPS）
 
-官网为 Astro 静态站。推送到 `main` 后，GitHub Actions 构建 `dist/`，再用 **SSH 密钥 + rsync** 同步到 1Panel 网站目录。不使用密码 / FTP。
+本仓库部署使用 **VPS 上的 GitHub Actions Runner** 在本地构建并发布，避免海外 Runner 跨境 SSH。
 
-**1Panel 站点目录（当前约定）：**  
-`/opt/1panel/www/sites/foxletters.com/index`
+## 流程
 
-VPS 上**不需要** git 仓库；Web 服务由 1Panel 的 OpenResty 提供，不要再启用系统 nginx。
+1. `git push` 到 `main`
+2. GitHub 把任务派给已在线的 self-hosted runner
+3. VPS 上执行：`checkout` → `npm ci` → `npm run build` → 同步到站点目录
 
-## 一次性准备
+默认站点目录：`/opt/1panel/www/sites/foxletters.com/index`  
+可用 Variable `SITE_PATH` 覆盖。
 
-### 1. 本机密钥（若已生成可跳过）
+## Runner 要求
 
-```bash
-./deploy/generate-deploy-key.sh
-```
-
-- 私钥 → GitHub Secret `VPS_SSH_KEY`
-- 公钥 → VPS 用户 `deploy` 的 `authorized_keys`
-
-### 2. VPS：部署用户与目录写权限
-
-1Panel 里已建好网站后，在服务器执行（公钥路径按实际修改）：
+- 标签包含：`self-hosted`、`linux`、`x64`、`baishou-website`
+- 进程用户需能写入站点目录（当前为 `deploy`）
+- 建议用 systemd 保活（需 root 一次）：
 
 ```bash
-# 创建 deploy 用户并把公钥写上（也可用仓库里的 setup-vps.sh）
-sudo bash setup-vps.sh /path/to/github_actions_deploy.pub
-
-# 确保 CI 能写入 1Panel 目录
-sudo chown -R deploy:deploy /opt/1panel/www/sites/foxletters.com/index
+cd /home/deploy/actions-runner
+sudo ./svc.sh install deploy
+sudo ./svc.sh start
 ```
 
-若 1Panel 对目录所有者有要求，也可把 `deploy` 加进对应组，或改用有写权限的用户作为 `VPS_USER`。
+若暂时无 sudo，可用（登出可能中断，仅作临时）：
 
-### 3. GitHub Secrets
+```bash
+cd ~/actions-runner && nohup ./run.sh > runner.out 2>&1 &
+```
 
-| 名称 | 必填 | 说明 |
-|------|------|------|
-| `VPS_SSH_KEY` | 是 | 部署私钥全文 |
-| `VPS_HOST` | 是 | VPS IP |
-| `VPS_USER` | 是 | 通常 `deploy` |
-| `VPS_PORT` | 否 | 默认 `22` |
-| `VPS_PATH` | 否 | 默认已是 `/opt/1panel/www/sites/foxletters.com/index` |
+## 重新注册
 
-然后推 `main`，或手动跑 **Deploy to VPS**。
+```bash
+# 在有 GitHub 网络的机器上下载对应版本 tar，scp 到 VPS 后：
+cd ~/actions-runner
+./config.sh remove --token <registration-token>   # 若仍注册着
+# 再解压新包后：
+./config.sh --url https://github.com/foxletters-hq/BaiShou-website \
+  --token <registration-token> \
+  --name baishou-website-vps \
+  --labels baishou-website \
+  --work _work --unattended --replace
+```
 
-## HTTPS / 域名
+Registration token：仓库 Settings → Actions → Runners → New self-hosted runner，或：
 
-在 **1Panel → 网站** 里绑定域名并申请证书即可，不必手写 OpenResty 配置。
+```bash
+gh api -X POST repos/foxletters-hq/BaiShou-website/actions/runners/registration-token --jq .token
+```

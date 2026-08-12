@@ -14,7 +14,8 @@ concurrency:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    # 在 VPS 上的 self-hosted runner 执行，避免跨境 SSH/rsync
+    runs-on: [self-hosted, linux, x64, baishou-website]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -35,40 +36,13 @@ jobs:
           PUBLIC_UMAMI_WEBSITE_ID: ${{ secrets.PUBLIC_UMAMI_WEBSITE_ID || vars.PUBLIC_UMAMI_WEBSITE_ID }}
         run: npm run build
 
-      - name: Setup SSH key
+      - name: Publish to site directory
         env:
-          VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+          SITE_PATH: ${{ vars.SITE_PATH || '/opt/1panel/www/sites/foxletters.com/index' }}
         run: |
-          if [ -z "$VPS_SSH_KEY" ]; then
-            echo "::error::缺少 Secret: VPS_SSH_KEY"
+          if [ ! -d "$SITE_PATH" ]; then
+            echo "::error::站点目录不存在: $SITE_PATH"
             exit 1
           fi
-          mkdir -p ~/.ssh
-          printf '%s\n' "$VPS_SSH_KEY" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -p "${{ secrets.VPS_PORT || vars.VPS_PORT || 22 }}" \
-            "${{ secrets.VPS_HOST || vars.VPS_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null || true
-
-      - name: Deploy dist to VPS
-        env:
-          VPS_HOST: ${{ secrets.VPS_HOST || vars.VPS_HOST }}
-          VPS_USER: ${{ secrets.VPS_USER || vars.VPS_USER }}
-          VPS_PORT: ${{ secrets.VPS_PORT || vars.VPS_PORT || 22 }}
-          VPS_PATH: ${{ secrets.VPS_PATH || vars.VPS_PATH || '/opt/1panel/www/sites/foxletters.com/index' }}
-        run: |
-          if [ -z "$VPS_HOST" ] || [ -z "$VPS_USER" ]; then
-            echo "::error::缺少 VPS_HOST / VPS_USER（Secrets 或 Variables）"
-            exit 1
-          fi
-
-          SSH_OPTS="-i ~/.ssh/deploy_key -p ${VPS_PORT} -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=accept-new -o ConnectTimeout=15 -o ServerAliveInterval=5 -o ServerAliveCountMax=3"
-
-          echo "测试 SSH: ${VPS_USER}@${VPS_HOST}:${VPS_PORT}"
-          if ! ssh $SSH_OPTS "${VPS_USER}@${VPS_HOST}" "test -d '${VPS_PATH}' && echo ok"; then
-            echo "::error::无法 SSH 到 VPS。请检查：1) VPS_HOST 是否为公网 IP 2) 云安全组是否放行 22 3) deploy 用户与公钥是否正确"
-            exit 1
-          fi
-
-          rsync -az --delete -e "ssh $SSH_OPTS" \
-            dist/ "${VPS_USER}@${VPS_HOST}:${VPS_PATH}/"
-          echo "已同步到 ${VPS_USER}@${VPS_HOST}:${VPS_PATH}/"
+          rsync -a --delete dist/ "${SITE_PATH}/"
+          echo "已发布到 ${SITE_PATH}"
