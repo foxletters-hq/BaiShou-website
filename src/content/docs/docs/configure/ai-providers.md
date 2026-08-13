@@ -5,6 +5,10 @@ description: 供应商管理、全局默认模型（对话 / 总结 / Embedding 
 
 白守不托管你的 API Key，密钥只存在本地设置里。如果开了增量同步，注意设置目录可能会一起传上云。
 
+:::tip[想跟着界面点一遍]
+见 [十分钟聊起来](/docs/getting-started/quick-start/)。本页是对照说明。
+:::
+
 ## 配置顺序
 
 1. 打开 **设置 → 供应商管理**，添加供应商。OpenAI、Gemini、DeepSeek、Anthropic 以及各种 OpenAI 兼容接口都可以。

@@ -3,7 +3,9 @@ title: MCP 服务
 description: 开启白守的 MCP 服务，让 Cursor、Claude Desktop 等外部客户端调用你的日记与记忆工具。
 ---
 
-白守可以在本机启动一个 MCP 服务，把日记、回忆、记忆检索这些工具暴露出去，让 Cursor、Claude Desktop 这类支持 MCP 的客户端直接调用。
+白守可以在本机启动一个 MCP 服务，把日记、回忆、记忆检索这些工具暴露出去，让支持 MCP 的外部客户端直接调用。
+
+跟着界面点一遍见 [开启 MCP](/docs/third-party/enable-mcp/)。本页是地址、工具清单和排障对照。
 
 方向要先搞清：**白守是 MCP 服务端**。它把自己的能力提供给外部 AI，不是用来接入别人的 MCP 服务器。所以你在白守里找不到填 `mcpServers` 的地方，那是客户端侧的事。
 
@@ -27,7 +29,7 @@ description: 开启白守的 MCP 服务，让 Cursor、Claude Desktop 等外部�
 
 ## 在客户端里配
 
-以 Cursor 为例，编辑 `~/.cursor/mcp.json`（Windows 是 `%USERPROFILE%\.cursor\mcp.json`）：
+以 Cursor 为例，编辑 `~/.cursor/mcp.json`（Windows 是 `%USERPROFILE%\.cursor\mcp.json`）。完整点击步骤见 [接到 Cursor](/docs/third-party/cursor/)。
 
 ```json
 {

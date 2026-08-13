@@ -202,13 +202,22 @@ html:has([data-docs-root]) {
   display: block;
   width: auto;
   max-width: 100%;
-  max-height: min(72vh, 640px);
+  max-height: min(80vh, 720px);
   height: auto;
   margin: 1.1rem auto;
   border-radius: 12px;
   border: 1px solid var(--docs-border);
   object-fit: contain;
   background: var(--surface-bg);
+}
+
+.docs-prose p:has(> img) + p:has(> em:only-child) {
+  margin-top: -0.45rem;
+  margin-bottom: 1.25rem;
+  text-align: center;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
 }
 
 .docs-prose a {

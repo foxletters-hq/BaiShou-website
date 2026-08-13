@@ -51,15 +51,80 @@ export const DOCS_SIDEBAR: DocsNavGroup[] = [
           ja: '初回起動',
         },
       },
+      {
+        slug: 'getting-started/quick-start',
+        label: {
+          'zh-CN': '十分钟聊起来',
+          'zh-TW': '十分鐘聊起來',
+          en: 'Chat in ten minutes',
+          ja: '10 分で話し始める',
+        },
+      },
+    ],
+  },
+  {
+    id: 'third-party',
+    label: {
+      'zh-CN': '接入第三方平台',
+      'zh-TW': '接入第三方平台',
+      en: 'Connect other apps',
+      ja: '他のアプリと連携',
+    },
+    items: [
+      {
+        slug: 'third-party/enable-mcp',
+        label: {
+          'zh-CN': '开启 MCP',
+          'zh-TW': '開啟 MCP',
+          en: 'Turn on MCP',
+          ja: 'MCP をオンにする',
+        },
+      },
+      {
+        slug: 'third-party/cursor',
+        label: {
+          'zh-CN': 'Cursor',
+          'zh-TW': 'Cursor',
+          en: 'Cursor',
+          ja: 'Cursor',
+        },
+      },
+      {
+        slug: 'third-party/chatgpt',
+        label: {
+          'zh-CN': 'ChatGPT',
+          'zh-TW': 'ChatGPT',
+          en: 'ChatGPT',
+          ja: 'ChatGPT',
+        },
+      },
+      {
+        slug: 'third-party/cherry-studio',
+        label: {
+          'zh-CN': 'Cherry Studio',
+          'zh-TW': 'Cherry Studio',
+          en: 'Cherry Studio',
+          ja: 'Cherry Studio',
+        },
+      },
+      {
+        slug: 'third-party/workbuddy',
+        label: {
+          'zh-CN': 'WorkBuddy',
+          'zh-TW': 'WorkBuddy',
+          en: 'WorkBuddy',
+          ja: 'WorkBuddy',
+        },
+      },
     ],
   },
   {
     id: 'basics',
     label: {
-      'zh-CN': '基础使用',
-      'zh-TW': '基礎使用',
-      en: 'Basics',
-      ja: '基本操作',
+      'zh-CN': '概念讲解',
+      'zh-TW': '概念講解',
+      en: 'Concepts',
+      ja: '概念',
     },
     items: [
       {
