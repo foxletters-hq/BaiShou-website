@@ -38,3 +38,5 @@ description: 白守の対応プラットフォーム、ダウンロード方法�
 現行リポジトリは https://github.com/foxletters-hq/BaiShou-Next です。旧 Flutter リポジトリはメンテナンスを終了しており、新機能とリリースは BaiShou-Next でのみ行われます。
 
 デスクトップとモバイルのバージョン番号は必ずしも同期しません（たとえば desktop 1.x と mobile 1.x はそれぞれ独立して進みます）。各端の最新 Release を基準にしてください。
+
+インストール後は [初回起動](/ja/docs/getting-started/first-launch/) を済ませ、[10 分で話し始める](/ja/docs/getting-started/quick-start/) でモデルと RAG を入れてください。

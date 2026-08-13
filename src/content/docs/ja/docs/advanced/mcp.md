@@ -3,7 +3,9 @@ title: MCP サーバー
 description: 白守の MCP サービスを有効にし、Cursor や Claude Desktop などの外部クライアントから日記と記憶のツールを呼び出す。
 ---
 
-白守はローカルで MCP サービスを起動し、日記、思い出、記憶検索といったツールを外部に公開できます。Cursor や Claude Desktop のような MCP 対応クライアントから直接呼び出せます。
+白守はローカルで MCP サービスを起動し、日記、思い出、記憶検索といったツールを外部に公開できます。MCP 対応クライアントから直接呼び出せます。
+
+画面を追いながら一度やるなら [MCP をオンにする](/ja/docs/third-party/enable-mcp/) です。このページは URL、ツール一覧、トラブルシュートの対照です。
 
 まず向きを押さえてください。**白守は MCP サーバー側です**。自分の能力を外部の AI に提供する側であり、他人の MCP サーバーに接続するためのものではありません。ですから白守の中に `mcpServers` を書く場所はありません。それはクライアント側の仕事です。
 
@@ -27,7 +29,7 @@ description: 白守の MCP サービスを有効にし、Cursor や Claude Deskt
 
 ## クライアント側の設定
 
-Cursor を例にすると、`~/.cursor/mcp.json`（Windows は `%USERPROFILE%\.cursor\mcp.json`）を編集します。
+Cursor を例にすると、`~/.cursor/mcp.json`（Windows は `%USERPROFILE%\.cursor\mcp.json`）を編集します。クリック手順は [Cursor に接続する](/ja/docs/third-party/cursor/) です。
 
 ```json
 {
