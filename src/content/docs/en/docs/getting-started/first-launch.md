@@ -29,9 +29,9 @@ For the differences and the risks of each, see [Workspaces & data location](/en/
 
 ## Can I configure the API later?
 
-Yes — just skip it during onboarding. Later, go to **Settings → Provider management** to add a provider, then set each model type under **Global default models**.
+Yes — just skip it during onboarding. Afterwards, follow [Chat in ten minutes](/en/docs/getting-started/quick-start/) to configure a provider, pick models, and turn on RAG so you can start talking.
 
-Just know what you’re missing in the meantime: without a chat model, companions can’t talk to you; without an embedding model, automatic diary embedding and semantic search won’t work properly. See [AI providers & models](/en/docs/configure/ai-providers/).
+Just know what you’re missing in the meantime: without a chat model, companions can’t talk to you; without an embedding model, automatic diary embedding and semantic search won’t work properly. For the full reference, see [AI providers & models](/en/docs/configure/ai-providers/).
 
 ## Upgrading from the legacy version
 

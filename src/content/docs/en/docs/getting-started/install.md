@@ -38,3 +38,5 @@ If you want your data in an external directory that lines up with desktop (`BaiS
 The current repository is https://github.com/foxletters-hq/BaiShou-Next. The old Flutter repository is no longer maintained; new features and releases only happen in BaiShou-Next.
 
 Desktop and mobile version numbers don’t necessarily move in lockstep (desktop 1.x and mobile 1.x each go their own way). The latest Release for each platform is what counts.
+
+After install, go through [First launch](/en/docs/getting-started/first-launch/), then [Chat in ten minutes](/en/docs/getting-started/quick-start/) to set up models and RAG.

@@ -21,7 +21,7 @@ Note-taking tools lean toward organizing and writing; BaiShou leans toward long-
 
 ## How do I configure models?
 
-Add a provider under **Settings → Provider management**, then go to **Global default models** and assign the chat, summary, and embedding models. See [AI providers & models](/en/docs/configure/ai-providers/).
+To click through the UI once, see [Chat in ten minutes](/en/docs/getting-started/quick-start/). Add a provider under **Settings → Provider management**, then go to **Global default models** and assign the chat, summary, and embedding models. Reference: [AI providers & models](/en/docs/configure/ai-providers/).
 
 ## My companion doesn’t remember the diaries I wrote
 

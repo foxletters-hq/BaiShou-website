@@ -5,6 +5,10 @@ description: Provider management, global default models (chat / summary / Embedd
 
 BaiShou doesn’t host your API keys — they only live in your local settings. If you have incremental sync turned on, keep in mind that the settings directory may get uploaded along with everything else.
 
+:::tip[Want to click through the UI once]
+See [Chat in ten minutes](/en/docs/getting-started/quick-start/). This page is the reference.
+:::
+
 ## Setup order
 
 1. Open **Settings → Provider management** and add a provider. OpenAI, Gemini, DeepSeek, Anthropic, and all kinds of OpenAI-compatible endpoints work.

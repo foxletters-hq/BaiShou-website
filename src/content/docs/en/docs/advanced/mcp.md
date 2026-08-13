@@ -3,7 +3,9 @@ title: MCP server
 description: Turn on BaiShou’s MCP service so external clients like Cursor and Claude Desktop can call your diary and memory tools.
 ---
 
-BaiShou can start an MCP service on your machine that exposes its diary, memory, and retrieval tools, so MCP-capable clients like Cursor and Claude Desktop can call them directly.
+BaiShou can start an MCP service on your machine that exposes its diary, memory, and retrieval tools so MCP-capable clients can call them directly.
+
+To click through the UI, see [Turn on MCP](/en/docs/third-party/enable-mcp/). This page is the URL, tool list, and troubleshooting reference.
 
 Get the direction straight first: **BaiShou is the MCP server**. It offers its own capabilities to external AI; it isn’t a way to connect to someone else’s MCP servers. That’s why there’s nowhere in BaiShou to fill in `mcpServers` — that part lives on the client side.
 
@@ -27,7 +29,7 @@ BaiShou uses Streamable HTTP transport, and the path is `/mcp`. Desktop still ke
 
 ## Configuring your client
 
-Taking Cursor as the example, edit `~/.cursor/mcp.json` (on Windows, `%USERPROFILE%\.cursor\mcp.json`):
+Taking Cursor as the example, edit `~/.cursor/mcp.json` (on Windows, `%USERPROFILE%\.cursor\mcp.json`). For the click-through, see [Connect Cursor](/en/docs/third-party/cursor/).
 
 ```json
 {

@@ -5,6 +5,8 @@ description: Semantic search store, auto-embed, full scan, Embedding migration, 
 
 In the product this is called **RAG memory management**, and some screens label it “semantic search store.” Its job is to chunk and vectorize your diaries so companions can find specific passages by meaning.
 
+If this is your first setup, start with [Chat in ten minutes](/en/docs/getting-started/quick-start/) to confirm the switch is on, an embedding model is assigned, and diaries are in the index. This page covers parameters, migration, and troubleshooting.
+
 ## It isn’t the same thing as “Memories”
 
 | | Memory rings | RAG |

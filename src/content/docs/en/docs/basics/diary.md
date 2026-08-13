@@ -5,6 +5,8 @@ description: Create and edit diaries, weather/mood/tags, attachments, templates,
 
 The diary is BaiShou’s memory anchor. What your companions understand, the memory summaries, semantic search — all of it is built on what you keep writing. Without diaries, the whole memory system on top is empty.
 
+This page is what a diary *is*, and how it connects to AI. To go from an empty setup to a working chat, see [Chat in ten minutes](/en/docs/getting-started/quick-start/).
+
 Where to find it: “Diary” in the sidebar on desktop, “Diary” in the bottom bar on mobile.
 
 ## How to write
