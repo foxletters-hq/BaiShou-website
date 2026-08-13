@@ -38,3 +38,5 @@ description: 白守支援的平台、下載方式，以及升級注意事項。
 現行倉庫是 https://github.com/foxletters-hq/BaiShou-Next 。舊的 Flutter 倉庫已經停止維護，新功能和發版都只在 BaiShou-Next 進行。
 
 桌面端和行動端的版本號不一定同步（比如 desktop 1.x 和 mobile 1.x 各走各的），以各端最新 Release 為準。
+
+裝完後走 [首次啟動](/zh-tw/docs/getting-started/first-launch/)，再按 [十分鐘聊起來](/zh-tw/docs/getting-started/quick-start/) 設定模型和 RAG。

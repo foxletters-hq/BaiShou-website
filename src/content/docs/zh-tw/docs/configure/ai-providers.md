@@ -5,6 +5,10 @@ description: 供應商管理、全域預設模型（對話 / 總結 / Embedding 
 
 白守不託管你的 API Key，金鑰只存在本地設定裡。如果開了增量同步，注意設定目錄可能會一起傳上雲端。
 
+:::tip[想跟著介面點一遍]
+見 [十分鐘聊起來](/zh-tw/docs/getting-started/quick-start/)。本頁是對照說明。
+:::
+
 ## 設定順序
 
 1. 打開 **設定 → 供應商管理**，新增供應商。OpenAI、Gemini、DeepSeek、Anthropic 以及各種 OpenAI 相容介面都可以。

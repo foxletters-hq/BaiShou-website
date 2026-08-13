@@ -21,7 +21,7 @@ description: 白守使用中的常見問題：免費、隱私、平台、模型�
 
 ## 模型怎麼設定
 
-**設定 → 供應商管理** 新增供應商，再到 **全域預設模型** 分別指定對話、總結、嵌入模型。詳見 [設定 AI 供應商與模型](/zh-tw/docs/configure/ai-providers/)。
+跟著介面點一遍見 [十分鐘聊起來](/zh-tw/docs/getting-started/quick-start/)。**設定 → 供應商管理** 新增供應商，再到 **全域預設模型** 分別指定對話、總結、嵌入模型。對照說明見 [設定 AI 供應商與模型](/zh-tw/docs/configure/ai-providers/)。
 
 ## 夥伴不記得我寫過的日記
 
