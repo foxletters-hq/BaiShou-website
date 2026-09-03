@@ -1393,7 +1393,15 @@ h1, h2, h3, h4 {
 
 .footer-meta {
   display: flex;
-  align-items: baseline;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  min-width: 0;
+}
+
+.footer-filings {
+  display: flex;
+  align-items: center;
   flex-wrap: wrap;
   gap: 8px 12px;
   min-width: 0;
@@ -1409,6 +1417,19 @@ h1, h2, h3, h4 {
 
 .footer-beian {
   text-decoration: none;
+}
+
+.footer-beian-mps {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.footer-beian-icon {
+  width: 16px;
+  height: 16px;
+  display: block;
+  flex-shrink: 0;
 }
 
 .footer-beian:hover {
@@ -1477,9 +1498,21 @@ h1, h2, h3, h4 {
   font-size: 14px;
 }
 
+@media (max-width: 900px) {
+  :root {
+    --footer-height: 72px;
+  }
+
+  .footer-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+}
+
 @media (max-width: 640px) {
   :root {
-    --footer-height: 56px;
+    --footer-height: 72px;
   }
 
   .footer-inner {
@@ -1495,6 +1528,12 @@ h1, h2, h3, h4 {
   .footer-meta {
     flex: 1 1 auto;
     min-width: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+  }
+
+  .footer-filings {
     flex-direction: column;
     align-items: flex-start;
     gap: 1px;
@@ -1526,7 +1565,7 @@ h1, h2, h3, h4 {
 
 @media (max-width: 480px) {
   :root {
-    --footer-height: 56px;
+    --footer-height: 72px;
   }
 
   .footer-inner {

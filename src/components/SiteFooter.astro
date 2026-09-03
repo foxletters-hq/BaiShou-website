@@ -2,21 +2,45 @@
 import BilibiliIcon from './BilibiliIcon.astro';
 import GithubIcon from './GithubIcon.astro';
 import QqIcon from './QqIcon.astro';
-import { BILIBILI_URL, ICP_FILING_NUMBER, ICP_FILING_URL, REPO_URL } from '../data/site';
+import {
+  BILIBILI_URL,
+  ICP_FILING_NUMBER,
+  ICP_FILING_URL,
+  MPS_FILING_NUMBER,
+  MPS_FILING_URL,
+  REPO_URL,
+} from '../data/site';
 ---
 
 <footer class="site-footer">
   <div class="container footer-inner">
     <div class="footer-meta">
       <p class="footer-copy">© 2026 foxletters-hq</p>
-      <a
-        class="footer-beian"
-        href={ICP_FILING_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {ICP_FILING_NUMBER}
-      </a>
+      <div class="footer-filings">
+        <a
+          class="footer-beian"
+          href={ICP_FILING_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {ICP_FILING_NUMBER}
+        </a>
+        <a
+          class="footer-beian footer-beian-mps"
+          href={MPS_FILING_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+            class="footer-beian-icon"
+            src="/assets/images/gongan.png"
+            alt=""
+            width="16"
+            height="16"
+          />
+          {MPS_FILING_NUMBER}
+        </a>
+      </div>
     </div>
 
     <div class="footer-actions">

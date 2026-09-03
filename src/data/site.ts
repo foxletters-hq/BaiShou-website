@@ -6,6 +6,12 @@ export const BILIBILI_URL = 'https://space.bilibili.com/18187585';
 export const ICP_FILING_NUMBER = '豫ICP备2024102539号-3';
 export const ICP_FILING_URL = 'https://beian.miit.gov.cn/';
 
+/** 公安联网备案号，须挂全国互联网安全管理服务平台查询入口 */
+export const MPS_FILING_NUMBER = '豫公网安备41010502007985号';
+export const MPS_FILING_CODE = '41010502007985';
+export const MPS_FILING_URL =
+  `https://beian.mps.gov.cn/#/query/webSearch?code=${MPS_FILING_CODE}`;
+
 /** CI 发版后更新的各端最新下载清单（须用 raw.githubusercontent.com，github.com/raw 无 CORS） */
 export const RELEASE_CHANNEL_MANIFEST_URL =
   'https://raw.githubusercontent.com/foxletters-hq/BaiShou-Next/main/releases/channel.json';
