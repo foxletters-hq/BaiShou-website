@@ -1,8 +1,8 @@
-# 可选：VPS 静态镜像
+# VPS 主站同步
 
-对外发布以 **GitHub Pages** 为准（见仓库根目录 README「部署」）。
+对外主站是 **foxletters.com**。canonical、sitemap、`robots.txt` 都以该域名为准。GitHub Pages（`baishou.foxletters.com`）只作镜像。
 
-若要在 1Panel 上留一份相同静态文件，于仓库根目录执行：
+在仓库根目录执行下面的脚本，把构建结果同步到 1Panel：
 
 ```bash
 ./deploy/update-vps-mirror.sh

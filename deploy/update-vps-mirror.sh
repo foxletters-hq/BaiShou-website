@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 可选：在 VPS 上同步一份静态镜像到 1Panel 目录（对外仍以 GitHub Pages 为准）
+# 把构建结果同步到 1Panel（对外主站 foxletters.com）
 # 用法（在仓库根目录）:
 #   ./deploy/update-vps-mirror.sh
 #   SITE_PATH=/opt/1panel/www/sites/foxletters.com/index ./deploy/update-vps-mirror.sh
@@ -33,4 +33,4 @@ fi
 echo "==> 同步到 $SITE_PATH"
 rsync -a --delete dist/ "${SITE_PATH}/"
 
-echo "完成。注意：对外推荐使用 GitHub Pages；本脚本仅更新 VPS 本地镜像。"
+echo "完成。已同步到主站目录 $SITE_PATH 。"

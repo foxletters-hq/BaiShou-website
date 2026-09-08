@@ -2,8 +2,9 @@
 
 白守（BaiShou-Next）产品官方网站，基于 [Astro](https://astro.build/) 构建；使用文档与官网共用同一套 Layout / Header，自研侧栏 + 正文布局。
 
-- 线上地址：https://baishou.foxletters.com
-- 使用文档：https://baishou.foxletters.com/docs/
+- 线上地址：https://foxletters.com
+- 使用文档：https://foxletters.com/docs/
+- GitHub Pages 镜像：https://baishou.foxletters.com
 - 主项目：https://github.com/foxletters-hq/BaiShou-Next
 
 ## 本地开发
@@ -41,9 +42,9 @@ npm run preview
 
 ## 部署
 
-推送到 `main` 分支后，GitHub Actions 会自动构建并部署到 GitHub Pages（自定义域名 `baishou.foxletters.com`）。
+对外主站是 `https://foxletters.com`（VPS）。推送到 `main` 后，GitHub Actions 仍会把同一套静态文件发到 GitHub Pages（`baishou.foxletters.com`），页面里的 canonical、sitemap 指向主站。
 
-可选：在 VPS 上执行 [deploy/update-vps-mirror.sh](./deploy/update-vps-mirror.sh) 同步一份静态镜像到 1Panel（见 [deploy/README.md](./deploy/README.md)）。
+主站内容要在 VPS 上执行 [deploy/update-vps-mirror.sh](./deploy/update-vps-mirror.sh) 同步到 1Panel（见 [deploy/README.md](./deploy/README.md)）。
 
 ## 贡献
 

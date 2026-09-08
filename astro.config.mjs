@@ -6,9 +6,9 @@ import remarkDirective from 'remark-directive';
 import { remarkAsides } from './src/plugins/remark-asides.ts';
 import { rehypeWrapTables } from './src/plugins/rehype-wrap-tables.ts';
 
-// GitHub Pages + 自定义域名 baishou.foxletters.com
+// 对外主站为 foxletters.com（VPS）。GitHub Pages 子域仍作镜像，规范地址以本字段为准。
 export default defineConfig({
-  site: 'https://baishou.foxletters.com',
+  site: 'https://foxletters.com',
   base: '/',
   integrations: [
     react(),
