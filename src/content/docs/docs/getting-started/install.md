@@ -14,7 +14,7 @@ description: 白守支持的平台、下载方式，以及升级注意事项。
 
 两个下载入口：
 
-- 官网 [baishou.foxletters.com](/) 的下载按钮
+- 官网 [foxletters.com](/) 的下载按钮
 - GitHub Releases：https://github.com/foxletters-hq/BaiShou-Next/releases
 
 ## Windows

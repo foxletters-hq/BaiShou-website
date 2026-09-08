@@ -56,4 +56,4 @@ description: 白守使用中的常见问题：免费、隐私、平台、模型�
 ## 还有别的问题
 
 - GitHub Issues：https://github.com/foxletters-hq/BaiShou-Next/issues
-- 官网社群入口：[baishou.foxletters.com](/)
+- 官网社群入口：[foxletters.com](/)

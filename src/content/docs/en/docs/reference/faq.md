@@ -56,4 +56,4 @@ Treat them as a rough guide only; your model provider’s bill is what counts.
 ## Still have questions?
 
 - GitHub Issues: https://github.com/foxletters-hq/BaiShou-Next/issues
-- Community links on the website: [baishou.foxletters.com](/)
+- Community links on the website: [foxletters.com](/)

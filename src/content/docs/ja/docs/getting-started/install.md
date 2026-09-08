@@ -14,7 +14,7 @@ description: 白守の対応プラットフォーム、ダウンロード方法�
 
 ダウンロード入口は 2 つです。
 
-- 公式サイト [baishou.foxletters.com](/) のダウンロードボタン
+- 公式サイト [foxletters.com](/) のダウンロードボタン
 - GitHub Releases：https://github.com/foxletters-hq/BaiShou-Next/releases
 
 ## Windows

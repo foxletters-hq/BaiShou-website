@@ -14,7 +14,7 @@ description: Supported platforms, download options, and upgrade notes for BaiSho
 
 Two places to download from:
 
-- The download button on the website, [baishou.foxletters.com](/)
+- The download button on the website, [foxletters.com](/)
 - GitHub Releases: https://github.com/foxletters-hq/BaiShou-Next/releases
 
 ## Windows

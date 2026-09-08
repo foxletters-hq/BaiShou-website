@@ -56,4 +56,4 @@ description: 白守のよくある質問：無料、プライバシー、プラ�
 ## ほかに質問がある場合
 
 - GitHub Issues：https://github.com/foxletters-hq/BaiShou-Next/issues
-- 公式サイトのコミュニティ入口：[baishou.foxletters.com](/)
+- 公式サイトのコミュニティ入口：[foxletters.com](/)
