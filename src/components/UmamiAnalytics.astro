@@ -1,10 +1,20 @@
 ---
-const umamiWebsiteId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID?.trim();
+const DEFAULT_UMAMI_SCRIPT_URL = 'https://analytics.foxletters.com/script.js';
+const DEFAULT_UMAMI_WEBSITE_ID = '492c27a5-e336-48de-8e87-18f91003926d';
+
+const disabled =
+  import.meta.env.PUBLIC_UMAMI_DISABLED === 'true' ||
+  import.meta.env.PUBLIC_UMAMI_DISABLED === '1';
+
+const umamiWebsiteId = disabled
+  ? undefined
+  : import.meta.env.PUBLIC_UMAMI_WEBSITE_ID?.trim() || DEFAULT_UMAMI_WEBSITE_ID;
 
 function resolveUmamiScriptSrc(): string | undefined {
+  if (disabled) return undefined;
   const scriptUrl = import.meta.env.PUBLIC_UMAMI_SCRIPT_URL?.trim();
   const baseUrl = import.meta.env.PUBLIC_UMAMI_URL?.trim();
-  const raw = scriptUrl || baseUrl;
+  const raw = scriptUrl || baseUrl || DEFAULT_UMAMI_SCRIPT_URL;
 
   if (!raw) return undefined;
 
@@ -13,7 +23,7 @@ function resolveUmamiScriptSrc(): string | undefined {
 }
 
 const umamiScriptSrc = resolveUmamiScriptSrc();
-const enabled = Boolean(umamiScriptSrc && umamiWebsiteId);
+const enabled = Boolean(!disabled && umamiScriptSrc && umamiWebsiteId);
 ---
 
 {

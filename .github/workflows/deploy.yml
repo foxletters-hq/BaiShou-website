@@ -39,6 +39,7 @@ jobs:
           PUBLIC_UMAMI_SCRIPT_URL: ${{ vars.PUBLIC_UMAMI_SCRIPT_URL }}
           PUBLIC_UMAMI_URL: ${{ vars.PUBLIC_UMAMI_URL }}
           PUBLIC_UMAMI_WEBSITE_ID: ${{ secrets.PUBLIC_UMAMI_WEBSITE_ID || vars.PUBLIC_UMAMI_WEBSITE_ID }}
+          PUBLIC_UMAMI_DISABLED: ${{ vars.PUBLIC_UMAMI_DISABLED }}
         run: npm run build
 
       - name: Upload artifact
