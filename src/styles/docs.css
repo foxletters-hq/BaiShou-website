@@ -120,6 +120,10 @@
   flex-shrink: 0;
 }
 
+.docs-sidebar__close {
+  display: none;
+}
+
 .docs-nav__site {
   margin-top: 20px;
   padding-top: 16px;
@@ -527,20 +531,20 @@ html:has([data-docs-root]) {
     padding-inline: 0;
   }
 
-  /* 抽屉式侧边栏：移动端从左侧滑出，延伸到底部安全区 */
+  /* 抽屉式侧边栏：移动端置于屏幕最顶层，覆盖全高 */
   .docs-sidebar {
     grid-column: 1;
     grid-row: 1;
     position: fixed;
-    top: calc(var(--nav-height) + var(--safe-top));
+    top: 0;
     bottom: 0;
     left: 0;
-    width: min(82vw, 290px);
-    z-index: 60;
-    height: calc(100vh - var(--nav-height) - var(--safe-top));
-    height: calc(100dvh - var(--nav-height) - var(--safe-top));
-    max-height: calc(100dvh - var(--nav-height) - var(--safe-top));
-    padding: 16px 14px calc(var(--safe-bottom) + 28px);
+    width: min(84vw, 300px);
+    z-index: 100;
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100dvh;
+    padding: max(16px, env(safe-area-inset-top, 16px)) 14px max(24px, env(safe-area-inset-bottom, 24px));
     align-self: auto;
     overflow-x: hidden;
     overflow-y: auto;
@@ -549,7 +553,7 @@ html:has([data-docs-root]) {
     touch-action: pan-y;
     background: #ffffff;
     border-inline-end: 1px solid var(--docs-border);
-    box-shadow: 8px 0 24px rgba(15, 23, 42, 0.08);
+    box-shadow: 16px 0 36px rgba(15, 23, 42, 0.2);
     transform: translateX(-105%);
     visibility: hidden;
     pointer-events: none;
@@ -558,13 +562,49 @@ html:has([data-docs-root]) {
 
   [data-theme='dark'] .docs-sidebar {
     background: #0a0f1e;
-    box-shadow: 8px 0 24px rgba(0, 0, 0, 0.35);
+    box-shadow: 16px 0 36px rgba(0, 0, 0, 0.6);
   }
 
   .docs-shell[data-nav-open='true'] .docs-sidebar {
     transform: translateX(0);
     visibility: visible;
     pointer-events: auto;
+  }
+
+  .docs-sidebar__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .docs-sidebar__top .docs-sidebar__home {
+    margin-bottom: 0;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .docs-sidebar__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border-radius: 8px;
+    border: 1px solid var(--docs-border);
+    background: var(--surface-bg);
+    color: var(--docs-muted);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 150ms var(--ease-out), color 150ms var(--ease-out);
+  }
+
+  .docs-sidebar__close:hover,
+  .docs-sidebar__close:active {
+    background: var(--docs-hover);
+    color: var(--text-heading);
   }
 
   .docs-nav__link {
@@ -590,8 +630,10 @@ html:has([data-docs-root]) {
     display: none;
     position: fixed;
     inset: 0;
-    z-index: 55;
-    background: rgba(0, 0, 0, 0.35);
+    z-index: 90;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     overscroll-behavior: contain;
     touch-action: none;
   }
