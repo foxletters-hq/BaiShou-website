@@ -537,9 +537,11 @@ html:has([data-docs-root]) {
     left: 0;
     width: min(82vw, 290px);
     z-index: 60;
+    height: calc(100vh - var(--nav-height) - var(--safe-top));
+    height: calc(100dvh - var(--nav-height) - var(--safe-top));
+    max-height: calc(100dvh - var(--nav-height) - var(--safe-top));
     padding: 16px 14px calc(var(--safe-bottom) + 28px);
-    height: auto;
-    max-height: none;
+    align-self: auto;
     overflow-x: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
