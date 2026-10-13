@@ -527,29 +527,31 @@ html:has([data-docs-root]) {
     padding-inline: 0;
   }
 
-  /* 抽屉盖住顶/底栏区域，避免被 fixed footer 压住最后几项 */
+  /* 抽屉式侧边栏：移动端从左侧滑出，延伸到底部安全区 */
   .docs-sidebar {
     grid-column: 1;
     grid-row: 1;
     position: fixed;
     top: calc(var(--nav-height) + var(--safe-top));
-    bottom: calc(var(--footer-height) + var(--safe-bottom));
+    bottom: 0;
     left: 0;
-    width: min(78vw, 262px);
+    width: min(82vw, 290px);
     z-index: 60;
-    padding: 14px 12px 24px;
+    padding: 16px 14px calc(var(--safe-bottom) + 28px);
     height: auto;
     max-height: none;
     overflow-x: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
+    overscroll-behavior-y: contain;
     touch-action: pan-y;
     background: #ffffff;
     border-inline-end: 1px solid var(--docs-border);
     box-shadow: 8px 0 24px rgba(15, 23, 42, 0.08);
     transform: translateX(-105%);
-    transition: transform 200ms var(--ease-out);
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 200ms var(--ease-out), visibility 200ms var(--ease-out);
   }
 
   [data-theme='dark'] .docs-sidebar {
@@ -559,6 +561,8 @@ html:has([data-docs-root]) {
 
   .docs-shell[data-nav-open='true'] .docs-sidebar {
     transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
   }
 
   .docs-nav__link {
@@ -594,10 +598,9 @@ html:has([data-docs-root]) {
     display: block;
   }
 
-  /* 打开目录时锁住背后页面滚动 */
+  /* 打开目录时锁住背后页面滚动（切勿使用 touch-action: none，否则会继承导致抽屉子元素也无法滑动） */
   body:has([data-docs-root][data-nav-open='true']) {
     overflow: hidden;
-    touch-action: none;
   }
 
   .docs-main {
