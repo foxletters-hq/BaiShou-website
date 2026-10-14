@@ -3,20 +3,20 @@ import FeatureCard from './FeatureCard.tsx';
 import { FEATURE_IDS } from '../data/site';
 import {
   BookHeart,
-  Sparkles,
+  Network,
+  Bot,
   FolderOpen,
   Search,
-  Cloud,
   Shield,
 } from 'lucide-react';
 
 const featureIcons = {
   diary: BookHeart,
-  companion: Sparkles,
+  graph: Network,
+  agent: Bot,
   knowledge: FolderOpen,
   rag: Search,
-  sync: Cloud,
-  local: Shield,
+  sync: Shield,
 } as const;
 ---
 
@@ -26,7 +26,7 @@ const featureIcons = {
       <p class="section-eyebrow" data-i18n="features.eyebrow">Features</p>
       <h2 data-i18n="features.title">核心能力</h2>
       <p class="section-lead" data-i18n="features.lead">
-        日记、AI 伙伴与同步能力已经可用；知识库正在开发，将逐步与现有记忆体系打通。
+        日记、图数据库、AI 智能体与端到端同步现已全面就绪，打造真正懂你的个人第二大脑。
       </p>
     </div>
 
@@ -35,7 +35,6 @@ const featureIcons = {
         <FeatureCard
           i18nId={id}
           icon={featureIcons[id]}
-          showBadge={id === 'knowledge'}
         />
       ))}
     </div>

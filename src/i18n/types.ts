@@ -52,7 +52,7 @@ export interface Messages {
     lead: string;
     devBadge: string;
     items: Record<
-      'diary' | 'companion' | 'knowledge' | 'rag' | 'sync' | 'local',
+      'diary' | 'graph' | 'agent' | 'knowledge' | 'rag' | 'sync',
       { title: string; desc: string; badge?: string }
     >;
   };
@@ -78,6 +78,8 @@ export interface Messages {
     >;
   };
   people: {
+    coreEyebrow: string;
+    coreTitle: string;
     founderEyebrow: string;
     founderTitle: string;
     founderRole: string;
@@ -87,6 +89,12 @@ export interface Messages {
     collabLeadBefore: string;
     collabLeadLink: string;
     collabLeadAfter: string;
+    wallEyebrow: string;
+    wallTitle: string;
+    wallLeadBefore: string;
+    wallLeadLink: string;
+    wallLeadAfter: string;
+    members: Record<'anson' | 'alice' | 'ratman' | 'ctnilpp', { role: string; bio: string }>;
     collaborators: Record<'ratman' | 'ctnilpp', { bio: string }>;
   };
   faq: {

@@ -1,8 +1,15 @@
 ---
-import { LOCALE_OPTIONS } from '../i18n';
+import { LOCALE_OPTIONS, type Locale } from '../i18n';
 
-const defaultShort =
-  LOCALE_OPTIONS.find((option) => option.code === 'zh-CN')?.shortLabel ?? '简中';
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+let currentLocale: Locale = 'zh-CN';
+if (/^\/en(\/|$)/.test(path)) currentLocale = 'en';
+else if (/^\/ja(\/|$)/.test(path)) currentLocale = 'ja';
+else if (/^\/zh-tw(\/|$)/.test(path)) currentLocale = 'zh-TW';
+
+const currentOption =
+  LOCALE_OPTIONS.find((option) => option.code === currentLocale) ?? LOCALE_OPTIONS[0];
+const currentShort = currentOption.shortLabel;
 ---
 
 <div class="lang-switcher" data-lang-switcher>
@@ -15,18 +22,18 @@ const defaultShort =
     aria-label="选择语言"
     data-i18n-aria-label="a11y.langSelect"
   >
-    <span class="lang-trigger-text" data-lang-current>{defaultShort}</span>
+    <span class="lang-trigger-text" data-lang-current>{currentShort}</span>
   </button>
   <ul class="lang-menu" role="listbox" hidden>
     {LOCALE_OPTIONS.map((option) => (
       <li role="presentation">
         <button
           type="button"
-          class="lang-option"
+          class:list={['lang-option', { 'is-active': option.code === currentLocale }]}
           role="option"
           data-lang-option={option.code}
           aria-label={option.label}
-          aria-selected="false"
+          aria-selected={option.code === currentLocale ? 'true' : 'false'}
         >
           {option.shortLabel}
         </button>
@@ -34,3 +41,36 @@ const defaultShort =
     ))}
   </ul>
 </div>
+
+<script is:inline>
+  (function () {
+    try {
+      var k = 'baishou-locale';
+      var path = window.location.pathname;
+      var isDocsPath = /^\/(en|ja|zh-tw)\/docs/.test(path);
+      var lang = isDocsPath
+        ? (document.documentElement.lang || 'zh-CN')
+        : (localStorage.getItem(k) || document.documentElement.lang || 'zh-CN');
+      var map = { 'zh-CN': '简中', 'zh-TW': '繁中', en: 'EN', ja: '日文' };
+      if (map[lang]) {
+        var root = document.querySelector('[data-lang-switcher]');
+        if (root) {
+          var label = root.querySelector('[data-lang-current]');
+          if (label && label.textContent !== map[lang]) {
+            label.textContent = map[lang];
+          }
+          var prev = root.querySelector('.lang-option.is-active');
+          if (prev && prev.getAttribute('data-lang-option') !== lang) {
+            prev.classList.remove('is-active');
+            prev.setAttribute('aria-selected', 'false');
+          }
+          var curr = root.querySelector('[data-lang-option="' + lang + '"]');
+          if (curr) {
+            curr.classList.add('is-active');
+            curr.setAttribute('aria-selected', 'true');
+          }
+        }
+      }
+    } catch (e) {}
+  })();
+</script>

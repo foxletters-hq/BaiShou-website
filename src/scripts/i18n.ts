@@ -111,6 +111,8 @@ function closeLangMenus() {
 
 function switchLocale(next: Locale) {
   localStorage.setItem(LOCALE_STORAGE_KEY, next);
+  document.documentElement.lang = next;
+  document.documentElement.dataset.locale = next;
 
   const docsShell = document.querySelector<HTMLElement>('[data-docs-root]');
   if (docsShell) {
@@ -187,10 +189,18 @@ function applyDocsLinks(locale: Locale) {
   });
 }
 
+let hasAppliedNonDefault = false;
+
 export function applyLocale(locale: Locale) {
   const dict = messages[locale];
   applyMeta(locale);
-  applyTextContent(document, dict);
+
+  // 避免在默认简中（SSR 页面已直接渲染简中）首屏无谓改写整树 DOM
+  if (locale !== DEFAULT_LOCALE || hasAppliedNonDefault) {
+    applyTextContent(document, dict);
+    hasAppliedNonDefault = true;
+  }
+
   applyBadges(dict);
   applyLangSwitcher(locale);
   applyDocsLinks(locale);
@@ -204,10 +214,12 @@ export function initI18n() {
   if (docsLocale && isLocale(docsLocale)) {
     localStorage.setItem(LOCALE_STORAGE_KEY, docsLocale);
   }
+  document.documentElement.lang = locale;
+  document.documentElement.dataset.locale = locale;
   applyLocale(locale);
   initLangSwitcher();
 }
 
 export function getInitialLocaleScript(): string {
-  return `(function(){try{var k='${LOCALE_STORAGE_KEY}';var s=localStorage.getItem(k);var ua=(navigator.userAgent||'').toLowerCase();var bot=/bot|crawl|spider|slurp|bingpreview|facebookexternalhit|baiduspider|sogou|bytespider|duckduckbot|applebot|semrush|ahrefs/.test(ua);var n=(navigator.language||'').toLowerCase();var l=s||'${DEFAULT_LOCALE}';if(!s&&!bot){if(n==='zh-tw'||n==='zh-hk'||n==='zh-mo')l='zh-TW';else if(n.indexOf('zh')===0)l='zh-CN';else if(n.indexOf('ja')===0)l='ja';else l='en';}if(['zh-CN','zh-TW','en','ja'].indexOf(l)<0)l='${DEFAULT_LOCALE}';document.documentElement.lang=l;}catch(e){}})();`;
+  return `(function(){try{var k='${LOCALE_STORAGE_KEY}';var s=localStorage.getItem(k);var ua=(navigator.userAgent||'').toLowerCase();var bot=/bot|crawl|spider|slurp|bingpreview|facebookexternalhit|baiduspider|sogou|bytespider|duckduckbot|applebot|semrush|ahrefs/.test(ua);var n=(navigator.language||'').toLowerCase();var l=s||'${DEFAULT_LOCALE}';if(!s&&!bot){if(n==='zh-tw'||n==='zh-hk'||n==='zh-mo')l='zh-TW';else if(n.indexOf('zh')===0)l='zh-CN';else if(n.indexOf('ja')===0)l='ja';else l='en';}if(['zh-CN','zh-TW','en','ja'].indexOf(l)<0)l='${DEFAULT_LOCALE}';document.documentElement.lang=l;document.documentElement.dataset.locale=l;}catch(e){}})();`;
 }

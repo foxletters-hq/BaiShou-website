@@ -11,6 +11,7 @@ import ThemeScene from "../components/ThemeScene.astro";
 import UmamiAnalytics from "../components/UmamiAnalytics.astro";
 import { ViewTransitions } from "astro:transitions";
 import zhCN from "../i18n/locales/zh-CN";
+import { messages } from "../i18n";
 import { getInitialLocaleScript } from "../scripts/i18n";
 import { REPO_URL } from "../data/site";
 
@@ -30,7 +31,7 @@ const {
   description = zhCN.meta.description,
   canonical = Astro.url.href,
   ogImage = "/assets/images/app-icon.png",
-  snapDots = true,
+  snapDots = false,
   plainBg = false,
 } = Astro.props;
 
@@ -96,6 +97,7 @@ const orgLd = {
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
     <meta name="generator" content={Astro.generator} />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link
       rel="icon"
@@ -147,6 +149,18 @@ const orgLd = {
     <slot name="head" />
 
     <script is:inline set:html={getInitialLocaleScript()} />
+    <style is:inline id="i18n-anti-fout">
+      html[data-locale]:not([data-locale="zh-CN"]):not([data-i18n-ready]) body {
+        visibility: hidden !important;
+      }
+    </style>
+    <noscript>
+      <style is:inline>
+        html[data-locale]:not([data-locale="zh-CN"]):not([data-i18n-ready]) body {
+          visibility: visible !important;
+        }
+      </style>
+    </noscript>
     <script is:inline>
       (function () {
         var key = "baishou-theme";
@@ -176,14 +190,80 @@ const orgLd = {
     {plainBg && <ViewTransitions />}
   </head>
   <body class:list={[{ "plain-bg": plainBg }]}>
-    {!plainBg && <ThemeScene />}
-    {!plainBg && <div class="bg-overlay" aria-hidden="true" />}
-
     <Header snapDots={snapDots} />
     <slot />
     <SiteFooter />
     <CommunityModal />
     <DownloadPopup />
+    <script is:inline define:vars={{ messages }}>
+      (function () {
+        try {
+          var locale =
+            document.documentElement.dataset.locale ||
+            document.documentElement.lang ||
+            'zh-CN';
+          if (locale && locale !== 'zh-CN' && messages && messages[locale]) {
+            var dict = messages[locale];
+            var t = function (d, p) {
+              return (
+                p.split('.').reduce(function (acc, k) {
+                  return acc && typeof acc === 'object' && k in acc ? acc[k] : undefined;
+                }, d) || p
+              );
+            };
+
+            document.querySelectorAll('[data-i18n]').forEach(function (el) {
+              var key = el.getAttribute('data-i18n');
+              if (key) el.textContent = t(dict, key);
+            });
+            document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
+              var key = el.getAttribute('data-i18n-html');
+              if (key) el.innerHTML = t(dict, key);
+            });
+            document.querySelectorAll('[data-i18n-aria-label]').forEach(function (el) {
+              var key = el.getAttribute('data-i18n-aria-label');
+              if (key) el.setAttribute('aria-label', t(dict, key));
+            });
+            document.querySelectorAll('[data-i18n-alt]').forEach(function (el) {
+              var key = el.getAttribute('data-i18n-alt');
+              if (key) el.alt = t(dict, key);
+            });
+            document.querySelectorAll('[data-i18n-prefix]').forEach(function (el) {
+              var key = el.getAttribute('data-i18n-prefix');
+              var name = el.getAttribute('data-i18n-name');
+              if (key && name) el.alt = name + t(dict, key);
+            });
+            document.querySelectorAll('[data-i18n-badge]').forEach(function (el) {
+              var key = el.getAttribute('data-i18n-badge');
+              if (key) {
+                var val = t(dict, key);
+                el.textContent = val;
+                el.hidden = !val;
+              }
+            });
+            document.querySelectorAll('[data-docs-link]').forEach(function (el) {
+              var hrefMap = {
+                'zh-CN': '/docs/',
+                'zh-TW': '/zh-tw/docs/',
+                en: '/en/docs/',
+                ja: '/ja/docs/',
+              };
+              el.href = hrefMap[locale] || '/docs/';
+            });
+            if (dict.meta && dict.meta.title) {
+              var docsRoot = document.querySelector('[data-docs-root]');
+              if (!docsRoot) {
+                document.title = dict.meta.title;
+              }
+            }
+          }
+        } catch (e) {
+          console.error('Fast i18n sync error:', e);
+        } finally {
+          document.documentElement.dataset.i18nReady = 'true';
+        }
+      })();
+    </script>
 
     <script>
       import { initLenisScroll } from "../scripts/lenisScroll";
@@ -230,13 +310,12 @@ const orgLd = {
       };
 
       let pageInited = false;
+      let initialLoaded = false;
 
       const init = () => {
-        // DOMContentLoaded + astro:page-load 首屏可能各触发一次，文案应用可重复，绑定逻辑各自做幂等
         initI18n();
         initReveal();
         if (!document.querySelector('[data-docs-root]')) {
-          // Lenis 不适合多次创建；文档页跳过，官网只初始化一次
           if (pageInited) return;
           pageInited = true;
           const setActive = initSnapNav();
@@ -244,8 +323,23 @@ const orgLd = {
         }
       };
 
-      document.addEventListener('DOMContentLoaded', init);
-      document.addEventListener('astro:page-load', init);
+      if (document.readyState === 'interactive' || document.readyState === 'complete') {
+        initialLoaded = true;
+        init();
+      } else {
+        document.addEventListener('DOMContentLoaded', () => {
+          if (!initialLoaded) {
+            initialLoaded = true;
+            init();
+          }
+        });
+      }
+
+      document.addEventListener('astro:page-load', () => {
+        if (initialLoaded) {
+          init();
+        }
+      });
     </script>
   </body>
 </html>

@@ -354,7 +354,7 @@ const pageTitle =
       'touchmove',
       (event) => {
         const target = event.target;
-        if (target instanceof Element && target.closest('[data-docs-nav-close]')) {
+        if (target instanceof Element && target.closest('.docs-backdrop')) {
           event.preventDefault();
         }
       },

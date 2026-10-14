@@ -1,98 +1,134 @@
 ---
-import { FOUNDER, COLLABORATORS, CONTRIBUTORS_URL } from '../data/site';
-import { t } from '../i18n';
+import { getContributors, CONTRIBUTORS_URL, REPO_URL } from '../data/site';
 import zhCN from '../i18n/locales/zh-CN';
+
+const contributors = await getContributors();
 ---
 
 <section id="people" class="snap-page snap-page-footer">
   <div class="container snap-page-inner">
-    <div class="people-section reveal">
+    <!-- 开源协作者墙 Contributors Wall：创始人与所有贡献者汇聚于此 -->
+    <div class="people-section people-section-wall reveal">
       <div class="section-heading">
-        <p class="section-eyebrow" data-i18n="people.founderEyebrow">Founder</p>
-        <h2 data-i18n="people.founderTitle">创始人</h2>
-      </div>
-
-      <a
-        href={FOUNDER.github}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="card team-card team-card-founder"
-      >
-        <div class="team-avatar-wrap team-avatar-wrap-founder">
-          <img
-            src={FOUNDER.avatar}
-            alt=""
-            class="team-avatar"
-            data-i18n-prefix="a11y.avatar"
-            data-i18n-name={FOUNDER.name}
-            width="88"
-            height="88"
-            loading="lazy"
-          />
-          {FOUNDER.badge && (
-            <span class="team-avatar-badge" aria-hidden="true">
-              {FOUNDER.badge}
-            </span>
-          )}
-        </div>
-        <div class="team-info">
-          <h3>{FOUNDER.name}</h3>
-          <p class="team-role" data-i18n="people.founderRole">创始人</p>
-          <p class="team-bio" data-i18n="people.founderBio">
-            技术型独立开发者，负责白守的产品定义、跨端开发、AI 记忆与同步架构，以及早期社区运营。
-          </p>
-          <p class="team-handle">@{FOUNDER.github.split('/').pop()}</p>
-        </div>
-      </a>
-    </div>
-
-    <div class="people-section reveal">
-      <div class="section-heading">
-        <p class="section-eyebrow" data-i18n="people.collabEyebrow">Collaborators</p>
-        <h2 data-i18n="people.collabTitle">协作者</h2>
+        <p class="section-eyebrow" data-i18n="people.wallEyebrow">Contributors Wall</p>
+        <h2 data-i18n="people.wallTitle">开源协作者墙</h2>
         <p class="section-lead">
-          <span data-i18n="people.collabLeadBefore">感谢每一位参与白守构建的人。完整贡献者列表见</span>
-          <a href={CONTRIBUTORS_URL} target="_blank" rel="noopener noreferrer" data-i18n="people.collabLeadLink">
-            GitHub Contributors
-          </a><span data-i18n="people.collabLeadAfter">。</span>
+          <span data-i18n="people.wallLeadBefore">代码、建议、设计与反馈，每一份贡献都在让白守变得更好。在</span>
+          <a href={REPO_URL} target="_blank" rel="noopener noreferrer" data-i18n="people.wallLeadLink">
+            GitHub 贡献代码
+          </a><span data-i18n="people.wallLeadAfter">，成为白守协作者。</span>
         </p>
       </div>
 
-      <div class="team-grid team-grid-collaborators">
-        {COLLABORATORS.map((person) => (
+      <div class="contributors-wall card">
+        <div class="contributors-grid" id="contributors-grid">
+          {contributors.map((c) => {
+            const isFounder = c.login.toLowerCase() === 'anson-trio';
+            return (
+              <a
+                href={c.html_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class:list={['contributor-item', { 'contributor-item-founder': isFounder }]}
+                title={`@${c.login}${isFounder ? ' · 创始人' : ''}${c.contributions ? ` (${c.contributions} 次提交)` : ''}`}
+                aria-label={`@${c.login}`}
+              >
+                <div class="contributor-avatar-wrap">
+                  <img
+                    src={c.avatar_url}
+                    alt={c.login}
+                    class="contributor-avatar"
+                    width="52"
+                    height="52"
+                    loading="lazy"
+                  />
+                  {isFounder && (
+                    <span class="contributor-badge-founder" aria-hidden="true" title="创始人">🦊</span>
+                  )}
+                </div>
+                <div class="contributor-info">
+                  <span class="contributor-login">@{c.login}</span>
+                  {isFounder && (
+                    <span class="contributor-role-tag" data-i18n="people.founderRole">
+                      {zhCN.people.founderRole}
+                    </span>
+                  )}
+                </div>
+              </a>
+            );
+          })}
+        </div>
+        <div class="contributors-wall-footer">
           <a
-            href={person.github}
+            href={CONTRIBUTORS_URL}
             target="_blank"
             rel="noopener noreferrer"
-            class="card team-card"
+            class="contributors-view-all"
           >
-            <div class="team-avatar-wrap">
-              <img
-                src={person.avatar}
-                alt=""
-                class="team-avatar"
-                data-i18n-prefix="a11y.avatar"
-                data-i18n-name={person.name}
-                width="80"
-                height="80"
-                loading="lazy"
-              />
-              {person.badge && (
-                <span class="team-avatar-badge" aria-hidden="true">
-                  {person.badge}
-                </span>
-              )}
-            </div>
-            <div class="team-info">
-              <h3>{person.name}</h3>
-              <p class="team-bio" data-i18n={`people.collaborators.${person.id}.bio`}>
-                {t(zhCN, `people.collaborators.${person.id}.bio`)}
-              </p>
-              <p class="team-handle">@{person.github.split('/').pop()}</p>
-            </div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+            <span data-i18n="people.collabLeadLink">在 GitHub Contributors 查看完整列表</span>
+            <span class="wall-arrow">→</span>
           </a>
-        ))}
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  // 客户端轻量缓存刷新：如果距上次刷新超过 10 分钟，后台异步更新贡献者头像墙
+  (function () {
+    const grid = document.getElementById('contributors-grid');
+    if (!grid) return;
+    const CACHE_TIME_KEY = 'baishou_contributors_time_v1';
+    const now = Date.now();
+    const last = parseInt(sessionStorage.getItem(CACHE_TIME_KEY) || '0', 10);
+    if (now - last < 10 * 60 * 1000) return;
+
+    fetch('https://api.github.com/repos/foxletters-hq/BaiShou-Next/contributors?per_page=100', {
+      headers: { Accept: 'application/vnd.github.v3+json' },
+    })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (!Array.isArray(data) || data.length === 0) return;
+        sessionStorage.setItem(CACHE_TIME_KEY, String(now));
+        const bots = ['github-actions[bot]', 'alice'];
+        const valid = data.filter((item) => item && item.login && !bots.includes(item.login.toLowerCase()) && item.type !== 'Bot');
+        if (valid.length === 0) return;
+
+        const currentLogins = new Set(
+          Array.from(grid.querySelectorAll('.contributor-item')).map((el) =>
+            el.getAttribute('aria-label')?.replace(/^@/, '').toLowerCase()
+          )
+        );
+
+        for (const item of valid) {
+          if (!currentLogins.has(item.login.toLowerCase())) {
+            const isFounder = item.login.toLowerCase() === 'anson-trio';
+            const a = document.createElement('a');
+            a.href = item.html_url || `https://github.com/${item.login}`;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            a.className = isFounder ? 'contributor-item contributor-item-founder' : 'contributor-item';
+            a.title = `@${item.login}${isFounder ? ' · 创始人' : ''} (${item.contributions} 次提交)`;
+            a.setAttribute('aria-label', `@${item.login}`);
+            a.innerHTML = `
+              <div class="contributor-avatar-wrap">
+                <img src="${item.avatar_url}" alt="${item.login}" class="contributor-avatar" width="52" height="52" loading="lazy" />
+                ${isFounder ? '<span class="contributor-badge-founder" aria-hidden="true" title="创始人">🦊</span>' : ''}
+              </div>
+              <div class="contributor-info">
+                <span class="contributor-login">@${item.login}</span>
+                ${isFounder ? '<span class="contributor-role-tag" data-i18n="people.founderRole">创始人</span>' : ''}
+              </div>
+            `;
+            grid.appendChild(a);
+          }
+        }
+      })
+      .catch(() => {});
+  })();
+</script>
+

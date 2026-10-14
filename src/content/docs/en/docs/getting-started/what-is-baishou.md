@@ -13,15 +13,15 @@ You write diaries and life fragments locally, and BaiShou summarizes them layer 
 
 | Capability | Description |
 |------------|-------------|
-| Diary | Write in Markdown, with weather, mood, tags, location, and attachments |
-| Memory rings | Diaries get summarized layer by layer into weekly journals, monthly reports, quarterly reports, and yearbooks |
-| AI companions | Multiple companions, each with its own persona and model, able to call tools to read and write diaries and memories |
-| RAG semantic memory | Vector search plus full-text search, so companions can actually find the details you wrote down |
-| Workspaces | Multiple workspaces with data isolated from each other |
-| Sync & backup | Incremental sync, full backup, LAN transfer; desktop also has Git version control |
+| Diary & Memory rings | Markdown journaling, distilled layer by layer into weekly, monthly, quarterly, and yearbook long-term memory |
+| Life Relationship Graph | Embedded entity-relationship graph database automatically mapping connections between people, events, and timelines |
+| Autonomous AI Agent | Equipped with planning and tool-calling capabilities, supporting the open MCP protocol to connect external ecosystems |
+| Multi-format Knowledge Base | Deep parsing and knowledge synthesis for Markdown, PDF, Doc, images, and other multi-dimensional documents |
+| Hybrid Graph RAG | Combining full-text search, high-dimensional vector search, and multi-hop graph reasoning to penetrate personal memory |
+| Workspaces & Sync | Isolated workspaces with end-to-end encrypted sync and self-hosted S3 / WebDAV backup options |
 
-:::note[The file knowledge base isn’t finished yet]
-The file knowledge base mentioned on the website (PDF, DOC, and other local documents) is still in development. For the current release, stick to diaries and memories.
+:::tip[Graph Database & Agent capabilities are fully ready]
+BaiShou now fully integrates an embedded entity-relationship graph database and an autonomous AI agent system. It can not only record daily life reflections, but also parse local documents and weave fragmented memories into an interactive, reasoning-ready network.
 :::
 
 ## How is it different from Notion or Obsidian?

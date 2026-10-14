@@ -14,6 +14,20 @@ const { snapDots = true } = Astro.props;
 const path = Astro.url.pathname.replace(/\/+$/, "") || "/";
 const isDocs = /(^|\/)docs(\/|$)/.test(path);
 const isHome = path === "/";
+
+let pageLocale = "zh-CN";
+if (/^\/en(\/|$)/.test(path)) pageLocale = "en";
+else if (/^\/ja(\/|$)/.test(path)) pageLocale = "ja";
+else if (/^\/zh-tw(\/|$)/.test(path)) pageLocale = "zh-TW";
+
+const docsHref =
+  pageLocale === "en"
+    ? "/en/docs/"
+    : pageLocale === "ja"
+      ? "/ja/docs/"
+      : pageLocale === "zh-TW"
+        ? "/zh-tw/docs/"
+        : "/docs/";
 ---
 
 <header class="site-header" transition:persist={isDocs ? "site-header" : undefined}>
@@ -51,7 +65,7 @@ const isHome = path === "/";
           官网
         </a>
         <a
-          href="/docs/"
+          href={docsHref}
           class:list={[{ "is-active": isDocs }]}
           data-i18n="nav.docsAction"
           data-docs-link
