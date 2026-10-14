@@ -48,9 +48,16 @@ npm run preview
 
 ## 贡献
 
-向本仓库提交**包含代码变更**的 Pull Request 前，须签署 [foxletters-hq 组织级 CLA](https://github.com/foxletters-hq/BaiShou-Next/blob/main/legal/CLA-organization.md)（在 PR 中通过 [CLA Assistant](https://cla-assistant.io/) 点击同意）。若你已向组织内其他仓库签署过，通常无需重复签署。
+向本仓库提交**包含代码变更**的 Pull Request 前，须签署 [foxletters-hq 组织级个人贡献者协议（CLA v1.1）](https://github.com/foxletters-hq/BaiShou-Next/blob/main/legal/CLA-organization.md)：
 
-详见 [.github/CLA.md](./.github/CLA.md)。
+- 可直接访问 **[CLA Assistant 签署页面](https://cla-assistant.io/foxletters-hq/BaiShou-website)** 登录 GitHub 一键签署；
+- 若你已向组织内其他仓库（如 `BaiShou-Next`）签署过，无需重复签署；纯文档纠错 PR 通常免签。
+- 详见 [.github/CLA.md](./.github/CLA.md)。
+
+## 开源许可证与版权
+
+- **源代码**：在 [MIT License](./LICENSE) 下发布；
+- **美术资产与商标**：白守官方应用图标、Logo、星河背景图及角色立绘美术资源保留所有权利（All Rights Reserved），不属于 MIT 许可范围；商标权归项目托管方所有。详见 [COPYRIGHT](./COPYRIGHT)。
 
 ## 贡献者
 
