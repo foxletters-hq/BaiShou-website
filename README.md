@@ -84,7 +84,7 @@ npm run preview
 ## 开源许可证与版权
 
 - **源代码**：在 [MIT License](./LICENSE) 下发布；
-- **美术资产与商标**：白守官方应用图标、Logo、星河背景图及角色立绘美术资源保留所有权利（All Rights Reserved），不属于 MIT 许可范围；商标权归项目托管方所有。详见 [COPYRIGHT](./COPYRIGHT)。
+- **美术资产与商标**：白守官方应用图标、Logo、主题背景图、角色头像及立绘美术资源保留所有权利（All Rights Reserved），不属于 MIT 许可范围；商标权归项目托管方所有。详见 [COPYRIGHT](./COPYRIGHT)。
 
 ## 贡献者
 

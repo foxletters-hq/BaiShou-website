@@ -28,9 +28,10 @@ Copyright (C) 2026 郑州市金水区狐信网络科技工作室 (Foxletters) an
 
 | 路径 | 内容 |
 |------|------|
-| `src/assets/app-icon.png` | 白守官方应用图标 |
-| `public/favicon*` / `public/site.webmanifest` | 网站 Favicon 图标与清单资产 |
-| `public/galaxy*.jpg` | 官网专属主题星河背景图像 |
+| `public/assets/images/app-icon.png` | 白守官方应用图标 |
+| `public/favicon*` / `public/apple-touch-icon.png` / `public/site.webmanifest` | 网站 Favicon 图标与清单资产 |
+| `public/assets/images/bg/day-snowlake.jpg` / `public/assets/images/dark-city-bg.jpg` | 官网浅色与深色主题专属背景图像 |
+| `public/assets/images/sakura-avatar.jpg` / `public/assets/images/akatsuki-avatar.jpg` | 霞雨樱与天光晓角色头像资产 |
 | 网站内包含的看板娘 Latte 形象与美术原案 | 见主项目 [LICENSE-ASSETS.md](https://github.com/foxletters-hq/BaiShou-Next/blob/main/legal/LICENSE-ASSETS.md) |
 
 未经权利人明确书面授权，不得将上述官方美术与品牌资产用于任何商业目的、二次包装分发或容易引起公众混淆的产品上。
