@@ -1,0 +1,61 @@
+---
+import zhCN from '../i18n/locales/zh-CN';
+
+const tagKeys = ['t1', 't2', 't3', 't4'] as const;
+---
+
+<section id="mascot" class="snap-page mascot-section">
+  <div class="container snap-page-inner">
+    <div class="reveal section-heading">
+      <p class="section-eyebrow" data-i18n="mascot.eyebrow">{zhCN.mascot.eyebrow}</p>
+      <h2 data-i18n="mascot.title">{zhCN.mascot.title}</h2>
+      <p class="section-lead" data-i18n="mascot.lead">
+        {zhCN.mascot.lead}
+      </p>
+    </div>
+
+    <article class="card mascot-card reveal">
+      <div class="mascot-visual">
+        <img
+          src="/assets/images/latte-companion.png"
+          alt="Latte"
+          class="mascot-avatar"
+          width="320"
+          height="400"
+          loading="lazy"
+          draggable="false"
+        />
+      </div>
+
+      <div class="mascot-content">
+        <div class="mascot-head">
+          <h3 class="mascot-name" data-i18n="mascot.name">{zhCN.mascot.name}</h3>
+          <span class="mascot-role" data-i18n="mascot.role">{zhCN.mascot.role}</span>
+        </div>
+
+        <blockquote class="mascot-quote" data-i18n="mascot.quote">
+          {zhCN.mascot.quote}
+        </blockquote>
+
+        <div class="mascot-prose">
+          <p data-i18n="mascot.p1">{zhCN.mascot.p1}</p>
+          <p data-i18n="mascot.p2">{zhCN.mascot.p2}</p>
+        </div>
+
+        <div class="mascot-footer">
+          <div class="mascot-tags">
+            {tagKeys.map((k) => (
+              <span class="mascot-tag" data-i18n={`mascot.tags.${k}`}>
+                {zhCN.mascot.tags[k]}
+              </span>
+            ))}
+          </div>
+
+          <a href="/docs/basics/latte/" class="mascot-link" data-i18n="mascot.cta">
+            {zhCN.mascot.cta}
+          </a>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>

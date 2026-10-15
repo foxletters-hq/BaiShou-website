@@ -1,0 +1,64 @@
+---
+import { ORIGIN_TRIO_IDS } from '../data/site';
+import { t } from '../i18n';
+import zhCN from '../i18n/locales/zh-CN';
+
+const trioAvatars = {
+  anson: 'https://avatars.githubusercontent.com/u/107763915?v=4',
+  sakura: '/assets/images/sakura-avatar.jpg',
+  akatsuki: '/assets/images/akatsuki-avatar.jpg',
+} as const;
+---
+
+<section id="origin" class="snap-page origin-section">
+  <div class="container snap-page-inner">
+    <div class="reveal section-heading">
+      <p class="section-eyebrow" data-i18n="origin.eyebrow">{zhCN.origin.eyebrow}</p>
+      <h2 data-i18n="origin.title">{zhCN.origin.title}</h2>
+      <p class="section-lead origin-lead" data-i18n="origin.lead">
+        {zhCN.origin.lead}
+      </p>
+    </div>
+
+    <article class="card origin-story-card reveal">
+      <div class="origin-story-prose">
+        <p data-i18n="origin.story.p1">{zhCN.origin.story.p1}</p>
+        <p data-i18n="origin.story.p2">{zhCN.origin.story.p2}</p>
+        <p data-i18n="origin.story.p3">{zhCN.origin.story.p3}</p>
+      </div>
+      <blockquote class="origin-story-quote" data-i18n="origin.story.quote">
+        {zhCN.origin.story.quote}
+      </blockquote>
+    </article>
+
+    <div class="origin-trio-grid reveal">
+      {ORIGIN_TRIO_IDS.map((id) => {
+        const avatar = trioAvatars[id];
+        const nameText = t(zhCN, `origin.trio.${id}.name`);
+        return (
+          <article class="card origin-trio-card">
+            <div class="origin-trio-top">
+              <img
+                src={avatar}
+                alt={nameText}
+                class="origin-trio-avatar"
+                width="64"
+                height="64"
+                loading="lazy"
+              />
+              <div class="origin-trio-titles">
+                <h3 data-i18n={`origin.trio.${id}.name`}>{nameText}</h3>
+                <span class="origin-trio-role" data-i18n={`origin.trio.${id}.role`}>
+                  {t(zhCN, `origin.trio.${id}.role`)}
+                </span>
+              </div>
+            </div>
+            <p class="origin-trio-desc" data-i18n={`origin.trio.${id}.desc`}>
+              {t(zhCN, `origin.trio.${id}.desc`)}
+            </p>
+          </article>
+        );
+      })}
+    </div>
+  </div>
+</section>

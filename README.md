@@ -33,6 +33,33 @@ npm run dev
 
 同一相对路径与文件名用于关联多语言页面。侧边栏与文案在 `src/data/docs-nav.ts` 中维护；路由见 `src/pages/docs/` 与 `src/pages/[locale]/docs/`。
 
+## 代码规范
+
+提交前请执行 `npm run lint`，规范由 [eslint.config.js](./eslint.config.js) 与 [scripts/check-max-lines.mjs](./scripts/check-max-lines.mjs) 共同保证：
+
+| 规范 | 要求 | 检查方式 |
+|------|------|----------|
+| 单文件行数 | `.ts` / `.tsx` / `.astro` / `.js` 与 `.css` 均不超过 **300 行**（不含空行与注释），超过即拆分 | ESLint `max-lines` + `npm run check:lines` |
+| 单函数行数 | 不超过 120 行（警告） | ESLint `max-lines-per-function` |
+| 基础质量 | 禁用 `var`、`==`、未使用变量、空 `catch` 块、`any` | ESLint + typescript-eslint |
+| 格式 | UTF-8、LF、2 空格缩进 | [.editorconfig](./.editorconfig) |
+
+目录约定：
+
+- `src/styles/modules/`：官网样式，按区块拆分，由 `src/styles/global.css` 统一 `@import`；
+- `src/styles/docs/`：文档页样式，由 `src/styles/docs.css` 统一引入；
+- `src/scripts/`：浏览器端脚本，`.astro` 内只保留一行 import 与初始化调用；
+- `src/data/`：站点与文档导航数据，体量大时按主题拆文件；
+- 新增文案须同步 `zh-CN`、`zh-TW`、`en`、`ja` 四个语言文件及 `src/i18n/types.ts`。
+
+常用命令：
+
+```bash
+npm run lint       # ESLint + 样式行数检查
+npm run lint:fix   # 自动修复可修复项
+npm run build      # 构建前同样建议先通过 lint
+```
+
 ## 构建
 
 ```bash

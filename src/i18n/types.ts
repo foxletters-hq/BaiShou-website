@@ -11,10 +11,10 @@ export interface Messages {
   brand: { name: string; suffix: string };
   nav: {
     home: string;
-    problem: string;
     features: string;
-    vision: string;
     principles: string;
+    origin: string;
+    mascot: string;
     people: string;
     docsAction: string;
   };
@@ -37,15 +37,6 @@ export interface Messages {
     ctaBilibili: string;
     iconAlt: string;
   };
-  problem: {
-    eyebrow: string;
-    title: string;
-    lead: string;
-    items: Record<
-      'memory' | 'notes' | 'scattered' | 'locale',
-      { title: string; desc: string }
-    >;
-  };
   features: {
     eyebrow: string;
     title: string;
@@ -56,18 +47,6 @@ export interface Messages {
       { title: string; desc: string; badge?: string }
     >;
   };
-  vision: {
-    eyebrow: string;
-    title: string;
-    devBadge: string;
-    lead: string;
-    whyTitle: string;
-    whyP1: string;
-    whyP2: string;
-    compare: Record<'notes' | 'chat', { title: string; desc: string }>;
-    ambitionTitle: string;
-    ambitionP1: string;
-  };
   principles: {
     eyebrow: string;
     title: string;
@@ -77,36 +56,53 @@ export interface Messages {
       { title: string; desc: string }
     >;
   };
+  origin: {
+    eyebrow: string;
+    title: string;
+    lead: string;
+    story: {
+      p1: string;
+      p2: string;
+      p3: string;
+      quote: string;
+    };
+    trio: Record<
+      'anson' | 'sakura' | 'akatsuki',
+      { name: string; role: string; desc: string }
+    >;
+  };
+  mascot: {
+    eyebrow: string;
+    title: string;
+    lead: string;
+    name: string;
+    role: string;
+    quote: string;
+    p1: string;
+    p2: string;
+    tags: {
+      t1: string;
+      t2: string;
+      t3: string;
+      t4: string;
+    };
+    cta: string;
+  };
   people: {
-    coreEyebrow: string;
-    coreTitle: string;
-    founderEyebrow: string;
-    founderTitle: string;
     founderRole: string;
-    founderBio: string;
-    collabEyebrow: string;
-    collabTitle: string;
-    collabLeadBefore: string;
     collabLeadLink: string;
-    collabLeadAfter: string;
     wallEyebrow: string;
     wallTitle: string;
     wallLeadBefore: string;
     wallLeadLink: string;
     wallLeadAfter: string;
-    members: Record<'anson' | 'alice' | 'ratman' | 'ctnilpp', { role: string; bio: string }>;
-    collaborators: Record<'ratman' | 'ctnilpp', { bio: string }>;
-  };
-  faq: {
-    eyebrow: string;
-    title: string;
-    lead: string;
-    items: Record<
-      'free' | 'privacy' | 'platform' | 'diff' | 'model' | 'migrate',
-      { q: string; a: string }
-    >;
+    commitsUnit: string;
+    badgeHintBefore: string;
+    badgeHintLink: string;
+    badgeHintAfter: string;
   };
   footer: {
+    copy: string;
     bilibili: string;
     joinCommunity: string;
     github: string;

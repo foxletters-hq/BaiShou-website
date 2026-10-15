@@ -1,0 +1,99 @@
+---
+import zhCN from '../i18n/locales/zh-CN';
+
+export interface Props {
+  title: string;
+  description: string;
+  canonicalUrl: string;
+  ogImageUrl: string;
+}
+
+const { title, description, canonicalUrl, ogImageUrl } = Astro.props;
+
+const keywords = [
+  '白守',
+  'BaiShou',
+  'AI知识库',
+  '个人知识库',
+  '长期记忆',
+  'AI伴侣',
+].join(', ');
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: '白守 BaiShou',
+  applicationCategory: 'ProductivityApplication',
+  operatingSystem: 'Windows, Android',
+  url: canonicalUrl,
+  description,
+  image: ogImageUrl,
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'CNY',
+  },
+  author: {
+    '@type': 'Organization',
+    name: 'foxletters-hq',
+    url: 'https://github.com/foxletters-hq',
+  },
+  featureList: zhCN.features
+    ? ['日记与回忆', 'AI 伙伴', '文件知识库', 'RAG 检索', '多端同步', '本地优先']
+    : [],
+};
+
+const orgLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'foxletters-hq',
+  url: 'https://github.com/foxletters-hq',
+  logo: new URL('/assets/images/app-icon.png', Astro.site).href,
+};
+---
+
+<meta charset="UTF-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+/>
+<meta name="generator" content={Astro.generator} />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="keywords" content={keywords} />
+<meta name="author" content="foxletters-hq" />
+<meta name="theme-color" content="#0a0f1e" />
+<meta
+  name="robots"
+  content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+/>
+<meta name="googlebot" content="index, follow" />
+
+<link rel="canonical" href={canonicalUrl} />
+
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:image:alt" content="白守 BaiShou 应用图标" />
+<meta property="og:locale" content="zh_CN" />
+<meta property="og:site_name" content="白守 BaiShou" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageUrl} />
+
+<meta itemprop="name" content={title} />
+<meta itemprop="description" content={description} />
+<meta itemprop="image" content={ogImageUrl} />
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+<script type="application/ld+json" set:html={JSON.stringify(orgLd)} />

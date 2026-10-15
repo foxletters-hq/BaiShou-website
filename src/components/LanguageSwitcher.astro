@@ -45,32 +45,34 @@ const currentShort = currentOption.shortLabel;
 <script is:inline>
   (function () {
     try {
-      var k = 'baishou-locale';
-      var path = window.location.pathname;
-      var isDocsPath = /^\/(en|ja|zh-tw)\/docs/.test(path);
-      var lang = isDocsPath
-        ? (document.documentElement.lang || 'zh-CN')
-        : (localStorage.getItem(k) || document.documentElement.lang || 'zh-CN');
-      var map = { 'zh-CN': '简中', 'zh-TW': '繁中', en: 'EN', ja: '日文' };
+      const k = 'baishou-locale';
+      const path = window.location.pathname;
+      const isDocsPath = /^\/(en|ja|zh-tw)\/docs/.test(path);
+      const lang = isDocsPath
+      ? (document.documentElement.lang || 'zh-CN')
+      : (localStorage.getItem(k) || document.documentElement.lang || 'zh-CN');
+      const map = { 'zh-CN': '简中', 'zh-TW': '繁中', en: 'EN', ja: '日文' };
       if (map[lang]) {
-        var root = document.querySelector('[data-lang-switcher]');
+        const root = document.querySelector('[data-lang-switcher]');
         if (root) {
-          var label = root.querySelector('[data-lang-current]');
+          const label = root.querySelector('[data-lang-current]');
           if (label && label.textContent !== map[lang]) {
             label.textContent = map[lang];
           }
-          var prev = root.querySelector('.lang-option.is-active');
+          const prev = root.querySelector('.lang-option.is-active');
           if (prev && prev.getAttribute('data-lang-option') !== lang) {
             prev.classList.remove('is-active');
             prev.setAttribute('aria-selected', 'false');
           }
-          var curr = root.querySelector('[data-lang-option="' + lang + '"]');
+          const curr = root.querySelector('[data-lang-option="' + lang + '"]');
           if (curr) {
             curr.classList.add('is-active');
             curr.setAttribute('aria-selected', 'true');
           }
         }
       }
-    } catch (e) {}
+    } catch {
+      // localStorage 不可用时保持默认语言显示
+    }
   })();
 </script>

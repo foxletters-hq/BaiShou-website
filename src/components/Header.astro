@@ -46,7 +46,7 @@ const docsHref =
             class="brand-suffix"
             data-i18n="brand.suffix"
           >
-            · Foxletters</span
+            · 狐信科技</span
           >
         </span>
       </a>
@@ -76,8 +76,30 @@ const docsHref =
       </nav>
 
       <div class="header-actions">
-        <button type="button" class="btn btn-primary header-dl-btn" data-dl-open data-i18n="download.button">
-          下载
+        <button
+          type="button"
+          class="btn btn-primary header-dl-btn"
+          data-dl-open
+          aria-label="下载"
+          data-i18n-aria-label="download.button"
+        >
+          <svg
+            class="header-dl-icon"
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M12 4v11" />
+            <path d="m7 11 5 5 5-5" />
+            <path d="M5 20h14" />
+          </svg>
+          <span class="header-dl-text" data-i18n="download.button">下载</span>
         </button>
         <ThemeToggle />
         <LanguageSwitcher />
@@ -92,24 +114,34 @@ const docsHref =
       class="snap-dots"
       aria-label="页面分屏导航"
       data-i18n-aria-label="a11y.snapNav"
+      data-snap-rail
     >
-      {SNAP_SECTION_IDS.map((id) => {
-        const labelKey = id === "hero" ? "brand.name" : `nav.${id}`;
-        const label = t(zhCN, labelKey);
-        return (
-          <a
-            href={navHref(id)}
-            class="snap-dot"
-            data-snap-dot={id}
-            data-i18n-aria-label={labelKey}
-            aria-label={label}
-          >
-            <span class="snap-dot-label" data-i18n={labelKey}>
-              {label}
-            </span>
-          </a>
-        );
-      })}
+      <div class="snap-steps">
+        <div class="snap-progress-track" aria-hidden="true">
+          <div class="snap-progress-fill" data-snap-progress-fill />
+        </div>
+        {SNAP_SECTION_IDS.map((id, idx) => {
+          const labelKey = id === "hero" ? "brand.name" : `nav.${id}`;
+          const label = t(zhCN, labelKey);
+          const stepNum = `0${idx + 1}`;
+          return (
+            <a
+              href={navHref(id)}
+              class:list={["snap-dot", { "is-active": idx === 0 }]}
+              data-snap-dot={id}
+              data-snap-index={idx}
+              data-i18n-aria-label={labelKey}
+              aria-label={label}
+            >
+              <span class="snap-dot-node" aria-hidden="true" />
+              <span class="snap-dot-index" aria-hidden="true">{stepNum}</span>
+              <span class="snap-dot-label" data-i18n={labelKey}>
+                {label}
+              </span>
+            </a>
+          );
+        })}
+      </div>
     </nav>
   )
 }

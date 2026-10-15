@@ -15,7 +15,7 @@ import {
 <footer class="site-footer">
   <div class="container footer-inner">
     <div class="footer-meta">
-      <p class="footer-copy">© 2026 foxletters-hq</p>
+      <p class="footer-copy" data-i18n="footer.copy">© 2026 狐信科技</p>
       <div class="footer-filings">
         <a
           class="footer-beian"
@@ -48,6 +48,8 @@ import {
         type="button"
         class="btn btn-outline footer-cta"
         data-community-open
+        aria-label="加入社群"
+        data-i18n-aria-label="footer.joinCommunity"
       >
         <QqIcon size={18} />
         <span data-i18n="footer.joinCommunity">加入社群</span>
@@ -58,6 +60,8 @@ import {
         target="_blank"
         rel="noopener noreferrer"
         class="footer-link footer-link-bilibili"
+        aria-label="哔哩哔哩"
+        data-i18n-aria-label="footer.bilibili"
       >
         <BilibiliIcon size={18} />
         <span data-i18n="footer.bilibili">哔哩哔哩</span>
@@ -68,6 +72,8 @@ import {
         target="_blank"
         rel="noopener noreferrer"
         class="footer-link footer-link-github"
+        aria-label="GitHub"
+        data-i18n-aria-label="footer.github"
       >
         <GithubIcon size={18} />
         <span data-i18n="footer.github">GitHub</span>

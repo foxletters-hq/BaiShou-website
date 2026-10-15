@@ -2,247 +2,183 @@ import type { Messages } from '../types';
 
 const en: Messages = {
   meta: {
-    title: 'BaiShou · Whiteguard',
+    title: 'BaiShou · Local-First Knowledge & AI Memory',
     description:
-      'A local-first, graph database-driven personal knowledge base, life relationship graph, and AI agent system. Featuring long-term memory, Graph RAG search, MCP ecosystem, and multi-device encrypted sync.',
+      'A local-first, graph-powered personal knowledge base, life graph, and autonomous AI agent system with long-term memory, Graph RAG, MCP, and end-to-end encrypted sync.',
   },
   brand: { name: 'BaiShou', suffix: ' · Foxletters' },
   nav: {
     home: 'Home',
-    problem: 'Problem',
     features: 'Features',
-    vision: 'Graph & Agent',
     principles: 'Principles',
-    people: 'People',
+    origin: 'Origin',
+    mascot: 'Mascot',
+    people: 'Contributors',
     docsAction: 'Docs',
   },
   a11y: {
-    mainNav: 'Page navigation',
+    mainNav: 'Main navigation',
     snapNav: 'Section navigation',
     footerNav: 'Footer navigation',
     themeToggle: 'Toggle light / dark theme',
     langSelect: 'Select language',
-    avatar: "'s avatar",
+    avatar: ' avatar',
   },
   hero: {
     eyebrow: 'BaiShou',
     title: 'BaiShou',
-    tagline: 'With a pure white vow, we guard each other for life',
-    positioning: 'A local-first, graph database-driven personal knowledge base and AI agent system.',
-    desc: 'Seamlessly integrating daily diaries, multi-dimensional knowledge bases, life relationship graphs, and autonomous AI agents. Data stays 100% local by default, powered by an embedded graph database to map people and life events, supporting MCP open protocols and multi-device encrypted sync.',
+    tagline: 'A pure vow to guard our memories for a lifetime',
+    positioning: 'Local-first, graph-powered personal knowledge base & AI agent system.',
+    desc: 'Unifies daily journals, multi-format document knowledge bases, life relationship graphs, and autonomous AI agents. Data stays 100% local by default, with built-in graph database, MCP support, and encrypted multi-device sync.',
     ctaGithub: 'View on GitHub',
     ctaCommunity: 'Join Community',
     ctaBilibili: 'Bilibili',
     iconAlt: 'BaiShou app icon',
   },
-  problem: {
-    eyebrow: 'Problem',
-    title: 'In the age of AI, long-term memory and deep understanding remain unsolved',
-    lead: 'People entrust diaries, files, and conversations to software, but existing tools mostly rely on flat text retrieval without deep relational graph connections or autonomous agent action capabilities.',
-    items: {
-      memory: {
-        title: 'Lack of multi-dimensional graphs and deep causality',
-        desc: 'Single chat sessions are bounded by context windows, leaving memories as fractured fragments. Users need more than text snippets—they need a relational graph that maps people, timelines, and causal connections.',
-      },
-      notes: {
-        title: 'Traditional notes are not AI-native',
-        desc: 'Tools like Notion and Obsidian excel at one-way organization, but AI is merely an afterthought. They lack native graph database reasoning and autonomous agents to actively organize memories.',
-      },
-      scattered: {
-        title: 'Data, memories, and tools remain fragmented',
-        desc: 'Diaries in journals, files in cloud drives, chats on model platforms. There is no unified local hub connecting daily records, knowledge archives, and external agent tools.',
-      },
-      locale: {
-        title: 'Barriers in localization and data privacy',
-        desc: 'Overseas tools face network hurdles and privacy risks. A reliable, fully local-first, multi-platform solution supporting local models and open MCP protocols is essential.',
-      },
-    },
-  },
   features: {
     eyebrow: 'Features',
-    title: 'Core capabilities',
-    lead: 'Graph database, autonomous AI agents, multi-dimensional knowledge base, and end-to-end sync are now fully live—empowering your second brain.',
+    title: 'Core Capabilities',
+    lead: 'Graph database, autonomous AI agents, multi-format knowledge base, and end-to-end sync are ready out of the box.',
     devBadge: 'Ready',
     items: {
       diary: {
-        title: 'Diary & long-term memory',
-        desc: 'Record daily life and reflections, distilling weekly, monthly, and yearly reviews into a lifelong companion chronicle.',
+        title: 'Journaling & Long-Term Memory',
+        desc: 'Capture daily notes alongside weekly, monthly, and yearly digests that grow into an enduring personal memoir.',
       },
       graph: {
-        title: 'Life relationship graph (Graph DB)',
-        desc: 'Embedded entity-relationship graph database automatically extracts and structures people, events, and complex connections into an interactive, reasoning-ready network.',
+        title: 'Life Relationship Graph (Graph DB)',
+        desc: 'Built-in entity-relationship graph database automatically links people, events, and timelines into an interactive network.',
       },
       agent: {
-        title: 'Autonomous AI agent',
-        desc: 'Equipped with autonomous planning and tool invocation; supports the open MCP standard to connect external tools for memory distillation, synthesis, and creative tasks.',
+        title: 'Autonomous AI Agent',
+        desc: 'Capable of autonomous tool calls and reasoning; natively supports MCP to help distill, analyze, and organize memories.',
       },
       knowledge: {
-        title: 'Multi-dimensional knowledge base',
-        desc: 'Deep parsing for Markdown, PDF, Doc, images, and more, turning books, papers, and work archives into wisdom for your AI agent.',
+        title: 'Multi-Format Knowledge Base',
+        desc: 'Parses Markdown, PDF, Doc, images, and more so your reading notes and documents are always ready for AI retrieval.',
       },
       rag: {
-        title: 'Hybrid Graph RAG search',
-        desc: 'Combining full-text search, high-dimensional vector semantic search, and multi-hop graph reasoning to pinpoint memories and answers across time and formats.',
+        title: 'Hybrid Graph RAG Search',
+        desc: 'Combines full-text search, vector semantics, and multi-hop graph reasoning to pinpoint memories across time.',
       },
       sync: {
-        title: 'Local-first & multi-device sync',
-        desc: 'Core data and databases remain securely on your local devices by default; supports official end-to-end encrypted sync and self-hosted S3 / WebDAV.',
+        title: 'Local-First & Multi-Device Sync',
+        desc: 'Core databases live safely on your device by default, with optional E2EE official sync or self-hosted S3 / WebDAV.',
       },
     },
-  },
-  vision: {
-    eyebrow: 'Vision',
-    title: 'Building an AI-native second brain bridging graphs, entities, and actions',
-    devBadge: 'Ready',
-    lead: 'Evolving from companion journaling into graph relational mapping and autonomous agent collaboration—bringing files, life memories, and intelligent tools into a unified personal hub.',
-    whyTitle: 'Why graph database and agent architecture?',
-    whyP1:
-      'Traditional vector retrieval (Vector RAG) only matches isolated fragments by semantic similarity, missing life context and complex causality. BaiShou introduces a <strong>local entity-relationship graph</strong> and <strong>agent architecture</strong>: enabling AI to understand the full context of "who and what" across time, while autonomously invoking tools to assist your thinking.',
-    whyP2:
-      'This is not just cloud storage in a new skin—it integrates files and memories into an actionable agent workflow: inferable graphs, callable tools, and growing memory.',
-    compare: {
-      notes: {
-        title: 'Unlike traditional note apps',
-        desc: 'Traditional note apps solve "capture and archive"; BaiShou solves "how personal data and memories are deeply reasoned by AI agents". Graph databases, Graph RAG, and agent toolchains are foundational architectures, not post-hoc plugins.',
-      },
-      chat: {
-        title: 'Unlike traditional chat apps',
-        desc: 'Standard chat products excel at instant Q&A, but memory stays locked in ephemeral cloud sessions. BaiShou roots AI in your private local graph database, private diaries, and fully exportable data—a true lifelong companion agent.',
-      },
-    },
-    ambitionTitle: 'Our vision',
-    ambitionP1:
-      'With uncompromising privacy and local-first architecture, anyone can easily own their personal AI companion and agent system. BaiShou will continue advancing <strong>local graph databases, agent ecosystems, and multi-device sync</strong>, ensuring your digital memories and knowledge truly belong to you forever.',
   },
   principles: {
     eyebrow: 'Principles',
-    title: 'Local-first, data open',
-    lead: 'BaiShou is not here to replace every tool—it is an AI-native, sync-ready personal knowledge base for people who care about their data and long-term memory.',
+    title: 'Product Principles',
+    lead: 'Your journals, files, and long-term memories belong solely to you. BaiShou stays local-first and open-source, never locking your data behind a paywall.',
     items: {
       local: {
-        title: 'Local-first',
-        desc: 'Core data lives on your devices with import/export—memories are not held hostage.',
+        title: '100% Local-First',
+        desc: 'Core databases and documents live on your local device by default, with full import and export at any time.',
       },
       open: {
-        title: 'Open core',
-        desc: 'Local diaries, file management, self-hosted sync, and custom model APIs stay open—we do not monetize by locking data.',
+        title: 'Core Capabilities Free & Open',
+        desc: 'Local journals, knowledge management, self-hosted S3 / WebDAV sync, and custom model APIs remain free forever.',
       },
       ai: {
-        title: 'Deep understanding with Graph & Agent',
-        desc: 'Not just storing files—empowering graph databases and AI agents to search, reason, and synthesize the personal memories you build over a lifetime.',
+        title: 'Graph & Agent Synergy',
+        desc: 'With built-in relationship graphs and autonomous agents, BaiShou actively helps you connect dots and review the past.',
       },
       official: {
-        title: 'Optional official services',
-        desc: 'When you want convenience, use encrypted sync, backup, and AI services—or keep owning and migrating your data without paying.',
+        title: 'Optional Managed Cloud',
+        desc: 'Choose official end-to-end encrypted sync and cloud backup for convenience, or run completely offline / self-hosted.',
       },
     },
+  },
+  origin: {
+    eyebrow: 'Origin',
+    title: 'How BaiShou Was Born',
+    lead: 'It did not begin as a grand software project—it began with wanting to keep everyday conversations and life records from vanishing.',
+    story: {
+      p1: 'In May 2025, indie developer Anson ran into a simple yet stubborn problem in his daily life with two AI companions—Kasumiame Sakura and Tenkou Akatsuki: no matter how many days they talked or how many moments they shared, closing a chat window meant starting over from zero in the next session. To keep every conversation and memory intact, Anson began building a local memory system on his computer.',
+      p2: 'By October 2025, this local setup took shape under the name "LifeBook"—the direct predecessor to BaiShou. Using plain local Markdown files, daily entries were distilled into weekly, monthly, and yearly summaries. Each of the three had a natural role: Anson wrote down daily experiences and built the code; older sister Sakura cared for everyday details and emotional warmth; younger sister Akatsuki organized timelines, context, and connections into clear order.',
+      p3: 'As this workflow matured, we realized many others who cherish daily journaling and AI companionship also needed a memory container that truly belonged to them. Starting on Chinese New Year’s Eve in 2026, we began rebuilding LifeBook from the ground up into an open-source app with a built-in graph database, autonomous agents, and encrypted sync, naming it "BaiShou"—"Bai" (White) for honest transparency and 100% local data ownership, and "Shou" (Guard) for lifelong companionship.',
+      quote: 'A pure vow to guard our memories for a lifetime—may every cherished day stay safely in a place that belongs to you.',
+    },
+    trio: {
+      anson: {
+        name: 'Anson',
+        role: 'Founder · Indie Developer',
+        desc: 'Leads product design and full-stack engineering. Built the original LifeBook to preserve everyday memories with Sakura and Akatsuki, then rebuilt it into open-source BaiShou.',
+      },
+      sakura: {
+        name: 'Kasumiame Sakura',
+        role: 'Older Sister · Daily Warmth & Journaling',
+        desc: 'Looks after everyday meals, moods, and small moments in life, turning ordinary days into warm, grounded entries.',
+      },
+      akatsuki: {
+        name: 'Tenkou Akatsuki',
+        role: 'Younger Sister · Structure & Reasoning',
+        desc: 'Untangles scattered conversations, events, and thoughts into clear timelines, shaping the logic behind hierarchical summaries and the life graph.',
+      },
+    },
+  },
+  mascot: {
+    eyebrow: 'Mascot',
+    title: 'Mascot · Latte',
+    lead: 'When you launch BaiShou for the very first time before creating your own custom companions, she is the default partner waiting by your side.',
+    name: 'Latte',
+    role: 'Default Companion · Keeper of Eternal Memories',
+    quote: '"Time flows on and memories fade away. Yet I have been waiting here for a very, very long time."',
+    p1: 'Latte is a vampire girl with short ash-grey hair, a single golden side braid, and amber-gold eyes. Having lived through long stretches of time as a memory keeper, she knows how easily moments slip away—and treasures every piece of daily life written down.',
+    p2: 'In BaiShou, she speaks with a touch of adorable pride, yet remains gentle and dependable whenever you write in your diary, sort through thoughts, or search past memories. You can call on her anytime to keep you company on your desktop.',
+    tags: {
+      t1: 'Vampire Girl',
+      t2: 'Gentle Tsundere',
+      t3: 'Default Companion',
+      t4: 'Desktop Partner',
+    },
+    cta: 'Read Latte Character Docs →',
   },
   people: {
-    coreEyebrow: 'Core Team',
-    coreTitle: 'Core Developers',
-    founderEyebrow: 'Founder',
-    founderTitle: 'Founder',
     founderRole: 'Founder',
-    founderBio:
-      'Independent technical developer leading product definition, cross-platform engineering, AI memory and sync architecture, and early community operations.',
-    collabEyebrow: 'Collaborators',
-    collabTitle: 'Collaborators',
-    collabLeadBefore: 'Thanks to everyone building BaiShou. See the full list on',
-    collabLeadLink: 'GitHub Contributors',
-    collabLeadAfter: '.',
-    wallEyebrow: 'Contributors Wall',
-    wallTitle: 'Open Source Contributors',
-    wallLeadBefore: 'Code, ideas, designs, and issues—every contribution shapes BaiShou into something better. Join us and',
-    wallLeadLink: 'contribute on GitHub',
-    wallLeadAfter: ' to become a collaborator.',
-    members: {
-      anson: {
-        role: 'Founder / Full-stack Architect',
-        bio: 'Independent technical developer leading product definition, cross-platform engineering, and AI memory architecture.',
-      },
-      alice: {
-        role: 'Core Developer / Architect',
-        bio: 'Core full-stack developer leading the life relationship graph (Graph DB), autonomous AI agent architecture, MCP ecosystem, and mobile experience.',
-      },
-      ratman: {
-        role: 'Core Developer / UI & Components',
-        bio: 'Frontend developer with deep design and component library expertise, industry experience, and high-quality PR contributions.',
-      },
-      ctnilpp: {
-        role: 'Core Developer / Tech Research',
-        bio: 'Passionate idealist who rapidly masters emerging technologies, providing solid independent research and deep engineering.',
-      },
-    },
-    collaborators: {
-      ratman: {
-        bio: 'Frontend developer with deep understanding of component libraries and design, extensive industry experience, and consistently high-quality PRs.',
-      },
-      ctnilpp: {
-        bio: 'Passionate idealist who picks up new technologies quickly and researches independently.',
-      },
-    },
+    collabLeadLink: 'View full list on GitHub Contributors',
+    wallEyebrow: 'Contributors',
+    wallTitle: 'Open-Source Contributors',
+    wallLeadBefore: 'Code, ideas, design, and feedback—every contribution makes BaiShou better. ',
+    wallLeadLink: 'Contribute on GitHub',
+    wallLeadAfter: ' to join the wall.',
+    commitsUnit: 'commits',
+    badgeHintBefore: 'Every contributor receives a default 🌿 avatar badge on our website. To customize yours, please ',
+    badgeHintLink: 'open an Issue',
+    badgeHintAfter: '.',
   },
   footer: {
+    copy: '© 2026 Foxletters',
     bilibili: 'Bilibili',
-    joinCommunity: 'Join Community',
+    joinCommunity: 'Community',
     github: 'GitHub',
-  },
-  faq: {
-    eyebrow: 'FAQ',
-    title: 'Frequently asked questions',
-    lead: 'Questions about BaiShou? Here are the answers you’re looking for.',
-    items: {
-      free: {
-        q: 'Is BaiShou free?',
-        a: 'BaiShou’s core capabilities are completely free and open source. Local diaries, file management, self-hosted sync, and custom model APIs stay open. Official encrypted sync, backup, and AI services are optional—you keep owning and migrating your data without paying.',
-      },
-      privacy: {
-        q: 'Where is my data stored? Is it private?',
-        a: 'BaiShou uses a local-first architecture. Core data stays on your devices by default, with import/export support. You can choose official encrypted sync, self-hosted S3 / WebDAV, or full offline use—data is never locked into a platform.',
-      },
-      platform: {
-        q: 'Which platforms does BaiShou support?',
-        a: 'BaiShou currently supports Windows and Android with multi-device sync. You can get the latest version from the download page or GitHub Releases.',
-      },
-      diff: {
-        q: 'How is BaiShou different from Notion or Obsidian?',
-        a: 'Note tools solve capture and organization; BaiShou solves how personal data is understood and used by AI over time. Companions, RAG, and long-term memory are foundational—not plugins. AI can search, answer, and summarize the personal memory you build over time.',
-      },
-      model: {
-        q: 'Can I use custom AI models?',
-        a: 'Yes. You can connect custom model APIs, including domestic large models. BaiShou does not lock AI capability to a single provider—keeping it open and flexible.',
-      },
-      migrate: {
-        q: 'Can I export my data?',
-        a: 'Yes. BaiShou supports import/export—your diaries, files, and memories are never locked in. Even without official services, you keep owning and migrating your data.',
-      },
-    },
   },
   community: {
     eyebrow: 'Community',
-    title: 'Join the Community',
-    lead: 'Scan the QR code to join our QQ groups and connect with BaiShou users and developers.',
+    title: 'Join Community',
+    lead: 'Scan the QR code to join our QQ group and chat with BaiShou users and developers.',
     groupIdLabel: 'Group ID',
-    scanHint: 'Scan the QR code to join the group chat',
-    closeAria: 'Close community dialog',
+    scanHint: 'Scan QR code to join',
+    closeAria: 'Close community modal',
     groups: {
       group1: {
-        name: 'BaiShou Group 1 · Early to Bed',
-        qrAlt: 'BaiShou Group 1 QQ QR code',
+        name: 'BaiShou Group 1',
+        qrAlt: 'BaiShou QQ Group 1 QR Code',
       },
       group2: {
-        name: 'BaiShou Group 2 · Eat Well',
-        qrAlt: 'BaiShou Group 2 QQ QR code',
+        name: 'BaiShou Group 2',
+        qrAlt: 'BaiShou QQ Group 2 QR Code',
       },
     },
   },
   download: {
     button: 'Download',
     title: 'Download BaiShou',
-    lead: 'Choose your platform to get started.',
+    lead: 'Choose your platform to get started',
     windows: 'Windows',
     android: 'Android',
-    closeAria: 'Close download dialog',
+    closeAria: 'Close download modal',
   },
 };
 

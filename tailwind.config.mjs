@@ -18,8 +18,26 @@ export default {
         textMuted: '#6b7488',
       },
       fontFamily: {
-        sans: ['"Noto Sans SC"', '"Source Han Sans SC"', '"Microsoft YaHei"', '"PingFang SC"', 'sans-serif'],
-        display: ['"Noto Sans SC"', '"Source Han Sans SC"', '"Microsoft YaHei"', '"PingFang SC"', 'sans-serif'],
+        sans: [
+          '"Source Han Sans CN"',
+          '"Source Han Sans SC"',
+          '"思源黑体 CN"',
+          '"思源黑体"',
+          '"Source Han Sans CN VF"',
+          '"Noto Sans SC"',
+          '"Noto Sans CJK SC"',
+          'sans-serif',
+        ],
+        display: [
+          '"Source Han Sans CN"',
+          '"Source Han Sans SC"',
+          '"思源黑体 CN"',
+          '"思源黑体"',
+          '"Source Han Sans CN VF"',
+          '"Noto Sans SC"',
+          '"Noto Sans CJK SC"',
+          'sans-serif',
+        ],
       },
       borderRadius: {
         card: '14px',

@@ -30,6 +30,7 @@ const BACKGROUND_URL = '/assets/images/dark-city-bg.jpg';
 export type BaishouRaindropController = {
   start: () => void;
   stop: () => void;
+  warmup: () => void;
   destroy: () => void;
 };
 
@@ -71,20 +72,24 @@ export const initBaishouRaindrop = (
 
   let fx: RaindropFXInstance | null = null;
   let running = false;
-  let starting = false;
+  let wantRunning = false;
+  let initPromise: Promise<void> | null = null;
   let width = 0;
   let height = 0;
   let background: HTMLImageElement | null = null;
   let scriptReady = false;
-  let backgroundReady = false;
 
-  const measure = () => {
-    width = window.innerWidth;
-    height = window.innerHeight;
+  const syncCanvasSize = (force = false) => {
+    const nextWidth = window.innerWidth;
+    const nextHeight = window.innerHeight;
+    if (!force && width === nextWidth && height === nextHeight) return false;
+    width = nextWidth;
+    height = nextHeight;
     canvas.width = width;
     canvas.height = height;
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
+    return true;
   };
 
   const ensureAssets = async () => {
@@ -92,78 +97,77 @@ export const initBaishouRaindrop = (
       await loadScript(RAINDROP_SCRIPT);
       scriptReady = true;
     }
-
-    if (!window.RaindropFX) {
-      throw new Error('RaindropFX is unavailable');
-    }
-
-    if (!backgroundReady) {
+    if (!window.RaindropFX) throw new Error('RaindropFX is unavailable');
+    if (!background) {
       background = await loadBackground(BACKGROUND_URL);
-      backgroundReady = true;
     }
   };
 
-  const createFx = async () => {
-    await ensureAssets();
-    if (!window.RaindropFX || !background) return;
-
-    measure();
-
-    if (fx) {
-      fx.destroy();
-      fx = null;
-    }
-
-    fx = new window.RaindropFX({
-      canvas,
-      width,
-      height,
-      background,
-      mist: false,
-      dropletsPerSeconds: 280,
-      spawnLimit: 900,
-      raindropDiffuseLight: [0.45, 0.5, 0.6],
-      raindropSpecularLight: [0.15, 0.15, 0.15],
-      backgroundBlurSteps: 4,
+  const ensureFx = () => {
+    if (initPromise) return initPromise;
+    initPromise = (async () => {
+      await ensureAssets();
+      if (!window.RaindropFX || !background) return;
+      syncCanvasSize(true);
+      fx = new window.RaindropFX({
+        canvas,
+        width,
+        height,
+        background,
+        mist: false,
+        dropletsPerSeconds: 280,
+        spawnLimit: 900,
+        raindropDiffuseLight: [0.45, 0.5, 0.6],
+        raindropSpecularLight: [0.15, 0.15, 0.15],
+        backgroundBlurSteps: 4,
+      });
+      await fx.start();
+      running = true;
+      canvas.classList.add('is-ready');
+      if (!wantRunning) {
+        fx.stop();
+        running = false;
+      }
+    })().catch((error) => {
+      console.warn('[BaishouRaindrop] init failed', error);
+      initPromise = null;
     });
-
-    await fx.start();
+    return initPromise;
   };
 
   const start = () => {
-    if (running || starting) return;
-    starting = true;
-
-    createFx()
-      .then(() => {
-        running = true;
-      })
-      .catch((error) => {
-        console.warn('[BaishouRaindrop] start failed', error);
-        stop();
-      })
-      .finally(() => {
-        starting = false;
-      });
+    wantRunning = true;
+    if (!fx) {
+      void ensureFx();
+      return;
+    }
+    if (syncCanvasSize(false)) {
+      try {
+        fx.resize(width, height);
+      } catch {
+        /* ignore resize errors */
+      }
+    }
+    if (!running) {
+      running = true;
+      void fx.start();
+    }
+    canvas.classList.add('is-ready');
   };
 
   const stop = () => {
-    running = false;
-    starting = false;
-    if (fx) {
-      try {
-        fx.stop();
-        fx.destroy();
-      } catch {
-        /* ignore cleanup errors */
-      }
-      fx = null;
+    wantRunning = false;
+    if (!fx || !running) return;
+    try {
+      fx.stop();
+    } catch {
+      /* ignore stop errors */
     }
+    running = false;
   };
 
   const onResize = () => {
-    if (!running || !fx) return;
-    measure();
+    if (!fx || !syncCanvasSize(false)) return;
     try {
       fx.resize(width, height);
     } catch {
@@ -176,9 +180,19 @@ export const initBaishouRaindrop = (
   return {
     start,
     stop,
+    warmup: () => void ensureFx(),
     destroy: () => {
       stop();
+      try {
+        fx?.destroy();
+      } catch {
+        /* ignore cleanup errors */
+      }
+      fx = null;
+      initPromise = null;
       window.removeEventListener('resize', onResize);
     },
   };
 };
+
+

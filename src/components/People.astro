@@ -3,27 +3,33 @@ import { getContributors, CONTRIBUTORS_URL, REPO_URL } from '../data/site';
 import zhCN from '../i18n/locales/zh-CN';
 
 const contributors = await getContributors();
+
+function resolveBadge(login: string): string {
+  const key = login.toLowerCase();
+  if (key === 'anson-trio') return '🦊';
+  if (key === 'ratman463' || key.startsWith('ratman')) return '🧀';
+  if (key === 'ctnilpp' || key.startsWith('ctn')) return '🐦';
+  if (key === 'magnemomet') return '😺';
+  return '🌿';
+}
 ---
 
 <section id="people" class="snap-page snap-page-footer">
   <div class="container snap-page-inner">
-    <!-- 开源协作者墙 Contributors Wall：创始人与所有贡献者汇聚于此 -->
     <div class="people-section people-section-wall reveal">
       <div class="section-heading">
-        <p class="section-eyebrow" data-i18n="people.wallEyebrow">Contributors Wall</p>
-        <h2 data-i18n="people.wallTitle">开源协作者墙</h2>
+        <p class="section-eyebrow" data-i18n="people.wallEyebrow">{zhCN.people.wallEyebrow}</p>
+        <h2 data-i18n="people.wallTitle">{zhCN.people.wallTitle}</h2>
         <p class="section-lead">
-          <span data-i18n="people.wallLeadBefore">代码、建议、设计与反馈，每一份贡献都在让白守变得更好。在</span>
-          <a href={REPO_URL} target="_blank" rel="noopener noreferrer" data-i18n="people.wallLeadLink">
-            GitHub 贡献代码
-          </a><span data-i18n="people.wallLeadAfter">，成为白守协作者。</span>
+          <span data-i18n="people.wallLeadBefore">{zhCN.people.wallLeadBefore}</span><a href={REPO_URL} target="_blank" rel="noopener noreferrer" data-i18n="people.wallLeadLink">{zhCN.people.wallLeadLink}</a><span data-i18n="people.wallLeadAfter">{zhCN.people.wallLeadAfter}</span>
         </p>
       </div>
 
-      <div class="contributors-wall card">
+      <div class="contributors-wall card reveal">
         <div class="contributors-grid" id="contributors-grid">
           {contributors.map((c) => {
             const isFounder = c.login.toLowerCase() === 'anson-trio';
+            const badge = resolveBadge(c.login);
             return (
               <a
                 href={c.html_url}
@@ -38,14 +44,22 @@ const contributors = await getContributors();
                     src={c.avatar_url}
                     alt={c.login}
                     class="contributor-avatar"
-                    width="52"
-                    height="52"
+                    width="50"
+                    height="50"
                     loading="lazy"
                   />
-                  {isFounder && (
-                    <span class="contributor-badge-founder" aria-hidden="true" title="创始人">🦊</span>
+                  {badge && (
+                    <span class="contributor-badge-founder" aria-hidden="true">{badge}</span>
                   )}
                 </div>
+                {c.contributions > 0 && (
+                  <span class="contributor-commits">
+                    <span class="contributor-commits-num">{c.contributions.toLocaleString()}</span>
+                    <span class="contributor-commits-unit" data-i18n="people.commitsUnit">
+                      {zhCN.people.commitsUnit}
+                    </span>
+                  </span>
+                )}
                 <div class="contributor-info">
                   <span class="contributor-login">@{c.login}</span>
                   {isFounder && (
@@ -59,6 +73,14 @@ const contributors = await getContributors();
           })}
         </div>
         <div class="contributors-wall-footer">
+          <p class="contributors-badge-hint">
+            <span data-i18n="people.badgeHintBefore">{zhCN.people.badgeHintBefore}</span><a
+              href={`${REPO_URL}/issues`}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-i18n="people.badgeHintLink"
+            >{zhCN.people.badgeHintLink}</a><span data-i18n="people.badgeHintAfter">{zhCN.people.badgeHintAfter}</span>
+          </p>
           <a
             href={CONTRIBUTORS_URL}
             target="_blank"
@@ -68,7 +90,7 @@ const contributors = await getContributors();
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
             </svg>
-            <span data-i18n="people.collabLeadLink">在 GitHub Contributors 查看完整列表</span>
+            <span data-i18n="people.collabLeadLink">{zhCN.people.collabLeadLink}</span>
             <span class="wall-arrow">→</span>
           </a>
         </div>
@@ -78,54 +100,184 @@ const contributors = await getContributors();
 </section>
 
 <script>
-  // 客户端轻量缓存刷新：如果距上次刷新超过 10 分钟，后台异步更新贡献者头像墙
   (function () {
     const grid = document.getElementById('contributors-grid');
     if (!grid) return;
-    const CACHE_TIME_KEY = 'baishou_contributors_time_v1';
+
+    const CACHE_TIME_KEY = 'baishou_contributors_time_v5';
+    const CACHE_DATA_KEY = 'baishou_contributors_data_v5';
     const now = Date.now();
     const last = parseInt(sessionStorage.getItem(CACHE_TIME_KEY) || '0', 10);
-    if (now - last < 10 * 60 * 1000) return;
 
-    fetch('https://api.github.com/repos/foxletters-hq/BaiShou-Next/contributors?per_page=100', {
-      headers: { Accept: 'application/vnd.github.v3+json' },
-    })
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data) => {
-        if (!Array.isArray(data) || data.length === 0) return;
-        sessionStorage.setItem(CACHE_TIME_KEY, String(now));
-        const bots = ['github-actions[bot]', 'alice'];
-        const valid = data.filter((item) => item && item.login && !bots.includes(item.login.toLowerCase()) && item.type !== 'Bot');
-        if (valid.length === 0) return;
+    function getBadge(login: string): string {
+      const k = login.toLowerCase();
+      if (k === 'anson-trio') return '🦊';
+      if (k === 'ratman463' || k.startsWith('ratman')) return '🧀';
+      if (k === 'ctnilpp' || k.startsWith('ctn')) return '🐦';
+      if (k === 'magnemomet') return '😺';
+      return '🌿';
+    }
 
-        const currentLogins = new Set(
-          Array.from(grid.querySelectorAll('.contributor-item')).map((el) =>
-            el.getAttribute('aria-label')?.replace(/^@/, '').toLowerCase()
-          )
-        );
+    type LiveContributor = {
+      login: string;
+      avatar_url: string;
+      html_url: string;
+      contributions: number;
+    };
 
-        for (const item of valid) {
-          if (!currentLogins.has(item.login.toLowerCase())) {
-            const isFounder = item.login.toLowerCase() === 'anson-trio';
-            const a = document.createElement('a');
-            a.href = item.html_url || `https://github.com/${item.login}`;
-            a.target = '_blank';
-            a.rel = 'noopener noreferrer';
-            a.className = isFounder ? 'contributor-item contributor-item-founder' : 'contributor-item';
-            a.title = `@${item.login}${isFounder ? ' · 创始人' : ''} (${item.contributions} 次提交)`;
-            a.setAttribute('aria-label', `@${item.login}`);
-            a.innerHTML = `
-              <div class="contributor-avatar-wrap">
-                <img src="${item.avatar_url}" alt="${item.login}" class="contributor-avatar" width="52" height="52" loading="lazy" />
-                ${isFounder ? '<span class="contributor-badge-founder" aria-hidden="true" title="创始人">🦊</span>' : ''}
-              </div>
-              <div class="contributor-info">
-                <span class="contributor-login">@${item.login}</span>
-                ${isFounder ? '<span class="contributor-role-tag" data-i18n="people.founderRole">创始人</span>' : ''}
-              </div>
-            `;
-            grid.appendChild(a);
+    const MAX_DISPLAY = 20;
+
+    function sortList(list: LiveContributor[]): LiveContributor[] {
+      return [...list]
+        .sort((a, b) => {
+          const aFounder = a.login.toLowerCase() === 'anson-trio' ? 1 : 0;
+          const bFounder = b.login.toLowerCase() === 'anson-trio' ? 1 : 0;
+          if (aFounder !== bFounder) return bFounder - aFounder;
+          if (b.contributions !== a.contributions) return b.contributions - a.contributions;
+          return a.login.toLowerCase().localeCompare(b.login.toLowerCase());
+        })
+        .slice(0, MAX_DISPLAY);
+    }
+
+    function applyContributors(list: LiveContributor[]) {
+      if (!grid || !Array.isArray(list) || list.length === 0) return;
+
+      const existingMap = new Map<string, HTMLAnchorElement>();
+      const mergedMap = new Map<string, LiveContributor>();
+
+      grid.querySelectorAll<HTMLAnchorElement>('.contributor-item').forEach((el) => {
+        const rawLogin = el.getAttribute('aria-label')?.replace(/^@/, '') || '';
+        const key = rawLogin.toLowerCase();
+        if (!key) return;
+        existingMap.set(key, el);
+        const numText = el.querySelector('.contributor-commits-num')?.textContent || '1';
+        const commits = parseInt(numText.replace(/,/g, ''), 10) || 1;
+        const imgEl = el.querySelector<HTMLImageElement>('.contributor-avatar');
+        mergedMap.set(key, {
+          login: rawLogin,
+          avatar_url: imgEl?.src || `https://github.com/${rawLogin}.png`,
+          html_url: el.href || `https://github.com/${rawLogin}`,
+          contributions: commits,
+        });
+      });
+
+      for (const item of list) {
+        if (!item?.login) continue;
+        mergedMap.set(item.login.toLowerCase(), {
+          login: item.login,
+          avatar_url: item.avatar_url || `https://github.com/${item.login}.png`,
+          html_url: item.html_url || `https://github.com/${item.login}`,
+          contributions: Number(item.contributions) || 1,
+        });
+      }
+
+      const unitEl = grid.querySelector('[data-i18n="people.commitsUnit"]');
+      const unitText = unitEl?.textContent || '次提交';
+      const roleEl = grid.querySelector('[data-i18n="people.founderRole"]');
+      const roleText = roleEl?.textContent || '创始人';
+
+      const sorted = sortList(Array.from(mergedMap.values()));
+      const keptKeys = new Set(sorted.map((item) => item.login.toLowerCase()));
+      existingMap.forEach((el, key) => {
+        if (!keptKeys.has(key)) el.remove();
+      });
+
+      for (const item of sorted) {
+        const key = item.login.toLowerCase();
+        const commits = Number(item.contributions) || 1;
+        const isFounder = key === 'anson-trio';
+        const existing = existingMap.get(key);
+
+        if (existing) {
+          const numEl = existing.querySelector('.contributor-commits-num');
+          if (numEl) numEl.textContent = commits.toLocaleString();
+          existing.title = `@${item.login}${isFounder ? ' · 创始人' : ''} (${commits} 次提交)`;
+          const imgEl = existing.querySelector<HTMLImageElement>('.contributor-avatar');
+          if (imgEl && item.avatar_url) imgEl.src = item.avatar_url;
+          grid.appendChild(existing);
+        } else {
+          const badge = getBadge(item.login);
+          const a = document.createElement('a');
+          a.href = item.html_url || `https://github.com/${item.login}`;
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+          a.className = isFounder
+            ? 'contributor-item contributor-item-founder'
+            : 'contributor-item';
+          a.title = `@${item.login}${isFounder ? ' · 创始人' : ''} (${commits} 次提交)`;
+          a.setAttribute('aria-label', `@${item.login}`);
+          a.innerHTML = `
+            <div class="contributor-avatar-wrap">
+              <img src="${item.avatar_url}" alt="${item.login}" class="contributor-avatar" width="50" height="50" loading="lazy" />
+              <span class="contributor-badge-founder" aria-hidden="true">${badge}</span>
+            </div>
+            <span class="contributor-commits">
+              <span class="contributor-commits-num">${commits.toLocaleString()}</span>
+              <span class="contributor-commits-unit" data-i18n="people.commitsUnit">${unitText}</span>
+            </span>
+            <div class="contributor-info">
+              <span class="contributor-login">@${item.login}</span>
+              ${isFounder ? `<span class="contributor-role-tag" data-i18n="people.founderRole">${roleText}</span>` : ''}
+            </div>
+          `;
+          grid.appendChild(a);
+        }
+      }
+    }
+
+    const cachedRaw = sessionStorage.getItem(CACHE_DATA_KEY);
+    if (now - last < 5 * 60 * 1000 && cachedRaw) {
+      try {
+        applyContributors(JSON.parse(cachedRaw));
+        return;
+      } catch {
+        /* ignore cache parse error */
+      }
+    }
+
+    const repos = [
+      'https://api.github.com/repos/foxletters-hq/BaiShou-Next/contributors?per_page=100',
+      'https://api.github.com/repos/foxletters-hq/BaiShou-website/contributors?per_page=100',
+    ];
+
+    Promise.allSettled(
+      repos.map((url) =>
+        fetch(url, { headers: { Accept: 'application/vnd.github.v3+json' } }).then((res) =>
+          res.ok ? res.json() : []
+        )
+      )
+    )
+      .then((results) => {
+        const map = new Map<string, LiveContributor>();
+        for (const res of results) {
+          if (res.status !== 'fulfilled' || !Array.isArray(res.value)) continue;
+          for (const item of res.value) {
+            if (
+              !item?.login ||
+              item.login.endsWith('[bot]') ||
+              item.type === 'Bot' ||
+              item.login.toLowerCase() === 'alice'
+            )
+              continue;
+            const key = item.login.toLowerCase();
+            const prev = map.get(key);
+            if (prev) {
+              prev.contributions += Number(item.contributions) || 0;
+            } else {
+              map.set(key, {
+                login: item.login,
+                avatar_url: item.avatar_url || `https://github.com/${item.login}.png`,
+                html_url: item.html_url || `https://github.com/${item.login}`,
+                contributions: Number(item.contributions) || 1,
+              });
+            }
           }
+        }
+        const merged = sortList(Array.from(map.values()));
+        if (merged.length > 0) {
+          sessionStorage.setItem(CACHE_TIME_KEY, String(now));
+          sessionStorage.setItem(CACHE_DATA_KEY, JSON.stringify(merged));
+          applyContributors(merged);
         }
       })
       .catch(() => {});
