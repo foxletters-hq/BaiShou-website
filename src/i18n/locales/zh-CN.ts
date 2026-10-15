@@ -4,7 +4,7 @@ const zhCN: Messages = {
   meta: {
     title: '白守 · BaiShou',
     description:
-      '本地优先、图数据库驱动的个人知识库、人生关系图谱与 AI 智能体系统。支持长程记忆、Graph RAG 检索、MCP 生态与多端端到端加密同步。',
+      '本地优先、向量数据库与图数据库驱动的 AI 长期记忆、人生关系图谱与智能体系统。支持日记沉淀、Hybrid Graph RAG 检索、MCP 生态与多端端到端加密同步。',
   },
   brand: { name: '白守', suffix: ' · 狐信科技' },
   nav: {
@@ -28,8 +28,8 @@ const zhCN: Messages = {
     eyebrow: 'BaiShou',
     title: '白守',
     tagline: '以纯白誓约，守护彼此一生',
-    positioning: '本地优先、图数据库驱动的个人知识库与 AI 智能体系统。',
-    desc: '深度融合日常日记、多维文件知识库、人生关系图谱与自主 Agent 智能体。数据默认 100% 留存本地，内置图数据库梳理人物与事件脉络，支持 MCP 开放协议与多端加密同步。',
+    positioning: '本地优先、向量数据库与图数据库驱动的 AI 长期记忆与智能体系统。',
+    desc: '深度融合日常日记、向量语义记忆、图数据库人生关系图谱与自主 Agent 智能体，并兼顾多维文件知识库。数据默认 100% 留存本地，支持 MCP 开放协议与多端加密同步。',
     ctaGithub: '前往 GitHub',
     ctaCommunity: '加入社群',
     ctaBilibili: '哔哩哔哩',
@@ -38,7 +38,7 @@ const zhCN: Messages = {
   features: {
     eyebrow: 'Features',
     title: '核心能力',
-    lead: '图数据库、自主 Agent 智能体、多维知识库与端到端同步现已全面上线，为你筑牢个人记忆库。',
+    lead: '向量数据库、图数据库、自主 Agent 智能体与端到端同步现已全面上线，为你筑牢个人长期记忆库。',
     devBadge: '现已就绪',
     items: {
       diary: {
@@ -49,21 +49,21 @@ const zhCN: Messages = {
         title: '人生关系图谱 (图数据库)',
         desc: '内置实体关系图数据库，自动抽取并梳理人物、事件与复杂脉络，把琐碎记忆连成可检索的网络。',
       },
+      rag: {
+        title: '向量数据库与混合检索',
+        desc: '内置本地向量数据库，结合语义向量搜索、全文检索与图谱多跳关联，跨越时间精准找回过往片段。',
+      },
       agent: {
         title: '自主 AI Agent 智能体',
         desc: '具备自主决策与工具调用能力；支持 MCP 开放协议无缝连接外部工具，协助提炼、分析与整理记忆。',
       },
-      knowledge: {
-        title: '多维文件知识库',
-        desc: '支持解析 Markdown、PDF、Doc、图片等多类型资料，让书籍文献与日常积累都能被 AI 随时调取。',
-      },
-      rag: {
-        title: '混合 Graph RAG 检索',
-        desc: '结合全文检索、向量语义搜索与图谱多跳关联，跨越时间与格式精准找回你需要的过往片段。',
-      },
       sync: {
         title: '本地优先与多端同步',
         desc: '核心数据默认保存在本地设备；支持官方端到端加密同步，也支持自建 S3 / WebDAV 存储。',
+      },
+      knowledge: {
+        title: '多维文件知识库',
+        desc: '兼顾解析 Markdown、PDF、Doc、图片等多类型资料，让日常积累的文档资料也能随时汇入记忆检索。',
       },
     },
   },

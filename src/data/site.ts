@@ -31,10 +31,10 @@ export const QQ_GROUPS = [
 export const FEATURE_IDS = [
   'diary',
   'graph',
-  'agent',
-  'knowledge',
   'rag',
+  'agent',
   'sync',
+  'knowledge',
 ] as const;
 
 export const ORIGIN_TRIO_IDS = ['anson', 'sakura', 'akatsuki'] as const;

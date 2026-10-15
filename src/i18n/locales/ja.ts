@@ -4,7 +4,7 @@ const ja: Messages = {
   meta: {
     title: '白守 · BaiShou',
     description:
-      'ローカルファースト・グラフデータベース駆動のパーソナル知識ベース、人生関係グラフ、自律型 AI エージェントシステム。長期記憶、Graph RAG、MCP、E2EE 同期に対応。',
+      'ローカルファースト、ベクトルDB＆グラフDB駆動のAI長期記憶、人生関係グラフ、自律型AIエージェントシステム。日記蓄積、Hybrid Graph RAG、MCP、E2EE同期に対応。',
   },
   brand: { name: '白守', suffix: ' · Foxletters' },
   nav: {
@@ -28,8 +28,8 @@ const ja: Messages = {
     eyebrow: 'BaiShou',
     title: '白守',
     tagline: '純白の誓いで、互いの一生を守り抜く',
-    positioning: 'ローカルファースト・グラフDB駆動の個人知識ベース＆AIエージェントシステム。',
-    desc: '日々の日記、マルチフォーマット知識ベース、人間関係グラフ、自律型 Agent を統合。データはデフォルトで 100% ローカルに保存され、MCP プロトコルとマルチデバイス暗号化同期に対応します。',
+    positioning: 'ローカルファースト・ベクトルDB＆グラフDB駆動のAI長期記憶＆エージェントシステム。',
+    desc: '日々の日記、ベクトル意味記憶、グラフDBによる人間関係グラフ、自律型 Agent を統合し、多形式のファイル知識ベースも備えています。データはデフォルトで 100% ローカルに保存され、MCP プロトコルとマルチデバイス暗号化同期に対応します。',
     ctaGithub: 'GitHub へ',
     ctaCommunity: 'コミュニティ',
     ctaBilibili: 'Bilibili',
@@ -38,7 +38,7 @@ const ja: Messages = {
   features: {
     eyebrow: 'Features',
     title: 'コア機能',
-    lead: 'グラフデータベース、自律型 Agent、多形式知識ベース、E2EE 同期がすべて揃い、個人の記憶庫を支えます。',
+    lead: 'ベクトルデータベース、グラフデータベース、自律型 Agent、E2EE 同期がすべて揃い、個人の長期記憶庫を支えます。',
     devBadge: '提供中',
     items: {
       diary: {
@@ -49,21 +49,21 @@ const ja: Messages = {
         title: '人生関係グラフ (グラフDB)',
         desc: '内蔵グラフデータベースが人物・出来事・文脈を自動抽出し、断片的な記憶を検索可能なネットワークへ結びます。',
       },
+      rag: {
+        title: 'ベクトルDB＆ハイブリッド検索',
+        desc: '内蔵ベクトルデータベースと全文検索・グラフ推論を組み合わせ、時間を超えて必要な記憶を正確に見つけ出します。',
+      },
       agent: {
         title: '自律型 AI Agent',
         desc: '自律的な判断とツール呼び出しに対応し、MCP プロトコルで外部ツールと連携して記憶の整理・分析を行います。',
       },
-      knowledge: {
-        title: 'マルチ形式知識ベース',
-        desc: 'Markdown、PDF、Doc、画像などを解析し、読書ノートや資料をいつでも AI が参照できるようにします。',
-      },
-      rag: {
-        title: 'ハイブリッド Graph RAG 検索',
-        desc: '全文検索・ベクトル検索・グラフ推論を組み合わせ、時間を超えて必要な記憶を正確に見つけ出します。',
-      },
       sync: {
         title: 'ローカル優先とマルチ端末同期',
         desc: 'コアデータは端末内に安全保存。公式 E2EE 同期のほか、自前の S3 / WebDAV ストレージにも対応します。',
+      },
+      knowledge: {
+        title: 'マルチ形式知識ベース',
+        desc: 'Markdown、PDF、Doc、画像なども解析し、日々の蓄積資料をいつでも記憶検索へ統合できます。',
       },
     },
   },

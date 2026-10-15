@@ -2,9 +2,9 @@ import type { Messages } from '../types';
 
 const en: Messages = {
   meta: {
-    title: 'BaiShou · Local-First Knowledge & AI Memory',
+    title: 'BaiShou · Local-First AI Memory & Graph System',
     description:
-      'A local-first, graph-powered personal knowledge base, life graph, and autonomous AI agent system with long-term memory, Graph RAG, MCP, and end-to-end encrypted sync.',
+      'A local-first AI long-term memory, life relationship graph, and autonomous agent system powered by built-in Vector DB and Graph DB engines, with Hybrid Graph RAG, MCP, and E2EE sync.',
   },
   brand: { name: 'BaiShou', suffix: ' · Foxletters' },
   nav: {
@@ -28,8 +28,8 @@ const en: Messages = {
     eyebrow: 'BaiShou',
     title: 'BaiShou',
     tagline: 'A pure vow to guard our memories for a lifetime',
-    positioning: 'Local-first, graph-powered personal knowledge base & AI agent system.',
-    desc: 'Unifies daily journals, multi-format document knowledge bases, life relationship graphs, and autonomous AI agents. Data stays 100% local by default, with built-in graph database, MCP support, and encrypted multi-device sync.',
+    positioning: 'Local-first AI long-term memory & agent system powered by Vector DB and Graph DB.',
+    desc: 'Unifies daily journals, vector semantic memory, graph-powered life relationship networks, and autonomous AI agents, alongside a multi-format document base. Data stays 100% local by default, with MCP support and encrypted multi-device sync.',
     ctaGithub: 'View on GitHub',
     ctaCommunity: 'Join Community',
     ctaBilibili: 'Bilibili',
@@ -38,7 +38,7 @@ const en: Messages = {
   features: {
     eyebrow: 'Features',
     title: 'Core Capabilities',
-    lead: 'Graph database, autonomous AI agents, multi-format knowledge base, and end-to-end sync are ready out of the box.',
+    lead: 'Vector database, graph database, autonomous AI agents, and end-to-end sync are ready out of the box.',
     devBadge: 'Ready',
     items: {
       diary: {
@@ -49,21 +49,21 @@ const en: Messages = {
         title: 'Life Relationship Graph (Graph DB)',
         desc: 'Built-in entity-relationship graph database automatically links people, events, and timelines into an interactive network.',
       },
+      rag: {
+        title: 'Vector DB & Hybrid Graph RAG',
+        desc: 'Built-in vector database combines semantic vector search, full-text search, and multi-hop graph reasoning to pinpoint memories.',
+      },
       agent: {
         title: 'Autonomous AI Agent',
         desc: 'Capable of autonomous tool calls and reasoning; natively supports MCP to help distill, analyze, and organize memories.',
       },
-      knowledge: {
-        title: 'Multi-Format Knowledge Base',
-        desc: 'Parses Markdown, PDF, Doc, images, and more so your reading notes and documents are always ready for AI retrieval.',
-      },
-      rag: {
-        title: 'Hybrid Graph RAG Search',
-        desc: 'Combines full-text search, vector semantics, and multi-hop graph reasoning to pinpoint memories across time.',
-      },
       sync: {
         title: 'Local-First & Multi-Device Sync',
         desc: 'Core databases live safely on your device by default, with optional E2EE official sync or self-hosted S3 / WebDAV.',
+      },
+      knowledge: {
+        title: 'Multi-Format Knowledge Base',
+        desc: 'Also parses Markdown, PDF, Doc, and images so your accumulated documents are ready for AI retrieval.',
       },
     },
   },

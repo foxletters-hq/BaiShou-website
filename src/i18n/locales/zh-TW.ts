@@ -4,7 +4,7 @@ const zhTW: Messages = {
   meta: {
     title: '白守 · BaiShou',
     description:
-      '本地優先、圖資料庫驅動的個人知識庫、人生關係圖譜與 AI 智慧體系統。支援長程記憶、Graph RAG 檢索、MCP 生態與多端點對點加密同步。',
+      '本地優先、向量資料庫與圖資料庫驅動的 AI 長期記憶、人生關係圖譜與智慧體系統。支援日記沉澱、Hybrid Graph RAG 檢索、MCP 生態與多端點對點加密同步。',
   },
   brand: { name: '白守', suffix: ' · 狐信科技' },
   nav: {
@@ -28,8 +28,8 @@ const zhTW: Messages = {
     eyebrow: 'BaiShou',
     title: '白守',
     tagline: '以純白誓約，守護彼此一生',
-    positioning: '本地優先、圖資料庫驅動的個人知識庫與 AI 智慧體系統。',
-    desc: '深度融合日常日記、多維檔案知識庫、人生關係圖譜與自主 Agent 智慧體。資料預設 100% 留存本地，內建圖資料庫梳理人物與事件脈絡，支援 MCP 開放協定與多端加密同步。',
+    positioning: '本地優先、向量資料庫與圖資料庫驅動的 AI 長期記憶與智慧體系統。',
+    desc: '深度融合日常日記、向量語義記憶、圖資料庫人生關係圖譜與自主 Agent 智慧體，並兼顧多維檔案知識庫。資料預設 100% 留存本地，支援 MCP 開放協定與多端加密同步。',
     ctaGithub: '前往 GitHub',
     ctaCommunity: '加入社群',
     ctaBilibili: '嗶哩嗶哩',
@@ -38,7 +38,7 @@ const zhTW: Messages = {
   features: {
     eyebrow: 'Features',
     title: '核心能力',
-    lead: '圖資料庫、自主 Agent 智慧體、多維知識庫與點對點同步現已全面上線，為你築牢個人記憶庫。',
+    lead: '向量資料庫、圖資料庫、自主 Agent 智慧體與點對點同步現已全面上線，為你築牢個人長期記憶庫。',
     devBadge: '現已就緒',
     items: {
       diary: {
@@ -49,21 +49,21 @@ const zhTW: Messages = {
         title: '人生關係圖譜 (圖資料庫)',
         desc: '內建實體關係圖資料庫，自動抽取並梳理人物、事件與複雜脈絡，把瑣碎記憶連成可檢索的網路。',
       },
+      rag: {
+        title: '向量資料庫與混合檢索',
+        desc: '內建本地向量資料庫，結合語義向量搜尋、全文檢索與圖譜多跳關聯，跨越時間精準找回過往片段。',
+      },
       agent: {
         title: '自主 AI Agent 智慧體',
         desc: '具備自主決策與工具調用能力；支援 MCP 開放協定無縫連接外部工具，協助提煉、分析與整理記憶。',
       },
-      knowledge: {
-        title: '多維檔案知識庫',
-        desc: '支援解析 Markdown、PDF、Doc、圖片等多類型資料，讓書籍文獻與日常積累都能被 AI 隨時調取。',
-      },
-      rag: {
-        title: '混合 Graph RAG 檢索',
-        desc: '結合全文檢索、向量語義搜尋與圖譜多跳關聯，跨越時間與格式精準找回你需要的過往片段。',
-      },
       sync: {
         title: '本地優先與多端同步',
         desc: '核心資料預設保存在本地裝置；支援官方點對點加密同步，也支援自建 S3 / WebDAV 儲存。',
+      },
+      knowledge: {
+        title: '多維檔案知識庫',
+        desc: '兼顧解析 Markdown、PDF、Doc、圖片等多類型資料，讓日常積累的文件資料也能隨時匯入記憶檢索。',
       },
     },
   },
