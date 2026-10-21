@@ -1,7 +1,7 @@
 {
   "name": "白守 BaiShou",
   "short_name": "白守",
-  "description": "本地优先、AI 原生的个人知识库和长期记忆系统，支持 AI 伙伴、RAG 检索与多端同步。",
+  "description": "本地优先、向量数据库与图数据库驱动的 AI 长期记忆、人生关系图谱与智能体系统。支持日记沉淀、Hybrid Graph RAG 检索、MCP 生态与多端端到端加密同步。",
   "start_url": "/",
   "display": "standalone",
   "orientation": "any",

@@ -29,7 +29,7 @@ const en: Messages = {
     title: 'BaiShou',
     tagline: 'A pure vow to guard our memories for a lifetime',
     positioning: 'Local-first AI long-term memory & agent system powered by Vector DB and Graph DB.',
-    desc: 'Unifies daily journals, vector semantic memory, graph-powered life relationship networks, and autonomous AI agents, alongside a multi-format document base. Data stays 100% local by default, with MCP support and encrypted multi-device sync.',
+    desc: 'Unifies daily journals, vector semantic memory, graph-powered life relationship networks, and autonomous AI agents. Data stays 100% local by default, with MCP support and encrypted multi-device sync.',
     ctaGithub: 'View on GitHub',
     ctaCommunity: 'Join Community',
     ctaBilibili: 'Bilibili',
@@ -57,28 +57,28 @@ const en: Messages = {
         title: 'Autonomous AI Agent',
         desc: 'Capable of autonomous tool calls and reasoning; natively supports MCP to help distill, analyze, and organize memories.',
       },
+      companion: {
+        title: 'Custom AI Companions',
+        desc: 'Create companions with distinct personas, dedicated models, and memory permissions for warm, context-aware conversations.',
+      },
       sync: {
         title: 'Local-First & Multi-Device Sync',
-        desc: 'Core databases live safely on your device by default, with optional E2EE official sync or self-hosted S3 / WebDAV.',
-      },
-      knowledge: {
-        title: 'Multi-Format Knowledge Base',
-        desc: 'Also parses Markdown, PDF, Doc, and images so your accumulated documents are ready for AI retrieval.',
+        desc: 'Core databases live safely on your device by default, with self-hosted S3 / WebDAV sync and optional official E2EE cloud (in development).',
       },
     },
   },
   principles: {
     eyebrow: 'Principles',
     title: 'Product Principles',
-    lead: 'Your journals, files, and long-term memories belong solely to you. BaiShou stays local-first and open-source, never locking your data behind a paywall.',
+    lead: 'Your journals, relationship graphs, and long-term memories belong solely to you. BaiShou stays local-first and open-source, never locking your data behind a paywall.',
     items: {
       local: {
         title: '100% Local-First',
-        desc: 'Core databases and documents live on your local device by default, with full import and export at any time.',
+        desc: 'Core databases and journals live on your local device by default, with full import and export at any time.',
       },
       open: {
         title: 'Core Capabilities Free & Open',
-        desc: 'Local journals, knowledge management, self-hosted S3 / WebDAV sync, and custom model APIs remain free forever.',
+        desc: 'Local journals, long-term memory, self-hosted S3 / WebDAV sync, and custom model APIs remain free forever.',
       },
       ai: {
         title: 'Graph & Agent Synergy',
@@ -86,7 +86,8 @@ const en: Messages = {
       },
       official: {
         title: 'Optional Managed Cloud',
-        desc: 'Choose official end-to-end encrypted sync and cloud backup for convenience, or run completely offline / self-hosted.',
+        desc: 'Choose official end-to-end encrypted sync and cloud backup (in development) for convenience, or run completely offline / self-hosted.',
+        badge: 'In Dev',
       },
     },
   },

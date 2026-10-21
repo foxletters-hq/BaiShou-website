@@ -25,6 +25,7 @@ const principleIcons = {
     <div class="principles-grid reveal">
       {PRINCIPLE_IDS.map((id) => {
         const Icon = principleIcons[id];
+        const badge = t(zhCN, `principles.items.${id}.badge`);
         return (
           <article class="card principle-card">
             <div class="principle-card-head">
@@ -34,6 +35,11 @@ const principleIcons = {
               <h3 data-i18n={`principles.items.${id}.title`}>
                 {t(zhCN, `principles.items.${id}.title`)}
               </h3>
+              {badge && (
+                <span class="feature-badge" data-i18n-badge={`principles.items.${id}.badge`}>
+                  {badge}
+                </span>
+              )}
             </div>
             <p data-i18n={`principles.items.${id}.desc`}>
               {t(zhCN, `principles.items.${id}.desc`)}

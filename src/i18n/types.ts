@@ -43,7 +43,7 @@ export interface Messages {
     lead: string;
     devBadge: string;
     items: Record<
-      'diary' | 'graph' | 'agent' | 'knowledge' | 'rag' | 'sync',
+      'diary' | 'graph' | 'agent' | 'companion' | 'rag' | 'sync',
       { title: string; desc: string; badge?: string }
     >;
   };
@@ -53,7 +53,7 @@ export interface Messages {
     lead: string;
     items: Record<
       'local' | 'open' | 'ai' | 'official',
-      { title: string; desc: string }
+      { title: string; desc: string; badge?: string }
     >;
   };
   origin: {

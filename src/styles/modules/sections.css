@@ -31,6 +31,10 @@
   margin-bottom: 0;
 }
 
+.principle-card-head .feature-badge {
+  margin-left: auto;
+}
+
 .principle-card p {
   font-size: 15.5px;
   line-height: 1.78;

@@ -16,12 +16,12 @@ You write diaries and life fragments locally, and BaiShou summarizes them layer 
 | Diary & Memory rings | Markdown journaling, distilled layer by layer into weekly, monthly, quarterly, and yearbook long-term memory |
 | Life Relationship Graph | Embedded entity-relationship graph database automatically mapping connections between people, events, and timelines |
 | Autonomous AI Agent | Equipped with planning and tool-calling capabilities, supporting the open MCP protocol to connect external ecosystems |
-| Multi-format Knowledge Base | Deep parsing and knowledge synthesis for Markdown, PDF, Doc, images, and other multi-dimensional documents |
+| Custom AI Companions | Create multiple companions with distinct personas and dedicated models, grounded in shared long-term memory |
 | Hybrid Graph RAG | Combining full-text search, high-dimensional vector search, and multi-hop graph reasoning to penetrate personal memory |
 | Workspaces & Sync | Isolated workspaces with end-to-end encrypted sync and self-hosted S3 / WebDAV backup options |
 
 :::tip[Graph Database & Agent capabilities are fully ready]
-BaiShou now fully integrates an embedded entity-relationship graph database and an autonomous AI agent system. It can not only record daily life reflections, but also parse local documents and weave fragmented memories into an interactive, reasoning-ready network.
+BaiShou now fully integrates an embedded entity-relationship graph database and an autonomous AI agent system. It can not only record daily life reflections, but also weave everyday conversations and fragmented memories into an interactive, reasoning-ready network.
 :::
 
 ## How is it different from Notion or Obsidian?

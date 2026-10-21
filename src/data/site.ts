@@ -33,8 +33,8 @@ export const FEATURE_IDS = [
   'graph',
   'rag',
   'agent',
+  'companion',
   'sync',
-  'knowledge',
 ] as const;
 
 export const ORIGIN_TRIO_IDS = ['anson', 'sakura', 'akatsuki'] as const;
