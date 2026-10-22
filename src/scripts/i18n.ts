@@ -79,8 +79,8 @@ function applyBadges(dict: Messages) {
     const key = el.dataset.i18nBadge;
     if (!key) return;
     const text = t(dict, key);
-    el.textContent = text;
-    el.hidden = !text;
+    el.textContent = text !== key ? text : '';
+    el.hidden = !text || text === key;
   });
 }
 

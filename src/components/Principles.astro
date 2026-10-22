@@ -25,7 +25,7 @@ const principleIcons = {
     <div class="principles-grid reveal">
       {PRINCIPLE_IDS.map((id) => {
         const Icon = principleIcons[id];
-        const badge = t(zhCN, `principles.items.${id}.badge`);
+        const badge = zhCN.principles.items[id].badge;
         return (
           <article class="card principle-card">
             <div class="principle-card-head">

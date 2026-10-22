@@ -12,7 +12,9 @@ export interface FeatureCardProps {
 const FeatureCard: FC<FeatureCardProps> = ({ i18nId, icon: Icon, showBadge }) => {
   const title = t(zhCN, `features.items.${i18nId}.title`);
   const desc = t(zhCN, `features.items.${i18nId}.desc`);
-  const badge = t(zhCN, `features.items.${i18nId}.badge`);
+  const badgeKey = `features.items.${i18nId}.badge`;
+  const rawBadge = t(zhCN, badgeKey);
+  const badge = rawBadge !== badgeKey ? rawBadge : undefined;
 
   return (
     <article className="card feature-card reveal">
