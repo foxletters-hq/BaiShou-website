@@ -36,8 +36,9 @@ function resolveBadge(login: string): string {
                 target="_blank"
                 rel="noopener noreferrer"
                 class:list={['contributor-item', { 'contributor-item-founder': isFounder }]}
-                title={`@${c.login}${isFounder ? ' · 创始人' : ''}${c.contributions ? ` (${c.contributions} 次提交)` : ''}`}
+                title={`@${c.login}${isFounder ? ' · 创始人' : ''}${isFounder && c.contributions ? ` (${c.contributions} 次提交)` : ''}`}
                 aria-label={`@${c.login}`}
+                data-commits={c.contributions}
               >
                 <div class="contributor-avatar-wrap">
                   <img
@@ -52,7 +53,7 @@ function resolveBadge(login: string): string {
                     <span class="contributor-badge-founder" aria-hidden="true">{badge}</span>
                   )}
                 </div>
-                {c.contributions > 0 && (
+                {isFounder && c.contributions > 0 && (
                   <span class="contributor-commits">
                     <span class="contributor-commits-num">{c.contributions.toLocaleString()}</span>
                     <span class="contributor-commits-unit" data-i18n="people.commitsUnit">
@@ -150,8 +151,9 @@ function resolveBadge(login: string): string {
         const key = rawLogin.toLowerCase();
         if (!key) return;
         existingMap.set(key, el);
-        const numText = el.querySelector('.contributor-commits-num')?.textContent || '1';
-        const commits = parseInt(numText.replace(/,/g, ''), 10) || 1;
+        const numText = el.querySelector('.contributor-commits-num')?.textContent;
+        const commits =
+          parseInt((numText || el.dataset.commits || '1').replace(/,/g, ''), 10) || 1;
         const imgEl = el.querySelector<HTMLImageElement>('.contributor-avatar');
         mergedMap.set(key, {
           login: rawLogin,
@@ -189,9 +191,12 @@ function resolveBadge(login: string): string {
         const existing = existingMap.get(key);
 
         if (existing) {
+          existing.dataset.commits = String(commits);
           const numEl = existing.querySelector('.contributor-commits-num');
           if (numEl) numEl.textContent = commits.toLocaleString();
-          existing.title = `@${item.login}${isFounder ? ' · 创始人' : ''} (${commits} 次提交)`;
+          existing.title = isFounder
+            ? `@${item.login} · 创始人 (${commits} 次提交)`
+            : `@${item.login}`;
           const imgEl = existing.querySelector<HTMLImageElement>('.contributor-avatar');
           if (imgEl && item.avatar_url) imgEl.src = item.avatar_url;
           grid.appendChild(existing);
@@ -204,17 +209,24 @@ function resolveBadge(login: string): string {
           a.className = isFounder
             ? 'contributor-item contributor-item-founder'
             : 'contributor-item';
-          a.title = `@${item.login}${isFounder ? ' · 创始人' : ''} (${commits} 次提交)`;
+          a.dataset.commits = String(commits);
+          a.title = isFounder
+            ? `@${item.login} · 创始人 (${commits} 次提交)`
+            : `@${item.login}`;
           a.setAttribute('aria-label', `@${item.login}`);
           a.innerHTML = `
             <div class="contributor-avatar-wrap">
               <img src="${item.avatar_url}" alt="${item.login}" class="contributor-avatar" width="50" height="50" loading="lazy" />
               <span class="contributor-badge-founder" aria-hidden="true">${badge}</span>
             </div>
-            <span class="contributor-commits">
+            ${
+              isFounder
+                ? `<span class="contributor-commits">
               <span class="contributor-commits-num">${commits.toLocaleString()}</span>
               <span class="contributor-commits-unit" data-i18n="people.commitsUnit">${unitText}</span>
-            </span>
+            </span>`
+                : ''
+            }
             <div class="contributor-info">
               <span class="contributor-login">@${item.login}</span>
               ${isFounder ? `<span class="contributor-role-tag" data-i18n="people.founderRole">${roleText}</span>` : ''}
