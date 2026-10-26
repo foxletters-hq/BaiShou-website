@@ -47,7 +47,7 @@ const currentShort = currentOption.shortLabel;
     try {
       const k = 'baishou-locale';
       const path = window.location.pathname;
-      const isDocsPath = /^\/(en|ja|zh-tw)\/docs/.test(path);
+      const isDocsPath = /^\/((en|ja|zh-tw)\/)?docs(\/|$)/.test(path);
       const lang = isDocsPath
       ? (document.documentElement.lang || 'zh-CN')
       : (localStorage.getItem(k) || document.documentElement.lang || 'zh-CN');

@@ -1,6 +1,7 @@
 ---
 import Layout from './Layout.astro';
 import {
+  DOCS_LOCALES,
   DOCS_SIDEBAR,
   DOCS_UI,
   docsHref,
@@ -55,7 +56,23 @@ const pageTitle =
       }`;
 ---
 
-<Layout title={pageTitle} description={description} snapDots={false} plainBg>
+<Layout
+  title={pageTitle}
+  description={description}
+  locale={locale}
+  alternates={[
+    ...DOCS_LOCALES.map((loc) => ({
+      hreflang: loc,
+      href: new URL(docsHref(loc, slug), Astro.site).href,
+    })),
+    {
+      hreflang: 'x-default',
+      href: new URL(docsHref('zh-CN', slug), Astro.site).href,
+    },
+  ]}
+  snapDots={false}
+  plainBg
+>
   <div
     class="docs-shell"
     data-docs-root

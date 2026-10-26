@@ -9,10 +9,10 @@ import CommunityModal from "../components/CommunityModal.astro";
 import DownloadPopup from "../components/DownloadPopup.astro";
 import ThemeScene from "../components/ThemeScene.astro";
 import UmamiAnalytics from "../components/UmamiAnalytics.astro";
-import SeoHead from "../components/SeoHead.astro";
+import SeoHead, { type AlternateLink } from "../components/SeoHead.astro";
 import { ViewTransitions } from "astro:transitions";
 import zhCN from "../i18n/locales/zh-CN";
-import { messages } from "../i18n";
+import { messages, type Locale } from "../i18n";
 import { getInitialLocaleScript } from "../scripts/i18n";
 
 export interface Props {
@@ -20,6 +20,8 @@ export interface Props {
   description?: string;
   canonical?: string;
   ogImage?: string;
+  locale?: Locale;
+  alternates?: AlternateLink[];
   /** 是否显示侧边 snap 导航点（仅首页需要） */
   snapDots?: boolean;
   /** 文档等页面：关掉极光/雨滴与叠层，纯色底 */
@@ -31,6 +33,8 @@ const {
   description = zhCN.meta.description,
   canonical = Astro.url.href,
   ogImage = "/assets/images/app-icon.png",
+  locale = "zh-CN",
+  alternates = [],
   snapDots = false,
   plainBg = false,
 } = Astro.props;
@@ -40,13 +44,15 @@ const ogImageUrl = new URL(ogImage, Astro.site).href;
 ---
 
 <!doctype html>
-<html lang="zh-CN">
+<html lang={locale}>
   <head>
     <SeoHead
       title={title}
       description={description}
       canonicalUrl={canonicalUrl}
       ogImageUrl={ogImageUrl}
+      locale={locale}
+      alternates={alternates}
     />
     <slot name="head" />
 

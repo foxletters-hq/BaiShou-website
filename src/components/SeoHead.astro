@@ -1,14 +1,37 @@
 ---
 import zhCN from '../i18n/locales/zh-CN';
+import type { Locale } from '../i18n';
+
+export interface AlternateLink {
+  hreflang: string;
+  href: string;
+}
 
 export interface Props {
   title: string;
   description: string;
   canonicalUrl: string;
   ogImageUrl: string;
+  locale?: Locale;
+  alternates?: AlternateLink[];
 }
 
-const { title, description, canonicalUrl, ogImageUrl } = Astro.props;
+const {
+  title,
+  description,
+  canonicalUrl,
+  ogImageUrl,
+  locale = 'zh-CN',
+  alternates = [],
+} = Astro.props;
+
+const OG_LOCALE_MAP: Record<Locale, string> = {
+  'zh-CN': 'zh_CN',
+  'zh-TW': 'zh_TW',
+  en: 'en_US',
+  ja: 'ja_JP',
+};
+const ogLocale = OG_LOCALE_MAP[locale] ?? 'zh_CN';
 
 const keywords = [
   '白守',
@@ -26,6 +49,7 @@ const jsonLd = {
   applicationCategory: 'ProductivityApplication',
   operatingSystem: 'Windows, Android',
   url: canonicalUrl,
+  inLanguage: locale,
   description,
   image: ogImageUrl,
   offers: {
@@ -76,6 +100,11 @@ const orgLd = {
 <meta name="googlebot" content="index, follow" />
 
 <link rel="canonical" href={canonicalUrl} />
+{
+  alternates.map((alt) => (
+    <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
+  ))
+}
 
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
@@ -83,7 +112,7 @@ const orgLd = {
 <meta property="og:url" content={canonicalUrl} />
 <meta property="og:image" content={ogImageUrl} />
 <meta property="og:image:alt" content="白守 BaiShou 应用图标" />
-<meta property="og:locale" content="zh_CN" />
+<meta property="og:locale" content={ogLocale} />
 <meta property="og:site_name" content="白守 BaiShou" />
 
 <meta name="twitter:card" content="summary_large_image" />
